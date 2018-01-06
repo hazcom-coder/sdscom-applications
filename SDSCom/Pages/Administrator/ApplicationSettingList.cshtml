@@ -1,0 +1,35 @@
+﻿@page
+@model SDSCom.Pages.Administrator.ApplicationSettingListModel
+@{
+    ViewData["Title"] = "Application Settings";
+}
+
+<h2>Application Settings</h2>
+
+<form method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Area</th>
+                <th>Setting</th>
+                <th>Data Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appSetting in Model.ApplicationSettings)
+            {
+                <tr>
+                    <td>@appSetting.ID</td>
+                    <td>@appSetting.Area</td>
+                    <td>@appSetting.Setting</td>
+                    <td>@appSetting.DataValue</td>
+                    <td>                    
+                        <button type="submit" asp-page-handler="editsetting" asp-route-id="@appSetting.ID"/>                       Edit
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+

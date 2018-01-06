@@ -1,0 +1,14 @@
+﻿@page
+@model AboutModel
+@{
+    ViewData["Title"] = "About";
+}
+
+<h3>@Model.Message</h3>
+
+<p>User-specific session data</p>
+
+@foreach (string sessionstring in Model.SessionVariables)
+{
+    <span> @sessionstring</span><br/>
+}

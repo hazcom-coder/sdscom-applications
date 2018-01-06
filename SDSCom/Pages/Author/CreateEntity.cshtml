@@ -1,0 +1,38 @@
+﻿@page
+@model SDSCom.Pages.Author.CreateEntityModel
+@{
+    ViewData["Title"] = "CreateEntity";
+
+
+}
+
+<h2>Create Entity</h2>
+
+<form method="post">
+    
+    <div class="form-group">
+        <label>Name:</label>
+        <input id="txtID" asp-for="@Model.Entity.EntityName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Other ID:</label>
+        <input id="txtID" asp-for="@Model.Entity.OtherId" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label>Entity Type:</label>
+        <select asp-for="@Model.Entity.EntityType" class="form-control">
+            <option value="1">Product</option>
+            <option value="2">Component</option>
+        </select>
+
+        <div class="form-group">
+            <input id="txtDate" type="hidden" asp-for="@Model.Entity.DateStamp" value="12/01/2017"/>
+            <input id="txtActive" type="hidden" asp-for="@Model.Entity.Active" value="true"/>
+            <input id="txtUserID" type="hidden" asp-for="@Model.Entity.UserId" value="1"/>
+            <input type="hidden" id="txtID" asp-for="@Model.Entity.ID" value="0"/>
+        </div>
+
+       <input type="submit" class="btn-primary" id="saveEntity" value="Save" />
+
+</form>
+

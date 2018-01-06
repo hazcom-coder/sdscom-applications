@@ -1,0 +1,44 @@
+﻿@page
+@model SDSCom.Pages.Author.ProductListModel
+@{
+    ViewData["Title"] = "Product List";
+}
+
+<h2>Product List</h2>
+
+<form method="post">
+    <div id="divTable">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Other Id</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var entity in Model.EntityList)
+                {
+                    <tr>
+                        <td>@entity.ID</td>
+                        <td>@entity.EntityName</td>
+                        <td>@entity.OtherId</td>
+                        <td>@entity.DateStamp</td>
+                        <td>
+                            <button type="submit" asp-page-handler="editsetting" asp-route-id="@entity.ID">Edit</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <div id="divButtons">
+        <button type="submit" class="btn-default" asp-page-handler="createEntity">Create Product</button>
+    </div>
+
+</form>
+
+
+

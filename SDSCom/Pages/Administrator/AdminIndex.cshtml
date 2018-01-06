@@ -1,0 +1,37 @@
+﻿@page
+@model SDSCom.Pages.Administrator.AdminIndexModel
+@{
+    ViewData["Title"] = "AdminIndex";
+}
+
+<form method="post">
+
+    <h2>SDSCom Application Administrator</h2>
+    <br />
+    <br />
+    <input id="btnCache" type="button" value="Clear Cache" class="btn-danger" onclick="clearCache()" />
+    <br />
+    <br />
+    <input type="submit" class="btn-link" asp-page-handler="OpenApplicationSettings"
+           id="hlAppSettings" value="Application Settings" />
+    <br />
+    <br />
+    <input type="submit" class="btn-link" asp-page-handler="OpenUsers"
+           id="hlUserList" value="Users" />
+    <br />
+    <br />
+    <br />
+    <input type="submit" class="btn-link" asp-page-handler="SelectProduct"
+           id="hlSelectProduct" value="Select Product" />
+    <br />
+    <br />
+    <input type="submit" class="btn-link" asp-page-handler="SelectComponent"
+           id="hlSelectComponent" value="Select Component" />
+    <br />
+    <br />
+    <br />
+    <br />
+    <a class="btn-link" asp-action="CreateDBObjects" asp-controller="Administrator" id="hlCreateDBObjects">Recreate DB objects</a>
+
+</form>
+

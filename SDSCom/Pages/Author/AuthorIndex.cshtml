@@ -1,0 +1,69 @@
+﻿@page
+@model SDSCom.Pages.Author.AuthorIndexModel
+@{
+    ViewData["Title"] = "Author Start Page";
+}
+
+<form method="post">
+
+    <h2>Authoring Start Page</h2>
+
+    <div id="divMain">
+
+        <div id="divProductList" class="modcard">
+            <div class="card-body">
+                <h4 class="card-title">Product List</h4>
+                <p class="card-text">This is the module you have always wanted for getting a list of Products.</p>
+                <input type="submit" class="btn-link" asp-page-handler="OpenProductList"
+                       id="hlProductList" value="Product List" />
+            </div>
+        </div>
+
+        <div id="divComponentList" class="modcard">
+            <div class="card-body">
+                <h4 class="card-title">Component List</h4>
+                <p class="card-text">This is the module you have always wanted for getting a list of Components.</p>
+                <input type="submit" class="btn-link" asp-page-handler="OpenComponentList"
+                       id="hlComponentList" value="Component List" />
+            </div>
+        </div>
+
+        <div id="divPhraseModule" class="modcard">
+            <div class="card-body">
+                <h4 class="card-title">Phrase List</h4>
+                <p class="card-text">This is the module you have always wanted for phrases.</p>
+                <input type="submit" class="btn-link" asp-page-handler="OpenPhraseList"
+                       id="hlPhraseList" value="Phrase List" />
+            </div>
+        </div>
+
+        <div id="divCreateEntityt" class="modcard">
+            <div class="card-body">
+                <h4 class="card-title">Create an Entity </h4>
+                <p class="card-text">Creating entities.</p>
+                <input type="submit" class="btn-link" asp-page-handler="OpenCreateEntity"
+                       id="hlDataSheet" value="Create an Entity" />
+            </div>
+        </div>
+
+        <div id="divCreateDataSheet" class="modcard">
+            <div class="card-body">
+                <h4 class="card-title">Create a DataSheet for an existing Product </h4>
+                <p class="card-text">Creating datasheets for products.</p>
+                <input type="submit" class="btn-link" asp-page-handler="OpenDataSheet"
+                       id="hlDataSheet" value="Create DataSheet" />
+            </div>
+        </div>
+
+        <div id="divDocumentModule" class="modcard">
+            <div class="card-body">
+                <h4 class="card-title">Document List </h4>
+                <p class="card-text">This is the module you have always wanted for Documents.</p>
+                <input type="submit" class="btn-link" asp-page-handler="OpenDocumentList"
+                       id="hlDocuments" value="View Documents" />
+            </div>
+        </div>
+
+    </div>
+</form>
+

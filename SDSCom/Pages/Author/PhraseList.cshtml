@@ -1,0 +1,33 @@
+﻿@page
+@model SDSCom.Pages.Author.PhraseListModel
+@{
+    ViewData["Title"] = "Phrase List";
+}
+
+<h2>Phrase List</h2>
+
+<form method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>EUPhrac Structure Code</th>
+                <th>English</th>
+                <th>German</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var phrase in Model.PhraseList)
+        {
+            <tr>
+                <td>@phrase.EuPhraCStructureCode</td>
+                <td>@phrase.English</td>
+                <td>@phrase.German</td>
+                <td>
+                    <button type="submit" asp-page-handler="editphrase" asp-route-id="@phrase.EuPhraCStructureCode" />                       Edit
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</form>
+

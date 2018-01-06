@@ -1,0 +1,15 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form method="POST">
+    <div>
+
+        Login to the SDSCom Application
+        <br />
+        <br />
+        <input class="btn-primary" type="submit" asp-page-handler="AppLogin" value="Login" />
+    </div>
+</form>
