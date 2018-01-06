@@ -65,6 +65,7 @@ namespace SDSCom.Pages
             ViewData["componentid"] = UserProfile_ComponentID;
             ViewData["productid"] = UserProfile_ProductID;
             ViewData["uilanguage"] = UserProfile_UILanguage;
+            ViewData["chapter"] = UserProfile_Chapter;
         }                
 
         public string UserProfile_UserName
@@ -96,6 +97,13 @@ namespace SDSCom.Pages
             get => HttpContext.Session.GetString("uilanguage");
             set => HttpContext.Session.SetString("uilanguage", value);
         }
+
+        public string UserProfile_Chapter
+        {
+            get => HttpContext.Session.GetString("chapter");
+            set => HttpContext.Session.SetString("chapter", value);
+        }
+        
 
 
         public string Translate(string basePhrase)
