@@ -94,8 +94,6 @@ namespace SDSCom.Services
             }
             rdr.Close();
             return phrases;
-
         }
-
     }
 }

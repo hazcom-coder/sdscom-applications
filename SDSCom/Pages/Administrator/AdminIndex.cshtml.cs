@@ -4,11 +4,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SDSCom.Services;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 
 namespace SDSCom.Pages.Administrator
 {
     public class AdminIndexModel : PageModel
     {
+       // private readonly IConfiguration config;
+       // private IMemoryCache cache;
+        private AdminService aSvc;
+
+        public AdminIndexModel(IConfiguration _config, IMemoryCache _cache)
+        {
+            aSvc = new AdminService(_config, _cache);
+        }
         public void OnGet()
         {
 
@@ -34,6 +45,11 @@ namespace SDSCom.Pages.Administrator
         {
             TempData["selectcomponentcaller"] = "/AppMenu";
             return RedirectToPage("/Author/SelectComponent");
+        }
+
+        public void OnPostCreateDBObjects()
+        {
+            aSvc.CreateDBObjects();
         }
     }
 }
