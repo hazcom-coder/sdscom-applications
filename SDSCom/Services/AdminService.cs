@@ -43,7 +43,9 @@ namespace SDSCom.Services
             List<FacetRestriction> facetsRestDE = new List<FacetRestriction>();
                 
             using (IDbConnection db = DbFactory.Open())
-            { 
+            {
+                db.DropAndCreateTable<EntityChapter>();
+
                 db.DropAndCreateTable<Facet>();
 
                 db.DropAndCreateTable<FacetRestriction>();

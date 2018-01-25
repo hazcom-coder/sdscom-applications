@@ -14,6 +14,7 @@ using Microsoft.Extensions.Primitives;
 using SDSCom.Models;
 using System.Data;
 using ServiceStack.OrmLite;
+using System.Reflection;
 
 namespace SDSCom.Services
 {
@@ -31,7 +32,10 @@ namespace SDSCom.Services
         {
             this.config = _config;
             this.cache = _cache;
+           
         }
+
+        //===============================================================================================
 
         public List<Facet> GetFacetList(int parentid)
         {
@@ -44,6 +48,8 @@ namespace SDSCom.Services
             return facets;
         }
 
+
+
         public Facet GetFacetByID(int facetid)
         {
             Facet facet = new Facet();
@@ -53,6 +59,43 @@ namespace SDSCom.Services
                 facet = db.Single<Facet>(x => x.Id == facetid);
             }
             return facet;
+        }
+
+        public string GetEntityChapterData(long entityid, string chaptername)
+        {
+            string ret = string.Empty;
+
+            using (IDbConnection db = DbFactory.Open())
+            {
+                var ec = db.Single<EntityChapter>(x => x.EntityId == entityid 
+                                                    && x.ChapterName == chaptername);
+
+                if (ec != null)
+                {
+                    ret = ec.Data;
+                }                
+            }
+            return ret;
+        }
+
+        public bool SaveEntityChapterData(long entityid, string chaptername, string data, int userid)
+        {
+            bool ok = false;
+
+            using (IDbConnection db = DbFactory.Open())
+            {
+                EntityChapter ec = new EntityChapter()
+                {
+                    EntityId = entityid,
+                    ChapterName = chaptername,
+                    Data = data,
+                    DateStamp = DateTime.Now,
+                    UserId = userid
+                };
+
+                ok = db.Save<EntityChapter>(ec);               
+            }
+            return ok;
         }
 
         public FacetRestriction GetRestrictions(int facetid)
@@ -66,6 +109,17 @@ namespace SDSCom.Services
 
             return restr;
         }
+
+        //===============================================================================================
+
+        public bool SaveChapter0(InformationFromExportingSystem sysInfo)
+        {
+            bool ok = false;
+
+
+            return ok;
+        }
+
 
 
     }
