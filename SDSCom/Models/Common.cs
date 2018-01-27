@@ -1,4 +1,6 @@
-﻿    namespace SDSCom.Models
+﻿using System.Collections.Generic;
+
+namespace SDSCom.Models
     {
         /// <summary>
         /// 
@@ -224,13 +226,13 @@
 
             private ProductNo[] productNoField;
 
-            private IdentificationSubstPrepProductIdentity[] productIdentityField;
+          //  private List<IdentificationSubstPrepProductIdentity> productIdentityField;
 
-            private InformationOnTheSds informationOnTheSdsField;
+          //  private InformationOnTheSds informationOnTheSdsField;
 
-            private bool productDiscontinuedFromMarketField;
+           // private bool productDiscontinuedFromMarketField;
 
-            private bool productDiscontinuedFromMarketFieldSpecified;
+           // private bool productDiscontinuedFromMarketFieldSpecified;
 
             private IdentificationSubstPrepRelevantIdentifiedUse relevantIdentifiedUseField;
 
@@ -242,11 +244,11 @@
 
             private IdentificationSubstPrepSupplierInformation[] supplierInformationField;
 
-            private EmergencyPhone[] emergencyPhoneField;
+            //private EmergencyPhone[] emergencyPhoneField;
 
-            private string internalSdsIdField;
+           // private string internalSdsIdField;
 
-            private Phrase[] identificationCommentsField;
+           // private Phrase[] identificationCommentsField;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, DataType = "date")]
@@ -348,59 +350,19 @@
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("ProductIdentity", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public IdentificationSubstPrepProductIdentity[] ProductIdentity
-            {
-                get
-                {
-                    return this.productIdentityField;
-                }
-                set
-                {
-                    this.productIdentityField = value;
-                }
-            }
+        public List<IdentificationSubstPrepProductIdentity> ProductIdentity { get; set; }            
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public InformationOnTheSds InformationOnTheSds
-            {
-                get
-                {
-                    return this.informationOnTheSdsField;
-                }
-                set
-                {
-                    this.informationOnTheSdsField = value;
-                }
-            }
+            public InformationOnTheSds InformationOnTheSds { get; set; }          
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public bool ProductDiscontinuedFromMarket
-            {
-                get
-                {
-                    return this.productDiscontinuedFromMarketField;
-                }
-                set
-                {
-                    this.productDiscontinuedFromMarketField = value;
-                }
-            }
-
+            public bool ProductDiscontinuedFromMarket { get; set; } 
+            
             /// <remarks/>
             [System.Xml.Serialization.XmlIgnoreAttribute()]
-            public bool ProductDiscontinuedFromMarketSpecified
-            {
-                get
-                {
-                    return this.productDiscontinuedFromMarketFieldSpecified;
-                }
-                set
-                {
-                    this.productDiscontinuedFromMarketFieldSpecified = value;
-                }
-            }
+            public bool ProductDiscontinuedFromMarketSpecified { get; set; }            
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
@@ -474,45 +436,16 @@
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("EmergencyPhone", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public EmergencyPhone[] EmergencyPhone
-            {
-                get
-                {
-                    return this.emergencyPhoneField;
-                }
-                set
-                {
-                    this.emergencyPhoneField = value;
-                }
-            }
+            public List<EmergencyPhone> EmergencyPhone { get; set; }
+            
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public string InternalSdsId
-            {
-                get
-                {
-                    return this.internalSdsIdField;
-                }
-                set
-                {
-                    this.internalSdsIdField = value;
-                }
-            }
-
+            public string InternalSdsId { get; set; }
+           
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("IdentificationComments", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public Phrase[] IdentificationComments
-            {
-                get
-                {
-                    return this.identificationCommentsField;
-                }
-                set
-                {
-                    this.identificationCommentsField = value;
-                }
-            }
+            public List<Phrase> IdentificationComments { get; set; }           
         }
 
     /// <summary>
@@ -520,39 +453,15 @@
     /// </summary>
         [System.Xml.Serialization.XmlType(AnonymousType = true)]
         public class ProductNo
-        {
-
-            private string userIdField;
-
-            private string[] productNoUserField;
-
+        {   
             /// <remarks/>
             [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public string UserId
-            {
-                get
-                {
-                    return this.userIdField;
-                }
-                set
-                {
-                    this.userIdField = value;
-                }
-            }
-
-            /// <remarks/>
+            public string UserId { get; set; }
+           
+        /// <remarks/>
             [System.Xml.Serialization.XmlElement("ProductNoUser", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public string[] ProductNoUser
-            {
-                get
-                {
-                    return this.productNoUserField;
-                }
-                set
-                {
-                    this.productNoUserField = value;
-                }
-            }
+            public List<string> ProductNoUser { get; set; }
+            
         }
 
     /// <summary>
@@ -560,71 +469,24 @@
     /// </summary>
         [System.Xml.Serialization.XmlType(AnonymousType = true)]
         public class IdentificationSubstPrepProductIdentity
-        {
-
-            private string tradeNameField;
-
-            private string[] synonymField;
-
-            private ProductGtin[] productGtinField;
-
-            private Phrase productDefinitionField;
+        {           
+            private List<ProductGtin> productGtinField { get; set; }
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public string TradeName
-            {
-                get
-                {
-                    return this.tradeNameField;
-                }
-                set
-                {
-                    this.tradeNameField = value;
-                }
-            }
+            public string TradeName { get; set; }            
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("Synonym", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public string[] Synonym
-            {
-                get
-                {
-                    return this.synonymField;
-                }
-                set
-                {
-                    this.synonymField = value;
-                }
-            }
+            public List<string> Synonym { get; set; }           
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("ProductGtin", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public ProductGtin[] ProductGtin
-            {
-                get
-                {
-                    return this.productGtinField;
-                }
-                set
-                {
-                    this.productGtinField = value;
-                }
-            }
+            public List<ProductGtin> ProductGtin { get; set; }           
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public Phrase ProductDefinition
-            {
-                get
-                {
-                    return this.productDefinitionField;
-                }
-                set
-                {
-                    this.productDefinitionField = value;
-                }
-            }
+            public Phrase ProductDefinition { get; set; }            
         }
 
     /// <summary>
@@ -634,69 +496,31 @@
         public class InformationOnTheSds
         {
 
-            private Phrase[] sdsNotLegallyRequiredField;
+            private List<Phrase> sdsNotLegallyRequiredField { get; set; }
 
-            private CompleteSdsWithEsIncorporated completeSdsWithEsIncorporatedField;
+        //private CompleteSdsWithEsIncorporated completeSdsWithEsIncorporatedField;
 
-            private System.DateTime distributionStoppedDateField;
+          //  private System.DateTime distributionStoppedDateField;
 
-            private bool distributionStoppedDateFieldSpecified;
+          //  private bool distributionStoppedDateFieldSpecified;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("SdsNotLegallyRequired", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public Phrase[] SdsNotLegallyRequired
-            {
-                get
-                {
-                    return this.sdsNotLegallyRequiredField;
-                }
-                set
-                {
-                    this.sdsNotLegallyRequiredField = value;
-                }
-            }
+            public List<Phrase> SdsNotLegallyRequired { get; set; }
+           
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public CompleteSdsWithEsIncorporated CompleteSdsWithEsIncorporated
-            {
-                get
-                {
-                    return this.completeSdsWithEsIncorporatedField;
-                }
-                set
-                {
-                    this.completeSdsWithEsIncorporatedField = value;
-                }
-            }
+            public CompleteSdsWithEsIncorporated CompleteSdsWithEsIncorporated { get; set; }
+          
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, DataType = "date")]
-            public System.DateTime DistributionStoppedDate
-            {
-                get
-                {
-                    return this.distributionStoppedDateField;
-                }
-                set
-                {
-                    this.distributionStoppedDateField = value;
-                }
-            }
-
+            public System.DateTime DistributionStoppedDate { get; set; }
+           
             /// <remarks/>
             [System.Xml.Serialization.XmlIgnoreAttribute()]
-            public bool DistributionStoppedDateSpecified
-            {
-                get
-                {
-                    return this.distributionStoppedDateFieldSpecified;
-                }
-                set
-                {
-                    this.distributionStoppedDateFieldSpecified = value;
-                }
-            }
+            public bool DistributionStoppedDateSpecified { get; set; }           
         }
 
     /// <summary>
@@ -705,54 +529,23 @@
         [System.Xml.Serialization.XmlType(AnonymousType = true)]
         public class CompleteSdsWithEsIncorporated
         {
+          //  private bool extendedSdsWithEsIncorporatedField;
 
-            private bool extendedSdsWithEsIncorporatedField;
+          //  private bool extendedSdsWithEsIncorporatedFieldSpecified;
 
-            private bool extendedSdsWithEsIncorporatedFieldSpecified;
-
-            private Phrase[] extendedSdsWithEsIncorporatedCommentsField;
+           // private Phrase[] extendedSdsWithEsIncorporatedCommentsField;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public bool ExtendedSdsWithEsIncorporated
-            {
-                get
-                {
-                    return this.extendedSdsWithEsIncorporatedField;
-                }
-                set
-                {
-                    this.extendedSdsWithEsIncorporatedField = value;
-                }
-            }
-
+            public bool ExtendedSdsWithEsIncorporated { get; set; }
+           
             /// <remarks/>
             [System.Xml.Serialization.XmlIgnoreAttribute()]
-            public bool ExtendedSdsWithEsIncorporatedSpecified
-            {
-                get
-                {
-                    return this.extendedSdsWithEsIncorporatedFieldSpecified;
-                }
-                set
-                {
-                    this.extendedSdsWithEsIncorporatedFieldSpecified = value;
-                }
-            }
-
+            public bool ExtendedSdsWithEsIncorporatedSpecified { get; set; }
+           
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("ExtendedSdsWithEsIncorporatedComments", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public Phrase[] ExtendedSdsWithEsIncorporatedComments
-            {
-                get
-                {
-                    return this.extendedSdsWithEsIncorporatedCommentsField;
-                }
-                set
-                {
-                    this.extendedSdsWithEsIncorporatedCommentsField = value;
-                }
-            }
+            public List<Phrase> ExtendedSdsWithEsIncorporatedComments { get; set; }            
         }
 
     /// <summary>
@@ -762,53 +555,24 @@
         public class IdentificationSubstPrepRelevantIdentifiedUse
         {
 
-            private IdentificationSubstPrepRelevantIdentifiedUseIdentifiedUse[] identifiedUseField;
+            private List<IdentificationSubstPrepRelevantIdentifiedUseIdentifiedUse> identifiedUseField { get; set; }
 
-            private Phrase[] productTypeField;
+        private List<Phrase> productTypeField { get; set; }
 
-            private RelevantIdentifiedUseProductFunction[] productFunctionField;
+       // private RelevantIdentifiedUseProductFunction[] productFunctionField;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("IdentifiedUse", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public IdentificationSubstPrepRelevantIdentifiedUseIdentifiedUse[] IdentifiedUse
-            {
-                get
-                {
-                    return this.identifiedUseField;
-                }
-                set
-                {
-                    this.identifiedUseField = value;
-                }
-            }
-
+            public List<IdentificationSubstPrepRelevantIdentifiedUseIdentifiedUse> IdentifiedUse { get; set; }
+           
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("ProductType", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public Phrase[] ProductType
-            {
-                get
-                {
-                    return this.productTypeField;
-                }
-                set
-                {
-                    this.productTypeField = value;
-                }
-            }
+            public List<Phrase> ProductType { get; set; }
+           
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("ProductFunction", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public RelevantIdentifiedUseProductFunction[] ProductFunction
-            {
-                get
-                {
-                    return this.productFunctionField;
-                }
-                set
-                {
-                    this.productFunctionField = value;
-                }
-            }
+            public List<RelevantIdentifiedUseProductFunction> ProductFunction { get; set; }           
         }
 
     /// <summary>
@@ -818,174 +582,79 @@
         public class IdentificationSubstPrepRelevantIdentifiedUseIdentifiedUse
         {
 
-            private SectorOfUse[] sectorOfUseField;
+            private List<SectorOfUse> sectorOfUseField { get; set; }
 
-            private ProductCategory[] productCategoryField;
+        private List<ProductCategory> productCategoryField { get; set; }
 
-            private ProcessCategory[] processCategoryField;
+        private List<ProcessCategory> processCategoryField { get; set; }
 
-            private EnvironmentalReleaseCategory[] environmentalReleaseCategoryField;
+        private List<EnvironmentalReleaseCategory> environmentalReleaseCategoryField { get; set; }
 
-            private SpecificEnvironmentalReleaseCategory[] specificEnvironmentalReleaseCategoryField;
+        private List<SpecificEnvironmentalReleaseCategory> specificEnvironmentalReleaseCategoryField { get; set; }
 
-            private ArticleCategory[] articleCategoryNoIntendedReleaseField;
+        private List<ArticleCategory> articleCategoryNoIntendedReleaseField { get; set; }
 
-            private ArticleCategory[] articleCategoryWithIntendedReleaseField;
+        private List<ArticleCategory> articleCategoryWithIntendedReleaseField { get; set; }
 
-            private CorrespondingEs[] correspondingExposureScenarioField;
+        private List<CorrespondingEs> correspondingExposureScenarioField { get; set; }
 
-            private string identifiedUseIdField;
+          //  private string identifiedUseIdField;
 
-            private bool printAsAttachmentField;
+          //  private bool printAsAttachmentField;
 
             /// <remarks/>
             public IdentificationSubstPrepRelevantIdentifiedUseIdentifiedUse()
             {
-                this.identifiedUseIdField = "0";
-                this.printAsAttachmentField = true;
+               //  this.identifiedUseIdField = "0";
+               // this.printAsAttachmentField = true;
             }
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("SectorOfUse", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public SectorOfUse[] SectorOfUse
-            {
-                get
-                {
-                    return this.sectorOfUseField;
-                }
-                set
-                {
-                    this.sectorOfUseField = value;
-                }
-            }
+            public List<SectorOfUse> SectorOfUse { get; set; }
+           
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("ProductCategory", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public ProductCategory[] ProductCategory
-            {
-                get
-                {
-                    return this.productCategoryField;
-                }
-                set
-                {
-                    this.productCategoryField = value;
-                }
-            }
-
+            public List<ProductCategory> ProductCategory { get; set; }
+            
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("ProcessCategory", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public ProcessCategory[] ProcessCategory
-            {
-                get
-                {
-                    return this.processCategoryField;
-                }
-                set
-                {
-                    this.processCategoryField = value;
-                }
-            }
-
+            public List<ProcessCategory> ProcessCategory { get; set; }
+           
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("EnvironmentalReleaseCategory", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public EnvironmentalReleaseCategory[] EnvironmentalReleaseCategory
-            {
-                get
-                {
-                    return this.environmentalReleaseCategoryField;
-                }
-                set
-                {
-                    this.environmentalReleaseCategoryField = value;
-                }
-            }
-
+            public List<EnvironmentalReleaseCategory> EnvironmentalReleaseCategory { get; set; }
+           
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("SpecificEnvironmentalReleaseCategory", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public SpecificEnvironmentalReleaseCategory[] SpecificEnvironmentalReleaseCategory
-            {
-                get
-                {
-                    return this.specificEnvironmentalReleaseCategoryField;
-                }
-                set
-                {
-                    this.specificEnvironmentalReleaseCategoryField = value;
-                }
-            }
-
+            public List<SpecificEnvironmentalReleaseCategory> SpecificEnvironmentalReleaseCategory { get; set; }
+           
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("ArticleCategoryNoIntendedRelease", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public ArticleCategory[] ArticleCategoryNoIntendedRelease
-            {
-                get
-                {
-                    return this.articleCategoryNoIntendedReleaseField;
-                }
-                set
-                {
-                    this.articleCategoryNoIntendedReleaseField = value;
-                }
-            }
+            public List<ArticleCategory> ArticleCategoryNoIntendedRelease { get; set; }
+           
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("ArticleCategoryWithIntendedRelease", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public ArticleCategory[] ArticleCategoryWithIntendedRelease
-            {
-                get
-                {
-                    return this.articleCategoryWithIntendedReleaseField;
-                }
-                set
-                {
-                    this.articleCategoryWithIntendedReleaseField = value;
-                }
-            }
-
+            public List<ArticleCategory> ArticleCategoryWithIntendedRelease { get; set; }
+            
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("CorrespondingExposureScenario", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public CorrespondingEs[] CorrespondingExposureScenario
-            {
-                get
-                {
-                    return this.correspondingExposureScenarioField;
-                }
-                set
-                {
-                    this.correspondingExposureScenarioField = value;
-                }
-            }
+            public List<CorrespondingEs> CorrespondingExposureScenario { get; set; }
+            
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute(DataType = "integer")]
             [System.ComponentModel.DefaultValueAttribute("0")]
-            public string IdentifiedUseId
-            {
-                get
-                {
-                    return this.identifiedUseIdField;
-                }
-                set
-                {
-                    this.identifiedUseIdField = value;
-                }
-            }
+            public string IdentifiedUseId { get; set; }
+           
 
             /// <remarks/>
             [System.Xml.Serialization.XmlAttributeAttribute()]
             [System.ComponentModel.DefaultValueAttribute(true)]
-            public bool PrintAsAttachment
-            {
-                get
-                {
-                    return this.printAsAttachmentField;
-                }
-                set
-                {
-                    this.printAsAttachmentField = value;
-                }
-            }
+            public bool PrintAsAttachment { get; set; }
+           
         }
 
         /// <remarks/>
@@ -993,53 +662,24 @@
         public class EnvironmentalReleaseCategory
         {
 
-            private EnvironmentalReleaseCategoryCodeEnum ercCodeField;
+           // private EnvironmentalReleaseCategoryCodeEnum ercCodeField;
 
-            private bool ercCodeFieldSpecified;
+          //  private bool ercCodeFieldSpecified;
 
-            private Phrase ercFulltextField;
+           // private Phrase ercFulltextField;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public EnvironmentalReleaseCategoryCodeEnum ErcCode
-            {
-                get
-                {
-                    return this.ercCodeField;
-                }
-                set
-                {
-                    this.ercCodeField = value;
-                }
-            }
+            public EnvironmentalReleaseCategoryCodeEnum ErcCode { get; set; }
+            
 
             /// <remarks/>
             [System.Xml.Serialization.XmlIgnoreAttribute()]
-            public bool ErcCodeSpecified
-            {
-                get
-                {
-                    return this.ercCodeFieldSpecified;
-                }
-                set
-                {
-                    this.ercCodeFieldSpecified = value;
-                }
-            }
+            public bool ErcCodeSpecified { get; set; }           
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public Phrase ErcFulltext
-            {
-                get
-                {
-                    return this.ercFulltextField;
-                }
-                set
-                {
-                    this.ercFulltextField = value;
-                }
-            }
+            public Phrase ErcFulltext { get; set; }           
         }
 
     /// <summary>
@@ -1048,38 +688,17 @@
         [System.Xml.Serialization.XmlType(AnonymousType = true)]
         public class SpecificEnvironmentalReleaseCategory
         {
+          //  private string spercCodeField;
 
-            private string spercCodeField;
-
-            private Phrase spercFulltextField;
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public string SpercCode
-            {
-                get
-                {
-                    return this.spercCodeField;
-                }
-                set
-                {
-                    this.spercCodeField = value;
-                }
-            }
+          //  private Phrase spercFulltextField;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public Phrase SpercFulltext
-            {
-                get
-                {
-                    return this.spercFulltextField;
-                }
-                set
-                {
-                    this.spercFulltextField = value;
-                }
-            }
+            public string SpercCode { get; set; }           
+
+            /// <remarks/>
+            [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+            public Phrase SpercFulltext { get; set; }           
         }
 
 
@@ -1088,44 +707,24 @@
         public class RelevantIdentifiedUseProductFunction
         {
 
-            private Phrase[] productFunctionDescriptionField;
+            private List<Phrase> productFunctionDescriptionField { get; set; }
 
-            private Phrase[] productFunctionCodeField;
+            private List<Phrase> productFunctionCodeField { get; set; }
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("ProductFunctionDescription", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public Phrase[] ProductFunctionDescription
-            {
-                get
-                {
-                    return this.productFunctionDescriptionField;
-                }
-                set
-                {
-                    this.productFunctionDescriptionField = value;
-                }
-            }
+            public List<Phrase> ProductFunctionDescription { get; set; }
+            
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("ProductFunctionCode", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public Phrase[] ProductFunctionCode
-            {
-                get
-                {
-                    return this.productFunctionCodeField;
-                }
-                set
-                {
-                    this.productFunctionCodeField = value;
-                }
-            }
+            public List<Phrase> ProductFunctionCode { get; set; }           
         }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlType(AnonymousType = true)]
         public class IdentificationSubstPrepUseAdvisedAgainst
         {
-
             private UseAdvisedAgainstNotToBeUsedIn[] notToBeUsedInField;
 
             private Phrase[] otherUseAdvisedAgainstField;
@@ -1962,37 +1561,18 @@
         public class EmergencyPhone
         {
 
-            private string noField;
+           // private string noField;
 
-            private Phrase[] emergencyPhoneDescriptionField;
+          //  private List<Phrase> emergencyPhoneDescriptionField;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public string No
-            {
-                get
-                {
-                    return this.noField;
-                }
-                set
-                {
-                    this.noField = value;
-                }
-            }
+        public string No { get; set; }
+           
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement("EmergencyPhoneDescription", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public Phrase[] EmergencyPhoneDescription
-            {
-                get
-                {
-                    return this.emergencyPhoneDescriptionField;
-                }
-                set
-                {
-                    this.emergencyPhoneDescriptionField = value;
-                }
-            }
+            public List<Phrase> EmergencyPhoneDescription { get; set; }           
         }
 
     /// <remarks/>
@@ -2000,53 +1580,25 @@
         public class HazardIdentification
         {
 
-            private Classification classificationField;
+            //private Classification classificationField;
 
-            private HazardIdentificationHazardLabelling hazardLabellingField;
+            //private HazardIdentificationHazardLabelling hazardLabellingField;
 
-            private OtherHazardsInfo otherHazardsInfoField;
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public Classification Classification
-            {
-                get
-                {
-                    return this.classificationField;
-                }
-                set
-                {
-                    this.classificationField = value;
-                }
-            }
+            //private OtherHazardsInfo otherHazardsInfoField;
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public HazardIdentificationHazardLabelling HazardLabelling
-            {
-                get
-                {
-                    return this.hazardLabellingField;
-                }
-                set
-                {
-                    this.hazardLabellingField = value;
-                }
-            }
+            public Classification Classification { get; set; }
+           
 
             /// <remarks/>
             [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-            public OtherHazardsInfo OtherHazardsInfo
-            {
-                get
-                {
-                    return this.otherHazardsInfoField;
-                }
-                set
-                {
-                    this.otherHazardsInfoField = value;
-                }
-            }
+            public HazardIdentificationHazardLabelling HazardLabelling { get; set; }
+          
+
+            /// <remarks/>
+            [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+            public OtherHazardsInfo OtherHazardsInfo { get; set; }          
         }
 
     /// <remarks/>

@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SDSCom.Pages.Author.Chapters
 {
-    public class ChapterIndexModel : PageModel
+    public class ChapterIndexModel : BasePage
     {
         public void OnGet()
         {
-
+            GetUserProfileViewData();
         }
 
         public IActionResult OnPostOpenChapter0()

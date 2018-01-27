@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SDSCom.Pages.Author
 {
-    public class AuthorIndexModel : PageModel
+    public class AuthorIndexModel : BasePage
     {
         public void OnGet()
         {
-
+            GetUserProfileViewData();
         }
 
         public IActionResult OnPostOpenProductList()

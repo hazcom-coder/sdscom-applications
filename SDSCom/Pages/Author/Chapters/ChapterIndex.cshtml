@@ -4,39 +4,46 @@
     ViewData["Title"] = "Chapter List";
 }
 
+<h2>Chapter List</h2>
+
+    UI:         @ViewData["uilanguage"] <br />
+    UserName:   @ViewData["username"] <br />
+    UserID:     @ViewData["userid"] <br />
+    Comp:       @ViewData["componentid"] <br />
+    Prod:       @ViewData["productid"] <br />
+
+
 <form method="post">
 
-    <h2>Chapter List</h2>
+        <div id="divMain">
 
-    <div id="divMain">
-
-        <div id="divChapter0" class="modcard">
-            <div class="card-body">
-                <h4 class="card-title">Chapter 0 - Information From Exporting System</h4>
-                <p class="card-text">.</p>
-                <input type="submit" class="btn-link" asp-page-handler="OpenChapter0"
-                       id="hlProductList" value="Open Chapter" />
+            <div id="divChapter0" class="modcard">
+                <div class="card-body">
+                    <h4 class="card-title">Chapter 0 - Information From Exporting System</h4>
+                    <p class="card-text">.</p>
+                    <input type="submit" class="btn-link" asp-page-handler="OpenChapter0"
+                           id="hlProductList" value="Open Chapter" />
+                </div>
             </div>
-        </div>
 
-        <div id="divChapter1" class="modcard">
-            <div class="card-body">
-                <h4 class="card-title">Chapter 1 - Identification of Substance Or Preparation</h4>
-                <p class="card-text">.</p>
-                <input type="submit" class="btn-link" asp-page-handler="OpenChapter1"
-                       id="hlProductList" value="Open Chapter" />
+            <div id="divChapter1" class="modcard">
+                <div class="card-body">
+                    <h4 class="card-title">Chapter 1 - Identification of Substance Or Preparation</h4>
+                    <p class="card-text">.</p>
+                    <input type="submit" class="btn-link" asp-page-handler="OpenChapter1"
+                           id="hlProductList" value="Open Chapter" />
+                </div>
             </div>
-        </div>
 
-        <div id="divChapter2" class="modcard">
-            <div class="card-body">
-                <h4 class="card-title">Chapter 2 - Hazards identification</h4>
-                <p class="card-text">.</p>
-                <input type="submit" class="btn-link" asp-page-handler="OpenChapter2"
-                       id="hlProductList" value="Open Chapter" />
+            <div id="divChapter2" class="modcard">
+                <div class="card-body">
+                    <h4 class="card-title">Chapter 2 - Hazards identification</h4>
+                    <p class="card-text">.</p>
+                    <input type="submit" class="btn-link" asp-page-handler="OpenChapter2"
+                           id="hlProductList" value="Open Chapter" />
+                </div>
             </div>
-        </div>
 
-    </div>
-</form>
+        </div>
+    </form>
 

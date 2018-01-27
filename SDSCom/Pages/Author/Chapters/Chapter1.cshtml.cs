@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace SDSCom.Pages.Author.Chapters
 {
-    public class Chapter0Model : BasePage
+    public class Chapter1Model : BasePage
     {
         private readonly IConfiguration config;
         private IMemoryCache cache;
@@ -20,38 +20,37 @@ namespace SDSCom.Pages.Author.Chapters
         private long entityid = 0;
         private int userid = 0;
 
-        public Chapter0Model(IConfiguration _config, IMemoryCache _cache)
+        public Chapter1Model(IConfiguration _config, IMemoryCache _cache)
         {
             config = _config;
             cache = _cache;
         }
 
-
         public void OnGet()
-        {   
+        {
             GetUserProfileViewData();
 
             userid = UserProfile_UserID;
 
             tSvc = new TemplateService(config, cache);
-            string entityChapter = tSvc.GetEntityChapterData(UserProfile_ProductID, "InformationFromExportingSystem");
+            string entityChapter = tSvc.GetEntityChapterData(UserProfile_ProductID, "IdentificationSubstPrep");
             if (entityChapter.Trim().Length > 0)
             {
-                SysInfo = JsonConvert.DeserializeObject<InformationFromExportingSystem>(entityChapter);
+                Ident = JsonConvert.DeserializeObject<IdentificationSubstPrep>(entityChapter);
             }
             else
             {
-                SysInfo = new InformationFromExportingSystem
+                Ident = new IdentificationSubstPrep
                 {
-                    RegulationsRelatedToCountryOrRegion = new List<RegulationsRelatedToCountryOrRegion>(),
-                    SpecialExtensions = new List<Extension>(),
-                    RelatedDocuments = new List<RelatedDocuments>()
+                    ProductIdentity = new List<IdentificationSubstPrepProductIdentity>(),
+                    EmergencyPhone = new List<EmergencyPhone>()
+                    
                 };
             }
         }
 
         [BindProperty]
-        public InformationFromExportingSystem SysInfo{ get; set; }
+        public IdentificationSubstPrep Ident { get; set; }
 
         [HttpPost]
         public IActionResult OnPost()
@@ -60,8 +59,8 @@ namespace SDSCom.Pages.Author.Chapters
             {
                 return Page();
             }
-            string data = JsonConvert.SerializeObject(SysInfo);
-            tSvc.SaveEntityChapterData(entityid, "InformationFromExportingSystem", data, userid);
+            string data = JsonConvert.SerializeObject(Ident);
+            tSvc.SaveEntityChapterData(entityid, "IdentificationSubstPrep", data, userid);
             return RedirectToPage("/ChapterIndex");
         }
     }
