@@ -8,37 +8,12 @@ namespace SDSCom.Models
     /// <remarks/>
     public class SectorOfUse
     {
-        private SectorOfUseCodeEnum suCodeField;
-
-        private Phrase suFulltextField;
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public SectorOfUseCodeEnum SuCode { get; set; }       
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public SectorOfUseCodeEnum SuCode
-        {
-            get
-            {
-                return this.suCodeField;
-            }
-            set
-            {
-                this.suCodeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public Phrase SuFulltext
-        {
-            get
-            {
-                return this.suFulltextField;
-            }
-            set
-            {
-                this.suFulltextField = value;
-            }
-        }
+        public Phrase SuFulltext { get; set; }      
     }
-
 }

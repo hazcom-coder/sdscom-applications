@@ -43,8 +43,19 @@ namespace SDSCom.Pages.Author.Chapters
                 Ident = new IdentificationSubstPrep
                 {
                     ProductIdentity = new List<IdentificationSubstPrepProductIdentity>(),
-                    EmergencyPhone = new List<EmergencyPhone>()
-                    
+                    EmergencyPhone = new List<EmergencyPhone>(),
+                    IdentificationComments = new List<Phrase>(),
+                    ItemNo = new List<string>(),
+                    ProductNo = new List<ProductNo>(),
+                    SupplierInformation = new List<IdentificationSubstPrepSupplierInformation>(),
+                    UseOfChemicalComments = new List<Phrase>(),
+                    RelevantIdentifiedUse = new IdentificationSubstPrepRelevantIdentifiedUse()
+                    {                        
+                        IdentifiedUse = new List<IdentificationSubstPrepRelevantIdentifiedUseIdentifiedUse>(),                                               
+                        ProductFunction = new List<RelevantIdentifiedUseProductFunction>(),
+                        ProductType = new List<Phrase>(),                        
+                    },
+                    InformationOnTheSds = new List<InformationOnTheSds>()
                 };
             }
         }

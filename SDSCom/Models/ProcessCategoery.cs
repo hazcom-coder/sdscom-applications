@@ -7,38 +7,13 @@ namespace SDSCom.Models
 {
     /// <remarks/>
     public class ProcessCategory
-    {
-        private ProcessCategoryCodeEnum procCodeField;
-
-        private Phrase procFulltextField;
-
+    {     
         /// <remarks/>
         [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public ProcessCategoryCodeEnum ProcCode
-        {
-            get
-            {
-                return this.procCodeField;
-            }
-            set
-            {
-                this.procCodeField = value;
-            }
-        }
-
+        public ProcessCategoryCodeEnum ProcCode { get; set; }
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public Phrase ProcFulltext
-        {
-            get
-            {
-                return this.procFulltextField;
-            }
-            set
-            {
-                this.procFulltextField = value;
-            }
-        }
+        public Phrase ProcFulltext { get; set; }       
     }
-
 }
