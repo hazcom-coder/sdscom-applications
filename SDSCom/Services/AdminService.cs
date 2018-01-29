@@ -58,7 +58,7 @@ namespace SDSCom.Services
 
                 db.DropAndCreateTable<ValidationMessage>();
 
-                SchemaService dMgr = new SchemaService();
+                SchemaService dMgr = new SchemaService(config,cache);
 
                 //=========================================================================================================
 

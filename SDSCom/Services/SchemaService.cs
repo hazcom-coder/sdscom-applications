@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Xml.Schema;
 using System.Xml;
 using System.IO;
-using System.Text;
-using System.Collections;
 using System.Data;
-using ServiceStack.OrmLite.PostgreSQL;
 using ServiceStack.OrmLite;
 using SDSCom.Models;
-
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Caching.Memory;
+using Serilog;
 
 namespace SDSCom.Services
 {
@@ -19,8 +17,11 @@ namespace SDSCom.Services
     /// <summary>
     /// 
     /// </summary>
-	public class SchemaService
+	public class SchemaService : BaseService
     {
+        private readonly IConfiguration config;
+        private IMemoryCache cache;
+
         private string appdatafolder = @"schemas";
         private int facetid = 1;
 
@@ -29,10 +30,48 @@ namespace SDSCom.Services
         /// <summary>
         /// 
         /// </summary>
-        public SchemaService()
+        public SchemaService(IConfiguration _config, IMemoryCache _cache) : base(_config, _cache)
         {
+            config = _config;
+            cache = _cache;
 
         }
+
+
+        public bool Validate(string xmlFilePath)
+        {           
+            XmlReaderSettings schemaSettings = new XmlReaderSettings();
+
+            string[] files = Directory.GetFiles("schemaas");
+
+            foreach (string file in files)
+            {
+                schemaSettings.Schemas.Add("", file);
+            }            
+            schemaSettings.ValidationType = ValidationType.Schema;
+            schemaSettings.ValidationEventHandler += new ValidationEventHandler(ValidationEventHandler);
+
+            XmlReader sdsDoc = XmlReader.Create(xmlFilePath, schemaSettings);
+
+            while (sdsDoc.Read())
+            {
+            }
+
+            return true;
+        }
+
+        private void ValidationEventHandler(object sender, ValidationEventArgs e)
+        {
+            if (e.Severity == XmlSeverityType.Warning)
+            {
+                Log.Warning(e.Message);
+            }
+            else if (e.Severity == XmlSeverityType.Error)
+            {
+                Log.Error(e.Message);
+            }
+        }
+
 
         /// <summary>
         /// 
