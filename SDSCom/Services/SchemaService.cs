@@ -10,6 +10,7 @@ using SDSCom.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Caching.Memory;
 using Serilog;
+using System.Xml.Linq;
 
 namespace SDSCom.Services
 {
@@ -24,6 +25,7 @@ namespace SDSCom.Services
 
         private string appdatafolder = @"schemas";
         private int facetid = 1;
+        private string validationMessage = string.Empty;
 
         private string versionNumer = "4.2.3";
 
@@ -34,41 +36,50 @@ namespace SDSCom.Services
         {
             config = _config;
             cache = _cache;
-
         }
 
 
-        public bool Validate(string xmlFilePath)
-        {           
+        public DataSheetFeedImport Validate(DataSheetFeedImport dsImport)
+        {     
+            //TODO: duplicated functionality?
             XmlReaderSettings schemaSettings = new XmlReaderSettings();
 
-            string[] files = Directory.GetFiles("schemaas");
-
+            string[] files = Directory.GetFiles("schemas");
+            string msg = string.Empty;
             foreach (string file in files)
             {
                 schemaSettings.Schemas.Add("", file);
-            }            
+            }
             schemaSettings.ValidationType = ValidationType.Schema;
             schemaSettings.ValidationEventHandler += new ValidationEventHandler(ValidationEventHandler);
 
-            XmlReader sdsDoc = XmlReader.Create(xmlFilePath, schemaSettings);
+            XmlReader reader = XmlReader.Create(dsImport.FileName, schemaSettings);
+            XmlDocument document = new XmlDocument();
+            document.Load(reader);
 
-            while (sdsDoc.Read())
+            ValidationEventHandler eventHandler = new ValidationEventHandler(ValidationEventHandler);
+
+            document.Validate(eventHandler);
+
+            dsImport.IsValid = (validationMessage.Length == 0);
+
+            if (!dsImport.IsValid)
             {
+                dsImport.ValidationMessage = validationMessage;
             }
 
-            return true;
+            return dsImport;
         }
 
         private void ValidationEventHandler(object sender, ValidationEventArgs e)
         {
             if (e.Severity == XmlSeverityType.Warning)
             {
-                Log.Warning(e.Message);
+                validationMessage = "WARNING: " + e.Message;
             }
             else if (e.Severity == XmlSeverityType.Error)
             {
-                Log.Error(e.Message);
+                validationMessage = "ERROR:" + e.Message;
             }
         }
 

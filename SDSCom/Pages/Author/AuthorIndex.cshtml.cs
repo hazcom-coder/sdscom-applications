@@ -43,5 +43,15 @@ namespace SDSCom.Pages.Author
         {
             return RedirectToPage("DocumentList");
         }
+
+        public IActionResult OnPostImport()
+        {
+            return RedirectToPage("Import");
+        }
+
+        public IActionResult OnPostExport()
+        {
+            return RedirectToPage("Export");
+        }
     }
 }

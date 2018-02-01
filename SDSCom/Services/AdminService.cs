@@ -44,6 +44,8 @@ namespace SDSCom.Services
                 
             using (IDbConnection db = DbFactory.Open())
             {
+                db.DropAndCreateTable<DataSheetFeedImport>();
+
                 db.DropAndCreateTable<EntityChapter>();
 
                 db.DropAndCreateTable<Facet>();

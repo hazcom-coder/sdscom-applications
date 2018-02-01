@@ -8,6 +8,9 @@ using System.Data;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System.IO;
+using Serilog;
+using System.Xml;
 
 namespace SDSCom.Services
 {
@@ -57,7 +60,31 @@ namespace SDSCom.Services
         /// </summary>
         public OrmLiteConnectionFactory DbFactory { get; set; }
 
+        public string ReadFile(string importPath)
+        {
+            string ret = string.Empty;
 
+            try
+            {
+                using (StreamReader sr = new StreamReader(importPath))
+                {
+                    ret = sr.ReadToEnd();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "Import>ReadFile: File Name:" + importPath);
+            }
+
+            return ret;
+        }
+
+        public string ConvertXmlToJson(string xml)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml);
+            return JsonConvert.SerializeXmlNode(doc);
+        }
 
 
         #region caching

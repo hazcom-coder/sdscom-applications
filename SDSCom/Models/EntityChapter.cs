@@ -23,7 +23,6 @@ namespace SDSCom.Models
         [Required]
         public string ChapterName { get; set; }
 
-        [CustomField("json")]
         public string Data { get; set; }
 
         [Required]

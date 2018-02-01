@@ -72,6 +72,23 @@ Prod:       @ViewData["productid"] <br />
             </div>
         </div>
 
+        <div id="divImportModule" class="modcard">
+            <div class="card-body">
+                <h4 class="card-title">Import Entities</h4>
+                <p class="card-text">Import entities from XML files.</p>
+                <input type="submit" class="btn-link" asp-page-handler="Import"
+                       id="hlDocuments" value="Import Documents" />
+            </div>
+        </div>
+
+        <div id="divExportModule" class="modcard">
+            <div class="card-body">
+                <h4 class="card-title">Export Entities</h4>
+                <p class="card-text">Export Entities to XML Files</p>
+                <input type="submit" class="btn-link" asp-page-handler="Export"
+                       id="hlDocuments" value="Export Documents" />
+            </div>
+        </div>
     </div>
 </form>
 
