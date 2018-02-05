@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ServiceStack.DataAnnotations;
 
 namespace SDSCom.Models 
 {
@@ -15,15 +14,13 @@ namespace SDSCom.Models
         /// <summary>
         /// 
         /// </summary>
-        [AutoIncrement]
-        [PrimaryKey]
-        public long ID { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// 
-        [System.ComponentModel.DataAnnotations.Required]
+        
         public int UserId { get; set; }
 
         /// <summary>
@@ -33,26 +30,23 @@ namespace SDSCom.Models
         /// <summary>
         /// 
         /// </summary>
-        [System.ComponentModel.DataAnnotations.Required]
-        [StringLength(1000, MinimumLength = 3)]
+        
         public string EntityName { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-       [StringLength(100)]
         public string OtherId { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [System.ComponentModel.DataAnnotations.Required]
+        
         public bool Active { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [System.ComponentModel.DataAnnotations.Required]
         public int EntityType { get; set; }
     }
 
@@ -64,15 +58,11 @@ namespace SDSCom.Models
         /// <summary>
         /// 
         /// </summary>
-        [AutoIncrement]
-        [PrimaryKey]
         public int ID { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [System.ComponentModel.DataAnnotations.Required]
-        [StringLength(50, MinimumLength = 3)]
         public string EntityTypeName { get; set; }
     }
 }

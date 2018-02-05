@@ -10,7 +10,6 @@ using System.Threading;
 using Microsoft.Extensions.Primitives;
 using SDSCom.Models;
 using System.Data;
-using ServiceStack.OrmLite;
 using System;
 using System.Collections.Generic;
 
@@ -40,14 +39,13 @@ namespace SDSCom.Services
 
             if (fval == null) return ok;
 
-            using (IDbConnection db = DbFactory.Open())
+            using (var db = new SDSComContext(config))
             {
-                db.UpdateOnly(() => new FacetValue
-                { StopDateStamp = DateTime.Now},
-                    where: p => p.EntityId == fval.EntityId 
-                             && p.FacetId == fval.FacetId);
+                //db.Update(new FacetValue { StopDateStamp = DateTime.Now},
+                //   p => p.EntityId == fval.EntityId 
+                //             && p.FacetId == fval.FacetId);
 
-               ok =  db.Save<FacetValue>(fval);
+                //db.Insert<FacetValue>(fval);
             }
             return ok;
         }
@@ -66,14 +64,14 @@ namespace SDSCom.Services
             int entityid = fphrases[0].EntityId;
             int facetid = fphrases[0].FacetId;
 
-            using (IDbConnection db = DbFactory.Open())
+            using (var db = new SDSComContext(config))
             {
-                db.UpdateOnly(() => new FacetPhraseLink {
-                    StopDateStamp = DateTime.Now }, 
-                    where: p => p.EntityId == entityid
-                             && p.FacetId == facetid);
+                //db.UpdateOnly(() => new FacetPhraseLink {
+                //    StopDateStamp = DateTime.Now }, 
+                //    where: p => p.EntityId == entityid
+                //             && p.FacetId == facetid);
 
-                ok = db.Save<List<FacetPhraseLink>>(fphrases);
+                //ok = db.Save<List<FacetPhraseLink>>(fphrases);
             }
 
             return ok;

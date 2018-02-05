@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ServiceStack.DataAnnotations;
 
 namespace SDSCom.Models
 {
@@ -22,9 +21,8 @@ namespace SDSCom.Models
         /// <summary>
         /// 
         /// </summary>
-        [AutoIncrement]
-        [PrimaryKey]
-        public int ID { get; set; }
+
+        public int Id { get; set; }
 
         /// <summary>
         /// 

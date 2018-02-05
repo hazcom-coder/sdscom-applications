@@ -1,7 +1,6 @@
 ﻿using System;
 using Npgsql;
 using NpgsqlTypes;
-using ServiceStack.DataAnnotations;
 
 namespace SDSCom.Models
 {
@@ -12,9 +11,7 @@ namespace SDSCom.Models
 
         }
 
-        [AutoIncrement]
-        [PrimaryKey]
-        public long ID { get; set; }
+        public long Id { get; set; }
 
         public string FileName { get; set; }
 

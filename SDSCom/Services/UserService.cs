@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ServiceStack.OrmLite;
 using System.Data;
 using SDSCom.Models;
 
@@ -38,9 +37,9 @@ namespace SDSCom.Services
         public User GetByID(int userid)
         {
             User user = new User();
-            using (IDbConnection db = DbFactory.Open())
+            using (var db = new SDSComContext(config))
             {
-                user = db.SingleById<User>(userid);
+                user = db.Users.Find(userid);
             }
             return user;
         }
@@ -53,9 +52,9 @@ namespace SDSCom.Services
         public User GetByName(string username)
         {
             User user = new User();
-            using (IDbConnection db = DbFactory.Open())
+            using (var db = new SDSComContext(config))
             {
-                user = db.Select<User>(x => x.UserName == username).FirstOrDefault();
+                user = db.Users.Single(x => x.UserName == username);
             }
             return user;
         }
@@ -67,9 +66,9 @@ namespace SDSCom.Services
         public List<User> GetAll()
         {
             List<User> userList = new List<User>();
-            using (IDbConnection db = DbFactory.Open())
+            using (var db = new SDSComContext(config))
             {
-                userList = db.Select<User>();
+                userList = db.Users.ToList();
             }
             return userList;
         }

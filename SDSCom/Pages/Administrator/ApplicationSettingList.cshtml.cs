@@ -11,12 +11,11 @@ using SDSCom.Services;
 
 namespace SDSCom.Pages.Administrator
 {
-    public class ApplicationSettingListModel : PageModel
+    public class ApplicationSettingListModel : BasePage
     {
         private readonly IConfiguration config;
         private IMemoryCache cache;
         private ApplicationSettingsService asService;
-
 
         public ApplicationSettingListModel(IConfiguration _config, IMemoryCache _cache)
         {
@@ -33,7 +32,20 @@ namespace SDSCom.Pages.Administrator
         [BindProperty]
         public List<ApplicationSetting> ApplicationSettings { get; set; }
 
+        public IActionResult OnPostEditSetting(long id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            
+            return RedirectToPage("ApplicationSettingDetail", new { id });
+        }
 
 
+        public IActionResult OnPostAddNew()
+        {   
+            return RedirectToPage("ApplicationSettingDetail", new ApplicationSetting());
+        }
     }
 }

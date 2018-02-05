@@ -8,7 +8,6 @@ using Npgsql.PostgresTypes;
 using Npgsql;
 using System.Collections;
 using Microsoft.Extensions.Caching.Memory;
-using ServiceStack.OrmLite;
 using System.Data;
 
 namespace SDSCom.Services

@@ -28,7 +28,7 @@ namespace SDSCom.Pages.Author
             Entity = new Entity
             {
                 EntityType = int.Parse(TempData["newentitytype"].ToString()),
-                ID = 0
+                Id = 0
             };
         }
 

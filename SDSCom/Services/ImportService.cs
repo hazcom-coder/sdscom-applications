@@ -9,7 +9,6 @@ using Npgsql.PostgresTypes;
 using Npgsql;
 using System.Collections;
 using Microsoft.Extensions.Caching.Memory;
-using ServiceStack.OrmLite;
 using System.Data;
 using System.IO;
 using System.Text;
@@ -80,20 +79,20 @@ namespace SDSCom.Services
                         entity.OtherId = GetEntityID(dsDoc);
                         entity.EntityName = GetEntityName(dsDoc);
 
-                        using (IDbConnection db = DbFactory.Open())
+                        using (var db = new SDSComContext(config))
                         {
-                            db.Save(entity);
-                            entity.ID = db.LastInsertId();
+                            db.Entities.Add(entity);
+                            db.SaveChanges();
                         }
 
                         SaveChapter(entity, dsDoc, "InformationFromExportingSystem", userId);
                     }
 
-                    using (IDbConnection db = DbFactory.Open())
+                    using (var db = new SDSComContext(config))
                     {
-                        db.Save(imp);
+                        db.Imports.Add(imp);
+                        db.SaveChanges();
                     }
-
                 }
             }
             catch (Exception ex)
@@ -111,7 +110,7 @@ namespace SDSCom.Services
             {
                 ChapterName = chaptername,
                 DateStamp = DateTime.Now,
-                EntityId = entity.ID,
+                EntityId = entity.Id,
                 UserId = userId                
             };
 
@@ -126,9 +125,10 @@ namespace SDSCom.Services
                 ec.Data = "CHAPTER NOT FOUND";
             }
 
-            using (IDbConnection db = DbFactory.Open())
+            using (var db = new SDSComContext(config))
             {
-                db.Save(ec);
+                db.EntityChapters.Add(ec);
+                db.SaveChanges();
             }
         }
 

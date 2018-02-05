@@ -5,12 +5,12 @@ using System.Xml.Schema;
 using System.Xml;
 using System.IO;
 using System.Data;
-using ServiceStack.OrmLite;
 using SDSCom.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Caching.Memory;
 using Serilog;
 using System.Xml.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace SDSCom.Services
 {
@@ -307,7 +307,7 @@ namespace SDSCom.Services
                                         if (enumValueNode.Attributes != null)
                                         {
                                             string enumValue = enumValueNode.Attributes[0].Value;
-                                            restr.Enumerations.Add(enumValue);
+                                            restr.Enumerations = enumValue;
                                         }
                                     }
                                 }
@@ -345,29 +345,22 @@ namespace SDSCom.Services
             }
             return facetList;
         }
-
-
-        private string connstring = @"Server=sdscom.c5o9b1nqgmsb.us-east-1.rds.amazonaws.com;
-										Port=5432;Database=sdscom;
-										User Id=sdscom;Password=Gollum17;";       
-
+  
         public void CreateFacets(List<Facet> facetList)
-        {
-            var dbFactory = new OrmLiteConnectionFactory(connstring, PostgreSqlDialect.Provider);
-
-            using (IDbConnection db = dbFactory.Open())
+        {         
+            using (var db = new SDSComContext(config))
             {
-                db.InsertAll(facetList);
+                db.AddRange(facetList);
+                db.SaveChanges();
             }
         }
 
         public void CreateFacetRestrictionss(List<FacetRestriction> facetRestList)
         {
-            var dbFactory = new OrmLiteConnectionFactory(connstring, PostgreSqlDialect.Provider);
-
-            using (IDbConnection db = dbFactory.Open())
+            using (var db = new SDSComContext(config))
             {
-                db.InsertAll(facetRestList);
+                db.AddRange(facetRestList);
+                db.SaveChanges();
             }
         }
     }

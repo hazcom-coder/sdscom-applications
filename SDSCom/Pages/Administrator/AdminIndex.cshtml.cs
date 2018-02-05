@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace SDSCom.Pages.Administrator
 {
-    public class AdminIndexModel : PageModel
+    public class AdminIndexModel : BasePage
     {
        // private readonly IConfiguration config;
        // private IMemoryCache cache;

@@ -27,7 +27,6 @@ namespace SDSCom.Services
     {
         private readonly IConfiguration config;
         private IMemoryCache cache;
-        private DataService dataMgr;
 
         /// <summary>
         /// 
@@ -37,9 +36,7 @@ namespace SDSCom.Services
         public PhraseService(IConfiguration _config, IMemoryCache _cache) : base(_config, _cache)
         {
             this.config = _config;
-            this.cache = _cache;
-
-            dataMgr = new DataService(config, cache);
+            this.cache = _cache;           
         }
 
         /// <summary>
@@ -47,18 +44,18 @@ namespace SDSCom.Services
         /// </summary>
         /// <returns></returns>
         public List<EuphracPhrase> Get(int maxrecords)
-        {  
-            NpgsqlCommand cmd = new NpgsqlCommand();
-            cmd.CommandText = @"SELECT * FROM phrases ";
-            if (maxrecords > 0)
-            {
-                cmd.CommandText += "LIMIT " + maxrecords.ToString();
-            }
-            else
-            {
-                cmd.CommandText += "LIMIT 100 "; 
-            }
-            NpgsqlDataReader rdr = dataMgr.GetReader(cmd);
+        {
+            //NpgsqlCommand cmd = new NpgsqlCommand();
+            //cmd.CommandText = @"SELECT * FROM phrases ";
+            //if (maxrecords > 0)
+            //{
+            //    cmd.CommandText += "LIMIT " + maxrecords.ToString();
+            //}
+            //else
+            //{
+            //    cmd.CommandText += "LIMIT 100 "; 
+            //}
+            NpgsqlDataReader rdr = null; // = dataMgr.GetReader(cmd);
 
             return GetEuPhracPhraseFromReader(rdr);
         }
@@ -70,9 +67,9 @@ namespace SDSCom.Services
         public long GetCount()
         {
             long x = 0;
-            NpgsqlCommand cmd = new NpgsqlCommand();
-            cmd.CommandText = @"SELECT count(*) FROM public.phrases";
-            x = dataMgr.Execute(cmd);
+            //NpgsqlCommand cmd = new NpgsqlCommand();
+            //cmd.CommandText = @"SELECT count(*) FROM public.phrases";
+            //x = dataMgr.Execute(cmd);
 
             return x;
         }

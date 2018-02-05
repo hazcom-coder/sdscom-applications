@@ -1,0 +1,34 @@
+﻿@page "{id:long?}"
+@model SDSCom.Pages.Administrator.ApplicationSettingDetailModel
+@{
+    ViewData["Title"] = "ApplicationSettingDetail";
+}
+
+<h2>Application Setting Detail</h2>
+
+<form method="post">
+
+    <input id="txtID" asp-for="@Model.ApplicationSetting.Id" class="hidden" />
+
+    <div class="form-group">
+        <label>Area:</label>
+        <input id="txtID" asp-for="@Model.ApplicationSetting.Area" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Setting:</label>
+        <input id="txtID" asp-for="@Model.ApplicationSetting.Setting" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Value:</label>
+        <input id="txtID" asp-for="@Model.ApplicationSetting.DataValue" class="form-control" />
+    </div>
+
+    <div ig="divSaveDelete">
+        <input type="submit" class="btn-warning" id="deleteAppSetting" value="Delete" asp-page-handler="Delete" />
+        <input type="submit" class="btn-success" id="saveAppSetting" value="Save" asp-page-handler="Save" />
+    </div>
+
+</form>
+

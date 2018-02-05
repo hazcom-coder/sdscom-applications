@@ -7,6 +7,9 @@
 <h2>Application Settings</h2>
 
 <form method="post">
+
+    <input type="submit" class="btn-primary" id="saveEntity" value="Add New" asp-page-handler="AddNew" />
+
     <table class="table">
         <thead>
             <tr>
@@ -20,12 +23,12 @@
             @foreach (var appSetting in Model.ApplicationSettings)
             {
                 <tr>
-                    <td>@appSetting.ID</td>
+                    <td>@appSetting.Id</td>
                     <td>@appSetting.Area</td>
                     <td>@appSetting.Setting</td>
                     <td>@appSetting.DataValue</td>
-                    <td>                    
-                        <button type="submit" asp-page-handler="editsetting" asp-route-id="@appSetting.ID"/>                       Edit
+                    <td>
+                        <button type="submit" asp-page-handler="editsetting" asp-route-id="@appSetting.Id" />                       Edit
                     </td>
                 </tr>
             }

@@ -1,7 +1,6 @@
 ﻿using System;
 using Npgsql;
 using NpgsqlTypes;
-using ServiceStack.DataAnnotations;
 
 namespace SDSCom.Models
 {
@@ -12,23 +11,16 @@ namespace SDSCom.Models
 
         }
 
-        [PrimaryKey]
-        [AutoIncrement]
         public int Id { get; set; }
 
-        [Required]
         public long EntityId { get; set; }
 
-        [StringLength(100)]
-        [Required]
         public string ChapterName { get; set; }
 
         public string Data { get; set; }
 
-        [Required]
         public DateTime DateStamp { get; set; }
 
-        [Required]
         public int UserId { get; set; }
 
 

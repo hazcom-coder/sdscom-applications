@@ -7,92 +7,49 @@ namespace SDSCom.Models
 {
     /// <remarks/>
     public class Phrase
-    {
-        private string phraseCodeField;
-
-        private string fullTextField;
-
-        private MergePhrase[] mergePhraseField;
-
-        private string phraseIdField;
-
-        private string phraseCatalogueIdField;
+    {      
 
         /// <remarks/>
         public Phrase()
         {
-            this.phraseCatalogueIdField = "0";
+           
         }
+
+        public string StructureCode { get; set; }
+
+        public string English { get; set; }
+
+        public string German { get; set; }
+
+        public string Info { get; set; }
+
+        public string Owner { get; set; }
+
+        public string Region { get; set; }
+
+        public string RevisionDate { get; set; }
+
+        public string Source { get; set; }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string PhraseCode
-        {
-            get
-            {
-                return this.phraseCodeField;
-            }
-            set
-            {
-                this.phraseCodeField = value;
-            }
-        }
-
+        public string PhraseCode { get; set; }
+       
         /// <remarks/>
         [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string FullText
-        {
-            get
-            {
-                return this.fullTextField;
-            }
-            set
-            {
-                this.fullTextField = value;
-            }
-        }
-
+        public string FullText { get; set; }
+       
         /// <remarks/>
         [System.Xml.Serialization.XmlElement("MergePhrase", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public MergePhrase[] MergePhrase
-        {
-            get
-            {
-                return this.mergePhraseField;
-            }
-            set
-            {
-                this.mergePhraseField = value;
-            }
-        }
-
-        /// <remarks/>
+        public string MergePhrase { get; set; }
+        
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string PhraseId
-        {
-            get
-            {
-                return this.phraseIdField;
-            }
-            set
-            {
-                this.phraseIdField = value;
-            }
-        }
+        public string PhraseId { get; set; }       
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "integer")]
         [System.ComponentModel.DefaultValueAttribute("0")]
-        public string PhraseCatalogueId
-        {
-            get
-            {
-                return this.phraseCatalogueIdField;
-            }
-            set
-            {
-                this.phraseCatalogueIdField = value;
-            }
-        }
+        public string PhraseCatalogueId { get; set; }
+       
     }
 }

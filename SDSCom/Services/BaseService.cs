@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ServiceStack.OrmLite;
-using ServiceStack;
 using System.Data;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
@@ -52,13 +50,15 @@ namespace SDSCom.Services
         {
             config = _config;
             cache = _cache;
-            DbFactory = new OrmLiteConnectionFactory(config["ConnectionStrings:SDSCOM"], PostgreSqlDialect.Provider);
+           // DbFactory = new OrmConnectionFactory(new PostgreSQLDialectProvider(), config["ConnectionStrings:SDSCOM"]);
         }
+               
+
 
         /// <summary>
         /// 
         /// </summary>
-        public OrmLiteConnectionFactory DbFactory { get; set; }
+      //  public OrmConnectionFactory DbFactory { get; set; }
 
         public string ReadFile(string importPath)
         {

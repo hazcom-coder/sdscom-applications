@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
+using SDSCom.Services;
 
 namespace SDSCom
 {
@@ -41,11 +44,10 @@ namespace SDSCom
                 options.IdleTimeout = TimeSpan.FromSeconds(3600);
                 options.Cookie.HttpOnly = true;
 
-            });
-
+            });            
+  
             services.AddMvc();
 
-           // Log.Information("Configuration complete");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

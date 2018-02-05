@@ -13,7 +13,6 @@ using System.Threading;
 using Microsoft.Extensions.Primitives;
 using SDSCom.Models;
 using System.Data;
-using ServiceStack.OrmLite;
 using System.Reflection;
 
 namespace SDSCom.Services
@@ -31,8 +30,7 @@ namespace SDSCom.Services
         public TemplateService(IConfiguration _config, IMemoryCache _cache) : base(_config, _cache)
         {
             this.config = _config;
-            this.cache = _cache;
-           
+            this.cache = _cache;           
         }
 
         //===============================================================================================
@@ -41,9 +39,9 @@ namespace SDSCom.Services
         {
             List<Facet> facets = new List<Facet>();
 
-            using (IDbConnection db = DbFactory.Open())
+            using (var db = new SDSComContext(config))
             {
-                facets = db.Select<Facet>("PARENT_ID = @pid", new { pid = parentid });
+                facets = db.Facets.Where(p => p.Id == parentid).ToList();
             }
             return facets;
         }
@@ -54,9 +52,9 @@ namespace SDSCom.Services
         {
             Facet facet = new Facet();
 
-            using (IDbConnection db = DbFactory.Open())
+            using (var db = new SDSComContext(config))
             {
-                facet = db.Single<Facet>(x => x.Id == facetid);
+                facet = db.Facets.Find(facetid);
             }
             return facet;
         }
@@ -65,9 +63,9 @@ namespace SDSCom.Services
         {
             string ret = string.Empty;
 
-            using (IDbConnection db = DbFactory.Open())
+            using (var db = new SDSComContext(config))
             {
-                var ec = db.Single<EntityChapter>(x => x.EntityId == entityid 
+                var ec = db.EntityChapters.Single(x => x.EntityId == entityid 
                                                     && x.ChapterName == chaptername);
 
                 if (ec != null)
@@ -82,7 +80,7 @@ namespace SDSCom.Services
         {
             bool ok = false;
 
-            using (IDbConnection db = DbFactory.Open())
+            using (var db = new SDSComContext(config))
             {
                 EntityChapter ec = new EntityChapter()
                 {
@@ -93,7 +91,8 @@ namespace SDSCom.Services
                     UserId = userid
                 };
 
-                ok = db.Save<EntityChapter>(ec);               
+                db.EntityChapters.Add(ec);
+                db.SaveChanges();
             }
             return ok;
         }
@@ -102,9 +101,9 @@ namespace SDSCom.Services
         {
             FacetRestriction restr = new FacetRestriction();
 
-            using (IDbConnection db = DbFactory.Open())
+            using (var db = new SDSComContext(config))
             {
-                restr = db.Single<FacetRestriction>(x => x.FacetId == facetid);
+                restr = db.FacetRestrictions.Single(x => x.FacetId == facetid);
             }
 
             return restr;

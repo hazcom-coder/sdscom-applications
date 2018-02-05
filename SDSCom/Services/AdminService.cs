@@ -2,14 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using SDSCom.Models;
-using System.Xml.Schema;
-using System.Reflection;
-using Npgsql.PostgresTypes;
-using Npgsql;
-using System.Collections;
 using Microsoft.Extensions.Caching.Memory;
-using ServiceStack.OrmLite;
-using System.Data;
 
 namespace SDSCom.Services
 {
@@ -42,53 +35,67 @@ namespace SDSCom.Services
             List<FacetRestriction> facetsRest = new List<FacetRestriction>();
             List<FacetRestriction> facetsRestDE = new List<FacetRestriction>();
                 
-            using (IDbConnection db = DbFactory.Open())
+            using (var db = new SDSComContext(config))
             {
-                db.DropAndCreateTable<DataSheetFeedImport>();
+                var allAS = db.Set<ApplicationSetting>();
+                db.AppSettings.RemoveRange(allAS);
 
-                db.DropAndCreateTable<EntityChapter>();
+                var allE = db.Set<Entity>();
+                db.Entities.RemoveRange(allE);
 
-                db.DropAndCreateTable<Facet>();
+                var allET = db.Set<EntityType>();
+                db.EntityTypes.RemoveRange(allET);
 
-                db.DropAndCreateTable<FacetRestriction>();
+                var allDSFI = db.Set<DataSheetFeedImport>();
+                db.Imports.RemoveRange(allDSFI);
 
-                db.DropAndCreateTable<FacetPhraseLink>();
+                var allEC = db.Set<EntityChapter>();
+                db.EntityChapters.RemoveRange(allEC);
 
-                db.DropAndCreateTable<FacetValue>();
+                var allF = db.Set<Facet>();
+                db.Facets.RemoveRange(allF);
 
-                db.DropAndCreateTable<FacetPhraseLink>();
+                var allFR = db.Set<FacetRestriction>();
+                db.FacetRestrictions.RemoveRange(allFR);
 
-                db.DropAndCreateTable<ValidationMessage>();
+                var allFPL = db.Set<FacetPhraseLink>();
+                db.FacetPhraseLinks.RemoveRange(allFPL);
 
-                SchemaService dMgr = new SchemaService(config,cache);
+                var allV = db.Set<ValidationMessage>();
+                db.ValidationMessages.RemoveRange(allV);
+
+                var allU = db.Set<User>();
+                db.Users.RemoveRange(allU);
+
+                db.SaveChanges();
+
+                SchemaService sSvc = new SchemaService(config,cache);
 
                 //=========================================================================================================
 
-                facets = dMgr.GetSchemas();
+                facets = sSvc.GetSchemas();
 
-                facetsRest = dMgr.GetDataTypes(facets, "SDSComXMLDT.xsd");
+                facetsRest = sSvc.GetDataTypes(facets, "SDSComXMLDT.xsd");
                 
                 //=========================================================================================================
                                
-                facetsDE = dMgr.GetExtensions();
+                facetsDE = sSvc.GetExtensions();
 
-                facetsRestDE = dMgr.GetDataTypes(facetsDE, "SDSComXMLNE_DE.xsd");
+                facetsRestDE = sSvc.GetDataTypes(facetsDE, "SDSComXMLNE_DE.xsd");
+
+                //=========================================================================================================
+
+                sSvc.CreateFacets(facets);
+
+                sSvc.CreateFacets(facetsDE);
+
+                sSvc.CreateFacetRestrictionss(facetsRest);
+
+                sSvc.CreateFacetRestrictionss(facetsRestDE);
 
                 //=========================================================================================================
 
-                dMgr.CreateFacets(facets);
-
-                dMgr.CreateFacets(facetsDE);
-
-                dMgr.CreateFacetRestrictionss(facetsRest);
-
-                dMgr.CreateFacetRestrictionss(facetsRestDE);
-
-                //=========================================================================================================
-                   
-                db.DropAndCreateTable<Entity>();                              
-
-                db.Save(new Entity
+                db.Entities.Add(new Entity
                 {
                     Active = true,
                     DateStamp = DateTime.Now,
@@ -98,7 +105,7 @@ namespace SDSCom.Services
                     OtherId = "TestProd1"
                 });
 
-                db.Save(new Entity
+                db.Entities.Add(new Entity
                 {
                     Active = true,
                     DateStamp = DateTime.Now,
@@ -108,7 +115,7 @@ namespace SDSCom.Services
                     OtherId = "TestProd2"
                 });
 
-                db.Save(new Entity
+                db.Entities.Add(new Entity
                 {
                     Active = true,
                     DateStamp = DateTime.Now,
@@ -118,7 +125,7 @@ namespace SDSCom.Services
                     OtherId = "TestComp1"
                 });
 
-                db.Save(new Entity
+                db.Entities.Add(new Entity
                 {
                     Active = true,
                     DateStamp = DateTime.Now,
@@ -130,31 +137,27 @@ namespace SDSCom.Services
 
                 //===========================================================================================
 
-                db.DropAndCreateTable<EntityType>();
-
-                db.Save(new EntityType { EntityTypeName = "Product" });
-                db.Save(new EntityType { EntityTypeName = "Component" });
-                db.Save(new EntityType { EntityTypeName = "Company" });
+                db.EntityTypes.Add(new EntityType { EntityTypeName = "Product" });
+                db.EntityTypes.Add(new EntityType { EntityTypeName = "Component" });
+                db.EntityTypes.Add(new EntityType { EntityTypeName = "Company" });
 
                 //===========================================================================================
 
-                db.DropAndCreateTable<ApplicationSetting>();
-
-                db.Save(new ApplicationSetting
+                db.AppSettings.Add(new ApplicationSetting
                 {
                     Area = "DEFAULT",
                     Setting = "XmlStandardVersionNo",
                     DataValue = "4.2.0"
                 });
 
-                db.Save(new ApplicationSetting
+                db.AppSettings.Add(new ApplicationSetting
                 {
                     Area = "ADMIN",
                     Setting = "CompanyName",
                     DataValue = "Test Company"
                 });
 
-                db.Save(new ApplicationSetting
+                db.AppSettings.Add(new ApplicationSetting
                 {
                     Area = "ADMIN",
                     Setting = "StartDate",
@@ -163,9 +166,7 @@ namespace SDSCom.Services
 
                 //===========================================================================================
 
-                db.DropAndCreateTable<User>();
-
-                db.Save(new User
+                db.Users.AddRange(new User
                 {
                     Active = true,
                     CreateDate = DateTime.Now,
@@ -175,9 +176,8 @@ namespace SDSCom.Services
                     UpdateDate = DateTime.Now,
                     UserName = "First1",
                     Email = "First1@gmail.com"
-                });
-
-                db.Save(new User
+                },
+                    new User
                 {
                     Active = true,
                     CreateDate = DateTime.Now,
@@ -187,9 +187,8 @@ namespace SDSCom.Services
                     UpdateDate = DateTime.Now,
                     UserName = "First2",
                     Email = "First2@gmail.com"
-                });
-
-                db.Save(new User
+                }
+                    ,new User
                 {
                     Active = true,
                     CreateDate = DateTime.Now,
@@ -200,6 +199,8 @@ namespace SDSCom.Services
                     UserName = "First3",
                     Email = "First3@gmail.com"
                 });
+
+                db.SaveChanges();
 
                 //===========================================================================================
             }

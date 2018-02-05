@@ -1,6 +1,5 @@
 ﻿using System;
 using NpgsqlTypes;
-using ServiceStack.DataAnnotations;
 
 namespace SDSCom.Models
 {
@@ -8,21 +7,12 @@ namespace SDSCom.Models
     {
         public ValidationMessage()
         {
-
-
         }
 
+        public int Id { get; set; }
 
-        [PrimaryKey]
-        [AutoIncrement]
-        public int ID { get; set; }
-
-        [Required]
         public int FacetId { get; set; }
 
-        [Required]
-        private string Data { get; set; }
-
+        public string Data { get; set; }
     }
-
 }

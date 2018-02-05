@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Collections;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
-using Npgsql.PostgresTypes;
-using Npgsql;
-using SDSCom.Models;
-using System.Data;
-using ServiceStack.OrmLite;
-using ServiceStack;
+using Serilog;
 
 namespace SDSCom.Services
 {
@@ -20,8 +13,7 @@ namespace SDSCom.Services
     public class ApplicationSettingsService : BaseService
     {
         private readonly IConfiguration config;
-        private IMemoryCache cache;
-
+        private IMemoryCache id;
 
         /// <summary>
         /// 
@@ -30,7 +22,7 @@ namespace SDSCom.Services
             : base(_config, _cache)
         {
             this.config = _config;
-            this.cache = _cache;
+            this.id = _cache;
         }
 
         /// <summary>
@@ -39,12 +31,12 @@ namespace SDSCom.Services
         public List<ApplicationSetting> GetAll()
         {
             List<ApplicationSetting> settings = new List<ApplicationSetting>();
-            using (IDbConnection db = DbFactory.Open())
+
+            using (var db = new SDSComContext(config))
             {
-                settings = db.Select<ApplicationSetting>();
+                settings = db.AppSettingsReader.ToList();
             }
-            return settings;
-            
+            return settings;            
         }
 
         /// <summary>
@@ -55,13 +47,11 @@ namespace SDSCom.Services
         /// <returns></returns>
         public ApplicationSetting Get(string area, string setting)
         {
-            ApplicationSetting appSetting = new ApplicationSetting();
+            var appSetting = new ApplicationSetting();
 
-            List<ApplicationSetting> settings = GetAll();
-
-            using (IDbConnection db = DbFactory.Open())
+            using (var db = new SDSComContext(config))
             {
-                appSetting = db.Select<ApplicationSetting>(x => x.Area == area && x.Setting == setting).FirstOrDefault();
+                appSetting = db.AppSettings.Single(x => x.Area == area && x.Setting == setting);
             }
 
             if (appSetting == null ) appSetting = new ApplicationSetting();
@@ -74,19 +64,75 @@ namespace SDSCom.Services
         /// </summary>
         /// <param name="area"></param>
         /// <param name="setting"></param>
-        /// <param name="datavalue"></param>
         /// <returns></returns>
-        public bool Set(string area, string setting, string datavalue)
+        public ApplicationSetting Get(long id)
+        {
+            var appSetting = new ApplicationSetting();
+
+            using (var db = new SDSComContext(config))
+            {              
+                if (id > 0)
+                {
+                    appSetting = db.AppSettings.Single(x => x.Id == id);
+                }
+            }
+            return appSetting;
+        }
+        
+        /// <summary>
+        /// Updates an application setting
+        /// </summary>
+        ///<param name="appSetting"></param>
+        /// <returns></returns>
+        public bool Save(ApplicationSetting appSetting)
         {
             bool ok = false;
-
-            using (IDbConnection db = DbFactory.Open())
+            try
             {
-                db.Save(new ApplicationSetting() { Area = area, Setting = setting, DataValue = datavalue });
-            }           
+                using (var db = new SDSComContext(config))
+                {
+                    if (appSetting.Id == 0)
+                    {
+                        db.AppSettings.Add(appSetting);
+                    }
+                    else
+                    {
+                        db.AppSettings.Update(appSetting);
+                    }
+                    ok =  (db.SaveChanges() == 1);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "ApplicationSettingService>AddNew");
+            }
 
             return ok;
         }
 
+        /// <summary>
+        /// Delete an application setting
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool Delete(ApplicationSetting appSetting)
+        {
+            bool ok = false;
+            try
+            {
+                using (var db = new SDSComContext(config))
+                {
+                    db.AppSettings.Remove(appSetting);
+                    db.SaveChanges();
+                    ok = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "ApplicationSettingService>Delete");
+            }
+
+            return ok;
+        }
     }
 }

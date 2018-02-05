@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 using SDSCom.Models;
 using Npgsql.PostgresTypes;
 using Npgsql;
-using ServiceStack.OrmLite;
-using ServiceStack;
 using System.Data;
 
 namespace SDSCom.Services
@@ -38,17 +36,20 @@ namespace SDSCom.Services
         /// <returns></returns>
         public Entity Save(Entity entity)
         {
-            using (IDbConnection db = DbFactory.Open())
+            using (var db = new SDSComContext(config))
             {
-                if (entity.ID == 0)
+                if (entity.Id == 0)
                 {
-                    entity.ID = db.Insert(entity, true);
+                    db.Add<Entity>(entity);
+                    db.SaveChanges();
                 }
                 else
                 {
                     db.Update(entity);
+                    db.SaveChanges();
                 }
             }
+
             return entity;
         }
 
@@ -61,9 +62,9 @@ namespace SDSCom.Services
         public Entity Get(long entityid)
         {
             Entity entity = new Entity();
-            using (IDbConnection db = DbFactory.Open())
+            using (var db = new SDSComContext(config))
             {
-                entity = db.SingleById<Entity>(entityid);
+                entity = db.Entities.Single<Entity>(e => e.Id == entityid);
             }
             return entity;
         }
@@ -77,9 +78,9 @@ namespace SDSCom.Services
         public List<Entity> GetByType(EntityTypeEnum entitytype)
         {
             List<Entity> entities = new List<Entity>();
-            using (IDbConnection db = DbFactory.Open())
-            {
-                entities = db.Select<Entity>(x => x.EntityType ==  Convert.ToInt32(entitytype));
+            using (var db = new SDSComContext(config))
+            {               
+                db.Entities.Select(c => c.EntityType == (int)entitytype);
             }
             return entities;           
         }
@@ -92,9 +93,9 @@ namespace SDSCom.Services
         public List<EntityType> GetEntityTypes()
         {
             List<EntityType> entityTypes = new List<EntityType>();
-            using (IDbConnection db = DbFactory.Open())
+            using (var db = new SDSComContext(config))
             {
-                entityTypes = db.Select<EntityType>();
+                entityTypes = db.EntityTypes.ToList();
             }
             return entityTypes;
         }
