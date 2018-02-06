@@ -175,7 +175,8 @@ namespace SDSCom.Services
                     Password = "abc",
                     UpdateDate = DateTime.Now,
                     UserName = "First1",
-                    Email = "First1@gmail.com"
+                    Email = "First1@gmail.com",
+                    IsAdmin = true
                 },
                     new User
                 {
@@ -186,8 +187,9 @@ namespace SDSCom.Services
                     Password = "abc",
                     UpdateDate = DateTime.Now,
                     UserName = "First2",
-                    Email = "First2@gmail.com"
-                }
+                    Email = "First2@gmail.com",
+                    IsAdmin = false
+                    }
                     ,new User
                 {
                     Active = true,
@@ -197,8 +199,9 @@ namespace SDSCom.Services
                     Password = "abc",
                     UpdateDate = DateTime.Now,
                     UserName = "First3",
-                    Email = "First3@gmail.com"
-                });
+                    Email = "First3@gmail.com",
+                    IsAdmin = false
+                    });
 
                 db.SaveChanges();
 

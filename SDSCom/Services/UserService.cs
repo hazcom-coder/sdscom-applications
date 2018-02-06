@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data;
 using SDSCom.Models;
-
+using Serilog;
 
 namespace SDSCom.Services
 {
@@ -37,10 +37,16 @@ namespace SDSCom.Services
         public User GetByID(int userid)
         {
             User user = new User();
+            if (userid == 0 )
+            {
+                return user;
+            }
+
             using (var db = new SDSComContext(config))
             {
                 user = db.Users.Find(userid);
             }
+
             return user;
         }
 
@@ -71,6 +77,52 @@ namespace SDSCom.Services
                 userList = db.Users.ToList();
             }
             return userList;
+        }
+
+        public bool Delete(User user)
+        {
+            bool ok = false;
+            try
+            {
+                using (var db = new SDSComContext(config))
+                {
+                    db.Users.Remove(user);
+                    db.SaveChanges();
+                    ok = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "UserService>Delete");
+            }
+
+            return ok;
+        }
+
+        public User Save(User user)
+        {
+            bool ok = false;
+            try
+            {
+                using (var db = new SDSComContext(config))
+                {
+                    if (user.Id == 0)
+                    {
+                        db.Users.Add(user);
+                    }
+                    else
+                    {
+                        db.Users.Update(user);
+                    }
+                    ok = (db.SaveChanges() == 1);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "UserService>AddNew");
+            }
+
+            return user;
         }
     }
 }

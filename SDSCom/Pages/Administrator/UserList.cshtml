@@ -7,6 +7,9 @@
 <h2>User List</h2>
 
 <form method="post">
+
+    <input type="submit" class="btn-primary" id="saveEntity" value="Add New" asp-page-handler="AddNew" />
+
     <table class="table">
         <thead>
             <tr>
@@ -23,19 +26,19 @@
         <tbody>
             @foreach (var user in Model.Users)
             {
-            <tr>
-                <td>@user.ID</td>
-                <td>@user.UserName</td>
-                <td>@user.Email</td>
-                <td>@user.FirstName</td>
-                <td>@user.LastName</td>
-                <td>@user.Active</td>
-                <td>@user.CreateDate</td>
-                <td>@user.UpdateDate</td>
-                <td>
-                    <button type="submit" asp-page-handler="edituser" asp-route-id="@user.ID" />                       Edit
-                </td>
-            </tr>
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Active</td>
+                    <td>@user.CreateDate</td>
+                    <td>@user.UpdateDate</td>
+                    <td>
+                        <button type="submit" asp-page-handler="edituser" asp-route-id="@user.Id" />                       Edit
+                    </td>
+                </tr>
             }
         </tbody>
     </table>

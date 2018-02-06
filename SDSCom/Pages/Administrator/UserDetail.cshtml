@@ -1,0 +1,69 @@
+﻿@page "{id:int?}"
+@model SDSCom.Pages.Administrator.UserDetailModel
+@{
+    ViewData["Title"] = "SDSCOM User Detail";
+}
+
+<h2>User Detail</h2>
+
+<form method="post">
+
+    <input id="txtID" asp-for="@Model.SelectedUser.Id" type="hidden" />
+
+    <div class="form-group">
+        <label>User Name:</label>
+        <input id="txtUserName" asp-for="@Model.SelectedUser.UserName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Password:</label>
+        <input id="txtPwd" asp-for="@Model.SelectedUser.Password" class="form-control" type="password" />
+    </div>
+
+    <div class="form-group">
+        <label>Confirm Password:</label>
+        <input id="txtCPWD" asp-for="@Model.SelectedUser.Password" class="form-control" type="password" />
+    </div>
+
+    <div class="form-group">
+        <label>First Name:</label>
+        <input id="txtFN" asp-for="@Model.SelectedUser.FirstName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Last Name:</label>
+        <input id="txtLN" asp-for="@Model.SelectedUser.LastName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Email:</label>
+        <input id="txtEM" asp-for="@Model.SelectedUser.Email" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Updated Date:</label>
+        <input id="txtUD" asp-for="@Model.SelectedUser.UpdateDate" class="form-control" type="date" />
+    </div>
+
+    <div class="form-group">
+        <label>Creeated Date:</label>
+        <input id="txtCD" asp-for="@Model.SelectedUser.CreateDate" class="form-control" type="date" />
+    </div>
+
+    <div class="form-check form-check-inline">       
+        <input id="txtA" asp-for="@Model.SelectedUser.Active" class="form-check-input" type="checkbox" />
+        <label class="form-check-label" for="txtA">Active</label>
+        <input id="txtIA" asp-for="@Model.SelectedUser.IsAdmin" class="form-check-input" type="checkbox" />
+        <label class="form-check-label" for="txtIA">Administrator</label>
+    </div>
+    <hr/>
+    <div id="divSaveDelete" class="form-group row">
+        <div class="col-md-4 left">
+            <input type="submit" class="btn-warning" id="deleteUser" value="Delete" asp-page-handler="Delete" />
+        </div>
+        <div class="col right">
+            <input type="submit" class="btn-primary" id="saveUser" value="Save" asp-page-handler="Save" />
+        </div>
+    </div>
+
+</form>

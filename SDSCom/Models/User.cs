@@ -52,13 +52,17 @@ namespace SDSCom.Models
         /// <summary>
         /// 
         /// </summary>
+        public bool IsAdmin { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public DateTime CreateDate { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public DateTime UpdateDate { get; set; }
-
 
         /// <summary>
         /// 

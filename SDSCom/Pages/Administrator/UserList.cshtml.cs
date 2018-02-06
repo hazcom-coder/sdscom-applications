@@ -11,7 +11,7 @@ using SDSCom.Services;
 
 namespace SDSCom.Pages.Administrator
 {
-    public class UserListModel : PageModel
+    public class UserListModel : BasePage
     {
         private readonly IConfiguration config;
         private IMemoryCache cache;
@@ -24,6 +24,7 @@ namespace SDSCom.Pages.Administrator
 
             uService = new UserService(config, cache);
         }
+
         public void OnGet()
         {
             Users = uService.GetAll();
@@ -31,5 +32,21 @@ namespace SDSCom.Pages.Administrator
 
         [BindProperty]
         public List<User> Users { get; set; }
+
+
+        public IActionResult OnPostAddNew()
+        {
+            return RedirectToPage("UserDetail",new User());
+        }
+
+        public IActionResult OnPostEditUser(int? id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            return RedirectToPage("UserDetail", new { id });
+        }
     }
 }

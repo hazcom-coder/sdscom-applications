@@ -394,6 +394,8 @@ namespace SDSCom
 
                 entity.Property(e => e.Active).HasColumnName("active");
 
+                entity.Property(e => e.IsAdmin).HasColumnName("is_admin");
+
                 entity.Property(e => e.CreateDate).HasColumnName("create_date").IsRequired();
 
                 entity.Property(e => e.Email).HasColumnName("email");
