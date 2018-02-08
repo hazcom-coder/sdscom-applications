@@ -1,6 +1,7 @@
 ﻿using System;
 using Npgsql;
 using NpgsqlTypes;
+using System.ComponentModel.DataAnnotations;
 
 namespace SDSCom.Models
 {
@@ -17,6 +18,7 @@ namespace SDSCom.Models
 
         public string Name { get; set; }
 
+        [Key]
         public int Id { get; set; }
 
         public string MinOccurs { get; set; }

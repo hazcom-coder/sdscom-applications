@@ -1,5 +1,6 @@
 ﻿using System;
 using NpgsqlTypes;
+using System.ComponentModel.DataAnnotations;
 
 namespace SDSCom.Models
 {
@@ -10,6 +11,7 @@ namespace SDSCom.Models
 
         }
 
+        [Key]
         public int Id { get; set; }
 
         public int EntityId { get; set; }

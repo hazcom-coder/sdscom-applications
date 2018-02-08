@@ -9,7 +9,7 @@
 
 <h2>Application Menu</h2>
 
-UI:         @ViewData["uilanguage"] <br/>
+UI:         @ViewData["uilanguage"] <br />
 UserName:   @ViewData["username"] <br />
 UserID:     @ViewData["userid"] <br />
 Comp:       @ViewData["componentid"] <br />
@@ -18,10 +18,9 @@ Prod:       @ViewData["productid"] <br />
 <form method="post">
     <div id="divMain">
 
-
-        <div id="divAuthor" class="modcard">
+        <div id="divAdmin" class="modcard">
             <div class="card-body">
-                <h4 class="card-title">Administration Application</h4>
+                <h4 class="card-title">Administration</h4>
                 <p class="card-text">This is the application you have always wanted for Administration.</p>
                 <input type="submit" class="btn-link" asp-page-handler="OpenAdmin" id="hlAdmin" value="Administrator" />
             </div>
@@ -29,7 +28,7 @@ Prod:       @ViewData["productid"] <br />
 
         <div id="divAuthor" class="modcard">
             <div class="card-body">
-                <h4 class="card-title">SDS Authoring Application</h4>
+                <h4 class="card-title">SDS Authoring</h4>
                 <p class="card-text">This is the application you have always wanted for Authoring SDSs.</p>
                 <input type="submit" class="btn-link" asp-page-handler="OpenAuthor" id="hlAuthor" value="Author" />
             </div>

@@ -17,6 +17,8 @@ namespace SDSCom.Services
     {
         private readonly IConfiguration config;
         private IMemoryCache cache;
+        private User user;
+        private UserService uSvc;
 
         /// <summary>
         /// 
@@ -123,6 +125,25 @@ namespace SDSCom.Services
             }
 
             return user;
+        }
+
+        public bool Validate(string userName, string password )
+        {
+            bool ok = false;
+           
+            User user = GetByName(userName);
+
+            if (user == null)
+            {
+                return ok;
+            }
+
+            if (user.Password == password)
+            {
+                ok = true;
+            }
+
+            return ok;
         }
     }
 }

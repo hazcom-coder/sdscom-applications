@@ -5,21 +5,44 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SDSCom.Models;
+using SDSCom.Services;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 
 namespace SDSCom.Pages
 {
     public class AppMenuModel : BasePage
-    {        
-        public void OnGet()
+    {
+        private readonly IConfiguration config;
+        private IMemoryCache cache;
+        private UserService uSvc;
+        private User user;
+
+        public AppMenuModel(IConfiguration _config, IMemoryCache _cache)
         {
-            GetUserProfileViewData();
+            config = _config;
+            cache = _cache;
+            uSvc = new UserService(config, cache);            
         }
 
+        public void OnGet()
+        {  
+            GetUserProfileViewData();
+            user = uSvc.GetByID(UserProfile_UserID);
 
+        }
 
         public IActionResult OnPostOpenAdmin()
         {
-           return  RedirectToPage("Administrator/AdminIndex");
+            if (user.IsAdmin)
+            {
+                return RedirectToPage("Administrator/AdminIndex");
+            }
+            else
+            {
+                return Page();
+            }          
         }
 
         public IActionResult OnPostOpenAuthor()

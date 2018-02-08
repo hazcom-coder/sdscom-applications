@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using NpgsqlTypes;
+using System.ComponentModel.DataAnnotations;
 
 namespace SDSCom.Models
 {
@@ -9,6 +10,7 @@ namespace SDSCom.Models
     {
         public FacetRestriction(){ }
 
+        [Key]
         public int Id { get; set; }
 
         public string Name { get; set; }
