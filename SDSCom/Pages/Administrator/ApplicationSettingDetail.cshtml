@@ -25,12 +25,12 @@
         <input id="txtDV" asp-for="@Model.ApplicationSetting.DataValue" class="form-control" />
     </div>
     <hr />
-    <div id="divSaveDelete" class="form-group row">
-        <div class="col-md-4 left">
-            <input type="submit" class="btn-warning" id="deleteUser" value="Delete" asp-page-handler="Delete" />
-        </div>
-        <div class="col right">
+    <div id="divSaveDelete" class="row">
+        <div class="col-sm-4 text-left">
             <input type="submit" class="btn-primary" id="saveUser" value="Save" asp-page-handler="Save" />
+        </div>
+        <div class="col-sm-8 text-right">
+            <input type="submit" class="btn-warning" id="deleteUser" value="Delete" asp-page-handler="Delete" />
         </div>
     </div>
 

@@ -62,6 +62,12 @@ namespace SDSCom.Services
         public Entity Get(long entityid)
         {
             Entity entity = new Entity();
+
+            if (entityid == 0)
+            {
+                return entity;
+            }
+
             using (var db = new SDSComContext(config))
             {
                 entity = db.Entities.Single<Entity>(e => e.Id == entityid);
@@ -80,7 +86,7 @@ namespace SDSCom.Services
             List<Entity> entities = new List<Entity>();
             using (var db = new SDSComContext(config))
             {               
-                db.Entities.Select(c => c.EntityType == (int)entitytype);
+                entities = db.Entities.Where(c => c.EntityType == (int)entitytype).ToList();
             }
             return entities;           
         }

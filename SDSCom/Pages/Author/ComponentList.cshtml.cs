@@ -16,6 +16,7 @@ namespace SDSCom.Pages.Author
         private readonly IConfiguration config;
         private IMemoryCache cache;
         private EntityService eService;
+        private int entityType = 2;
 
         public ComponentListModel(IConfiguration _config, IMemoryCache _cache)
         {
@@ -33,10 +34,14 @@ namespace SDSCom.Pages.Author
             EntityList = eService.GetByType(EntityTypeEnum.Component);
         }
 
-        public IActionResult OnPostCreateEntity()
+        public IActionResult OnPostAddNew()
         {
-            TempData["newentitytype"] = EntityTypeEnum.Component;
-            return RedirectToPage("CreateEntity");
+            return RedirectToPage("CreateEntity", new { id = 0, type = entityType });
+        }
+
+        public IActionResult OnPostEdit(int id)
+        {
+            return RedirectToPage("CreateEntity", new { id, type = entityType });
         }
     }
 }

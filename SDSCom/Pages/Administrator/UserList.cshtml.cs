@@ -33,7 +33,6 @@ namespace SDSCom.Pages.Administrator
         [BindProperty]
         public List<User> Users { get; set; }
 
-
         public IActionResult OnPostAddNew()
         {
             return RedirectToPage("UserDetail",new User());

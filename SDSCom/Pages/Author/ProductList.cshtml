@@ -7,6 +7,9 @@
 <h2>Product List</h2>
 
 <form method="post">
+
+    <input type="submit" class="btn-primary" id="saveEntity" value="Add New" asp-page-handler="AddNew" />
+
     <div id="divTable">
         <table class="table">
             <thead>
@@ -21,12 +24,12 @@
                 @foreach (var entity in Model.EntityList)
                 {
                     <tr>
-                        <td>@entity.ID</td>
+                        <td>@entity.Id</td>
                         <td>@entity.EntityName</td>
                         <td>@entity.OtherId</td>
                         <td>@entity.DateStamp</td>
                         <td>
-                            <button type="submit" asp-page-handler="editsetting" asp-route-id="@entity.ID">Edit</button>
+                            <button type="submit" asp-page-handler="Edit" asp-route-id="@entity.Id" >Edit</button>
                         </td>
                     </tr>
                 }
@@ -34,9 +37,6 @@
         </table>
     </div>
     <br />
-    <div id="divButtons">
-        <button type="submit" class="btn-default" asp-page-handler="createEntity">Create Product</button>
-    </div>
 
 </form>
 

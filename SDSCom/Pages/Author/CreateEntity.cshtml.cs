@@ -23,13 +23,13 @@ namespace SDSCom.Pages.Author
             eService = new EntityService(config, cache);
         }
 
-        public void OnGet()
+        public void OnGet(long id, int type)
         {
-            Entity = new Entity
+            Entity = eService.Get(id);
+            if (Entity.EntityType == 0)
             {
-                EntityType = int.Parse(TempData["newentitytype"].ToString()),
-                Id = 0
-            };
+                Entity.EntityType = type;
+            }
         }
 
        

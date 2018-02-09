@@ -16,6 +16,7 @@ namespace SDSCom.Pages.Author
         private readonly IConfiguration config;
         private IMemoryCache cache;
         private EntityService eService;
+        private int entityType = 1;
 
         public ProductListModel(IConfiguration _config, IMemoryCache _cache)
         {
@@ -31,12 +32,16 @@ namespace SDSCom.Pages.Author
         public void OnGet()
         {
             EntityList = eService.GetByType(EntityTypeEnum.Product);
+        }      
+
+        public IActionResult OnPostAddNew()
+        {
+            return RedirectToPage("CreateEntity",new {id = 0,type = entityType });
         }
 
-        public IActionResult OnPostCreateEntity()
+        public IActionResult OnPostEdit(int id)
         {
-            TempData["newentitytype"] = EntityTypeEnum.Product;
-            return RedirectToPage("CreateEntity");
+            return RedirectToPage("CreateEntity", new { id, type = entityType });
         }
     }
 }

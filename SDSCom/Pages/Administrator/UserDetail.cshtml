@@ -50,19 +50,19 @@
         <input id="txtCD" asp-for="@Model.SelectedUser.CreateDate" class="form-control" type="date" />
     </div>
 
-    <div class="form-check form-check-inline">       
+    <div class="form-check form-check-inline">
         <input id="txtA" asp-for="@Model.SelectedUser.Active" class="form-check-input" type="checkbox" />
         <label class="form-check-label" for="txtA">Active</label>
         <input id="txtIA" asp-for="@Model.SelectedUser.IsAdmin" class="form-check-input" type="checkbox" />
         <label class="form-check-label" for="txtIA">Administrator</label>
     </div>
-    <hr/>
-    <div id="divSaveDelete" class="form-group row">
-        <div class="col-md-4 left">
-            <input type="submit" class="btn-warning" id="deleteUser" value="Delete" asp-page-handler="Delete" />
-        </div>
-        <div class="col right">
+    <hr />
+    <div id="divSaveDelete" class="row">
+        <div class="col-sm-4 text-left">
             <input type="submit" class="btn-primary" id="saveUser" value="Save" asp-page-handler="Save" />
+        </div>
+        <div class="col-sm-8 text-right">
+            <input type="submit" class="btn-warning" id="deleteUser" value="Delete" asp-page-handler="Delete" />
         </div>
     </div>
 
