@@ -39,11 +39,13 @@ namespace SDSCom
 
             services.AddDistributedMemoryCache();
 
+            services.AddDbContext<SDSComContext>(options =>
+            options.UseNpgsql(Configuration.GetConnectionString("SDSCom")));
+
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromSeconds(3600);
                 options.Cookie.HttpOnly = true;
-
             });            
   
             services.AddMvc();

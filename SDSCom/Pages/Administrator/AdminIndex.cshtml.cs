@@ -51,5 +51,11 @@ namespace SDSCom.Pages.Administrator
         {
             aSvc.CreateDBObjects();
         }
+
+        public void OnPostLoadComponents()
+        {
+
+            aSvc.LoadComponents();
+        }
     }
 }

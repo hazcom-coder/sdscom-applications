@@ -47,6 +47,11 @@ namespace SDSCom.Pages
 
             if (uSvc.Validate(LoginUser.UserName, LoginUser.Password))
             {
+                user = uSvc.GetByName(LoginUser.UserName);
+                UserProfile_UserName = user.UserName;
+                UserProfile_UILanguage = "EN";
+                UserProfile_UserID = user.Id;
+
                 return RedirectToPage("/AppMenu");
             }
             else

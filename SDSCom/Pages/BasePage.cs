@@ -102,9 +102,7 @@ namespace SDSCom.Pages
         {
             get => HttpContext.Session.GetString("chapter");
             set => HttpContext.Session.SetString("chapter", value);
-        }
-        
-
+        }  
 
         public string Translate(string basePhrase)
         {

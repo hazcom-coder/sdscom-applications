@@ -28,13 +28,13 @@ namespace SDSCom.Pages
 
         public void OnGet()
         {  
-            GetUserProfileViewData();
-            user = uSvc.GetByID(UserProfile_UserID);
-
+            GetUserProfileViewData();            
         }
 
         public IActionResult OnPostOpenAdmin()
         {
+            user = uSvc.GetByID(UserProfile_UserID);
+
             if (user.IsAdmin)
             {
                 return RedirectToPage("Administrator/AdminIndex");
@@ -53,6 +53,11 @@ namespace SDSCom.Pages
         public IActionResult OnPostAppAbout()
         {
             return RedirectToPage("About");
+        }
+
+        public IActionResult OnPostPagingTest()
+        {
+            return RedirectToPage("ComponentTest");
         }
     }
 }

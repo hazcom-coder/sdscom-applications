@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using SDSCom.Models;
 using Microsoft.Extensions.Caching.Memory;
+using Serilog;
 
 namespace SDSCom.Services
 {
@@ -13,6 +14,7 @@ namespace SDSCom.Services
     {
         private readonly IConfiguration config;
         private IMemoryCache cache;
+        private EntityService eSvc;
 
         /// <summary>
         /// 
@@ -23,6 +25,75 @@ namespace SDSCom.Services
         {
             config = _config;
             cache = _cache;
+            eSvc = new EntityService(config, cache);
+        }
+
+        public void LoadComponents()
+        {
+            List<string> badOnes = new List<string>();
+            using (var db = new SDSComContext(config))
+            {                
+                List<Entity> entList = eSvc.GetByType(EntityTypeEnum.Component);
+                db.Entities.RemoveRange(entList);
+                db.SaveChanges();
+            }
+            //For other formats visit : www.downloadexcelfiles.com,,
+            //,,
+            //Original source : en.wikipedia.org/wiki/Dictionary_of_chemical_formulas,,
+
+            int counter = 0;
+            string line;
+            List<Entity> entities = new List<Entity>();
+            System.IO.StreamReader file =  null;
+
+            try
+            {
+                file = new System.IO.StreamReader(@"files\cas.csv");
+                while ((line = file.ReadLine()) != null)
+                {
+                    string[] items = line.Split(",");
+
+                    string formula = items[0];
+                    string cas = items[2];
+                    string chemname = items[1];
+
+                    if ((cas.Trim().Length > 0) && (chemname.Trim().Length > 0))
+                    {
+                        Entity entity = new Entity()
+                        {
+                            Active = true,
+                            DateStamp = DateTime.Now,
+                            EntityName = chemname,
+                            EntityType = 2,
+                            Id = 0,
+                            OtherId = cas,
+                            UserId = 1
+                        };
+
+                        entities.Add(entity);
+                    }
+                    else
+                    {
+                        badOnes.Add(line);
+                    }
+
+                    counter++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+            }
+            finally
+            {
+                file.Close();
+            }
+
+            using (var db = new SDSComContext(config))
+            {
+                db.Entities.AddRange(entities);
+                db.SaveChanges();
+            }
         }
 
         /// <summary>

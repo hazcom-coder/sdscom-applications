@@ -10,7 +10,14 @@
 <form method="post">
 
     <input type="submit" class="btn-primary" id="saveEntity" value="Add New" asp-page-handler="AddNew" />
-
+    <div id="divPager">
+        <input type="submit" class="btn-default" value="<" asp-page-handler="PriorPage" />
+        <input type="submit" class="btn-default" asp-page-handler="NextPage" />
+        <input type="text" class="form-group" asp-route-cassearch="@ViewData["filter_cas"]" />
+        <input type="text" class="form-group" asp-route-namesearch="@ViewData["filter_name"]" />
+        <input type="submit" class="btn-default" value=">" asp-page-handler="Filter" />
+        <input type="submit" class="btn-default" value=">" asp-page-handler="NextPage" />
+    </div>
     <div id="divTable">
         <table class="table">
             <thead>
@@ -36,6 +43,7 @@
                 }
             </tbody>
         </table>
+
     </div>
 
 </form>

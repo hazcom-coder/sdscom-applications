@@ -11,7 +11,7 @@ using SDSCom.Services;
 
 namespace SDSCom.Pages.Author
 {
-    public class ComponentListModel : PageModel
+    public class ComponentListModel : BasePage
     {
         private readonly IConfiguration config;
         private IMemoryCache cache;
@@ -25,6 +25,8 @@ namespace SDSCom.Pages.Author
 
             eService = new EntityService(config, cache);
         }
+
+
 
         [BindProperty]
         public List<Entity> EntityList { get; set; }
