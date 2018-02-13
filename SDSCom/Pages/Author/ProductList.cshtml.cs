@@ -1,47 +1,101 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SDSCom.Models;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
-using SDSCom.Models;
-using SDSCom.Services;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.AspNetCore.Mvc;
 
-namespace SDSCom.Pages.Author
+namespace SDSCom.Pages
 {
-    public class ProductListModel : PageModel
+    public class ProductListModel : BasePage
     {
-        private readonly IConfiguration config;
+        public PaginatedList<Entity> Entity { get; set; }
+        public string NameSort { get; set; }
+        public string IdSort { get; set; }
+        public string CurrentFilterName { get; set; }
+        public string CurrentFilterId { get; set; }
+        public string CurrentSort { get; set; }
+
         private IMemoryCache cache;
-        private EntityService eService;
-        private int entityType = 1;
+        private readonly SDSComContext db;
 
-        public ProductListModel(IConfiguration _config, IMemoryCache _cache)
+        //https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/StageSnapShots/cu-part3-sorting
+        //https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/sort-filter-page
+
+        public ProductListModel(SDSComContext _db, IMemoryCache _cache)
         {
-            config = _config;
             cache = _cache;
-
-            eService = new EntityService(config, cache);
+            db = _db;
         }
 
-        [BindProperty]
-        public List<Entity> EntityList { get; set; }
-
-        public void OnGet()
+        public void OnGet(string sortOrder,
+                          string currentFilterName,
+                          string searchStringName,
+                          string currentFilterId,
+                          string searchStringId,
+                          int? pageIndex)
         {
-            EntityList = eService.GetByType(EntityTypeEnum.Product);
-        }      
+            CurrentSort = sortOrder;
+            NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            IdSort = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
 
-        public IActionResult OnPostAddNew()
-        {
-            return RedirectToPage("CreateEntity",new {id = 0,type = entityType });
-        }
+            if (searchStringName != null)
+            {
+                pageIndex = 1;
+            }
+            else
+            {
+                searchStringName = currentFilterName;
 
-        public IActionResult OnPostEdit(int id)
-        {
-            return RedirectToPage("CreateEntity", new { id, type = entityType });
+                if (searchStringId != null)
+                {
+                    pageIndex = 1;
+                }
+                else
+                {
+                    searchStringId = currentFilterId;
+                }
+            }
+
+            CurrentFilterName = searchStringName;
+            CurrentFilterId = searchStringId;
+
+            IQueryable<Entity> entity = from s in db.Entities
+                                        where s.EntityType == 1
+                                        && s.Active == true
+                                        select s;
+
+            if (!String.IsNullOrEmpty(searchStringName) && !String.IsNullOrEmpty(searchStringId))
+            {
+                entity = entity.Where(s => s.EntityName.ToUpper().Contains(searchStringName.ToUpper())
+                                        && s.OtherId.ToUpper().Contains(searchStringId.ToUpper()));
+            }
+            else if (!String.IsNullOrEmpty(searchStringName))
+            {
+                entity = entity.Where(s => s.EntityName.ToUpper().Contains(searchStringName.ToUpper()));
+            }
+            else if (!String.IsNullOrEmpty(searchStringId))
+            {
+                entity = entity.Where(s => s.OtherId.ToUpper().Contains(searchStringId.ToUpper()));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    entity = entity.OrderByDescending(s => s.EntityName);
+                    break;
+                case "id_desc":
+                    entity = entity.OrderByDescending(s => s.OtherId);
+                    break;
+                default:
+                    entity = entity.OrderBy(s => s.OtherId);
+                    break;
+            }
+
+            int pageSize = 10;
+            Entity = PaginatedList<Entity>.Create(entity.AsNoTracking(), pageIndex ?? 1, pageSize);
         }
     }
 }

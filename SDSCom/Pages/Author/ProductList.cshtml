@@ -1,44 +1,80 @@
 ﻿@page
-@model SDSCom.Pages.Author.ProductListModel
+@model SDSCom.Pages.ProductListModel
+
 @{
-    ViewData["Title"] = "Product List";
+    ViewData["Title"] = "Products";
 }
 
-<h2>Product List</h2>
+<h4>Products</h4>
 
-<form method="post">
-
-    <input type="submit" class="btn-primary" id="saveEntity" value="Add New" asp-page-handler="AddNew" />
-
-    <div id="divTable">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Other Id</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var entity in Model.EntityList)
-                {
-                    <tr>
-                        <td>@entity.Id</td>
-                        <td>@entity.EntityName</td>
-                        <td>@entity.OtherId</td>
-                        <td>@entity.DateStamp</td>
-                        <td>
-                            <button type="submit" asp-page-handler="Edit" asp-route-id="@entity.Id" >Edit</button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+<form>
+    <div class="form-actions no-color">
+        <p>
+            Find by name:
+            <input type="text" name="SearchStringName" value="@Model.CurrentFilterName" />
+            Find by Id:
+            <input type="text" name="SearchStringId" value="@Model.CurrentFilterId" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-page="ProductList">Back to full List</a> |
+            <a asp-page="CreateEntity" asp-route-id="0" asp-route-type="1">Create New</a>
+        </p>
     </div>
-    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-page="ProductList" asp-route-sortOrder="@Model.NameSort"
+                       asp-route-currentFilterName="@Model.CurrentFilterName">
+                        @Html.DisplayNameFor(model => model.Entity[0].EntityName)
 
+                    </a>
+                </th>
+                <th>
+                    <a asp-page="ProductList" asp-route-sortOrder="@Model.IdSort"
+                       asp-route-currentFilterId="@Model.CurrentFilterId">
+                        @Html.DisplayNameFor(model => model.Entity[0].OtherId)
+
+                    </a>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Entity)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EntityName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OtherId)
+                    </td>
+                    <td>
+                        <a asp-page="CreateEntity" asp-route-id="@item.Id">Select</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @{
+        var prevDisabled = !Model.Entity.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.Entity.HasNextPage ? "disabled" : "";
+    }
+
+    <a asp-page="ComponentTest"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Entity.PageIndex - 1)"
+       asp-route-currentFilterName="@Model.CurrentFilterName"
+       asp-route-currentFilterId="@Model.CurrentFilterId"
+       class="btn btn-default @prevDisabled">
+        Previous
+    </a>
+    <a asp-page="ComponentTest"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Entity.PageIndex + 1)"
+       asp-route-currentFilterName="@Model.CurrentFilterName"
+       asp-route-currentFilterId="@Model.CurrentFilterId"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
 </form>
-
-
-

@@ -1,52 +1,80 @@
 ﻿@page
-@model SDSCom.Pages.Author.ComponentListModel
+@model SDSCom.Pages.ComponentListModel
+
 @{
-    ViewData["Title"] = "Component List";
+    ViewData["Title"] = "Components";
 }
 
-<h2>Component List</h2>
+<h4>Components</h4>
 
-
-<form method="post">
-
-    <input type="submit" class="btn-primary" id="saveEntity" value="Add New" asp-page-handler="AddNew" />
-    <div id="divPager">
-        <input type="submit" class="btn-default" value="<" asp-page-handler="PriorPage" />
-        <input type="submit" class="btn-default" asp-page-handler="NextPage" />
-        <input type="text" class="form-group" asp-route-cassearch="@ViewData["filter_cas"]" />
-        <input type="text" class="form-group" asp-route-namesearch="@ViewData["filter_name"]" />
-        <input type="submit" class="btn-default" value=">" asp-page-handler="Filter" />
-        <input type="submit" class="btn-default" value=">" asp-page-handler="NextPage" />
+<form>
+    <div class="form-actions no-color">
+        <p>
+            Find by name:
+            <input type="text" name="SearchStringName" value="@Model.CurrentFilterName" />
+            Find by CAS:
+            <input type="text" name="SearchStringCAS" value="@Model.CurrentFilterCAS" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-page="ComponentList">Back to full List</a> |
+            <a asp-page="CreateEntity" asp-route-id="0" asp-route-type="2">Create New</a>
+        </p>
     </div>
-    <div id="divTable">
-        <table class="table">
-            <thead>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-page="ComponentList" asp-route-sortOrder="@Model.NameSort"
+                       asp-route-currentFilterName="@Model.CurrentFilterName">
+                        @Html.DisplayNameFor(model => model.Entity[0].EntityName)
+
+                    </a>
+                </th>
+                <th>
+                    <a asp-page="ComponentList" asp-route-sortOrder="@Model.CASSort"
+                       asp-route-currentFilterCAS="@Model.CurrentFilterCAS">
+                        @Html.DisplayNameFor(model => model.Entity[0].OtherId)
+
+                    </a>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Entity)
+            {
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Other Id</th>
-                    <th>Date</th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EntityName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OtherId)
+                    </td>
+                    <td>                        
+                        <a asp-page="CreateEntity" asp-route-id="@item.Id">Select</a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var entity in Model.EntityList)
-                {
-                    <tr>
-                        <td>@entity.Id</td>
-                        <td>@entity.EntityName</td>
-                        <td>@entity.OtherId</td>
-                        <td>@entity.DateStamp</td>
-                        <td>
-                            <button type="submit" asp-page-handler="Edit" asp-route-id="@entity.Id" />Edit
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+            }
+        </tbody>
+    </table>
+    @{
+        var prevDisabled = !Model.Entity.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.Entity.HasNextPage ? "disabled" : "";
+    }
 
-    </div>
-
+    <a asp-page="ComponentTest"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Entity.PageIndex - 1)"
+       asp-route-currentFilterName="@Model.CurrentFilterName"
+       asp-route-currentFilterCAS="@Model.CurrentFilterCAS"
+       class="btn btn-default @prevDisabled">
+        Previous
+    </a>
+    <a asp-page="ComponentTest"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Entity.PageIndex + 1)"
+       asp-route-currentFilterName="@Model.CurrentFilterName"
+       asp-route-currentFilterCAS="@Model.CurrentFilterCAS"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
 </form>
-
-
-

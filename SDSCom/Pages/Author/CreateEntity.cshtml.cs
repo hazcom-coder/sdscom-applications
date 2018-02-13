@@ -43,9 +43,43 @@ namespace SDSCom.Pages.Author
                 return Page();
             }
 
+            if (Entity.Id == 0)
+            {
+                Entity.DateStamp = DateTime.Now;
+                Entity.Active = true;
+                Entity.UserId = UserProfile_UserID;
+            }
+
             eService.Save(Entity);
 
-            return RedirectToPage("AuthorIndex");
+            if (Entity.EntityType == 1)
+            {
+                return RedirectToPage("ProductList");
+            }
+            else 
+            {
+                return RedirectToPage("ComponentList");
+            }
+        }
+
+        public IActionResult OnPostDelete()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            Entity.Active = false;
+            eService.Save(Entity);
+
+            if (Entity.EntityType == 1)
+            {
+                return RedirectToPage("ProductList");
+            }
+            else
+            {
+                return RedirectToPage("ComponentList");
+            }
         }
     }
 }

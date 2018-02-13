@@ -17,8 +17,6 @@ namespace SDSCom.Services
     {
         private readonly IConfiguration config;
         private IMemoryCache cache;
-        private User user;
-        private UserService uSvc;
 
         /// <summary>
         /// 

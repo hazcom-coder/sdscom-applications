@@ -1,7 +1,7 @@
 ﻿@page 
 @model SDSCom.Pages.Author.CreateEntityModel
 @{
-    ViewData["Title"] = "CreateEntity";
+    ViewData["Title"] = "Create Entity";
 }
 
 <h2>Create Entity</h2>
@@ -10,7 +10,7 @@
     <div class="row">
         <div class="form-group col-sm-6">
             <label>Name:</label>
-            <input id="txtID" asp-for="@Model.Entity.EntityName" class="form-control" />
+            <input id="txtName" asp-for="@Model.Entity.EntityName" class="form-control" />
         </div>
     </div>
     <div class="row">
@@ -30,10 +30,10 @@
     </div>
     <div class="row">
         <div class="form-group col-sm-8">
-            <input id="txtDate" type="hidden" asp-for="@Model.Entity.DateStamp" value="12/01/2017" />
-            <input id="txtActive" type="hidden" asp-for="@Model.Entity.Active" value="true" />
-            <input id="txtUserID" type="hidden" asp-for="@Model.Entity.UserId" value="1" />
-            <input type="hidden" id="txtID" asp-for="@Model.Entity.Id" value="0" />
+            <input id="txtDate" type="hidden" asp-for="@Model.Entity.DateStamp" />
+            <input id="txtActive" type="hidden" asp-for="@Model.Entity.Active" />
+            <input id="txtUserID" type="hidden" asp-for="@Model.Entity.UserId" />
+            <input type="hidden" id="txtID" asp-for="@Model.Entity.Id" />
         </div>
     </div>
     <hr />

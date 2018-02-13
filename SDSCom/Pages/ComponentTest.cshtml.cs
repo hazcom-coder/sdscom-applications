@@ -14,8 +14,8 @@ namespace SDSCom.Pages
         public PaginatedList<Entity> Entity { get; set; }
         public string NameSort { get; set; }
         public string CASSort { get; set; }
-        public string CurrentFilter { get; set; }
-        public string CurrentFilter2 { get; set; }
+        public string CurrentFilterName { get; set; }
+        public string CurrentFilterCAS { get; set; }
         public string CurrentSort { get; set; }
 
         private IMemoryCache cache;
@@ -31,53 +31,53 @@ namespace SDSCom.Pages
         }
 
         public void OnGet(string sortOrder,
-                          string currentFilter,
-                          string searchString,
-                          string currentFilter2,
-                          string searchString2,
+                          string currentFilterName,
+                          string searchStringName,
+                          string currentFilterCAS,
+                          string searchStringCAS,
                           int? pageIndex)
         {
             CurrentSort = sortOrder;
             NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             CASSort = String.IsNullOrEmpty(sortOrder) ? "cas_desc" : "";
 
-            if (searchString != null)
+            if (searchStringName != null)
             {
                 pageIndex = 1;
             }
             else
             {
-                searchString = currentFilter;
+                searchStringName = currentFilterName;
 
-                if (searchString2 != null)
+                if (searchStringCAS != null)
                 {
                     pageIndex = 1;
                 }
                 else
                 {
-                    searchString2 = currentFilter2;
+                    searchStringCAS = currentFilterCAS;
                 }
             }
 
-            CurrentFilter = searchString;
-            CurrentFilter2 = searchString2;
+            CurrentFilterName = searchStringName;
+            CurrentFilterCAS = searchStringCAS;
 
             IQueryable<Entity> entity = from s in db.Entities
                                         where s.EntityType == 2
                                         select s;
 
-            if (!String.IsNullOrEmpty(searchString) && !String.IsNullOrEmpty(searchString2))
+            if (!String.IsNullOrEmpty(searchStringName) && !String.IsNullOrEmpty(searchStringCAS))
             {
-                entity = entity.Where(s => s.EntityName.ToUpper().Contains(searchString.ToUpper())
-                                        && s.OtherId.ToUpper().Contains(searchString2.ToUpper()));
+                entity = entity.Where(s => s.EntityName.ToUpper().Contains(searchStringName.ToUpper())
+                                        && s.OtherId.ToUpper().Contains(searchStringCAS.ToUpper()));
             }
-            else if (!String.IsNullOrEmpty(searchString))
+            else if (!String.IsNullOrEmpty(searchStringName))
             {
-                entity = entity.Where(s => s.EntityName.ToUpper().Contains(searchString.ToUpper()));
+                entity = entity.Where(s => s.EntityName.ToUpper().Contains(searchStringName.ToUpper()));
             }
-            else if (!String.IsNullOrEmpty(searchString2))
+            else if (!String.IsNullOrEmpty(searchStringCAS))
             {
-                entity = entity.Where(s => s.OtherId.ToUpper().Contains(searchString2.ToUpper()));
+                entity = entity.Where(s => s.OtherId.ToUpper().Contains(searchStringCAS.ToUpper()));
             }
             switch (sortOrder)
             {
