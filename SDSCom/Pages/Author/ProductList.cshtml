@@ -5,7 +5,7 @@
     ViewData["Title"] = "Products";
 }
 
-<h4>Products</h4>
+@Html.Partial("./HeaderPartial")
 
 <form>
     <div class="form-actions no-color">
@@ -61,7 +61,7 @@
         var nextDisabled = !Model.Entity.HasNextPage ? "disabled" : "";
     }
 
-    <a asp-page="ComponentTest"
+    <a asp-page="ProductList"
        asp-route-sortOrder="@Model.CurrentSort"
        asp-route-pageIndex="@(Model.Entity.PageIndex - 1)"
        asp-route-currentFilterName="@Model.CurrentFilterName"
@@ -69,7 +69,7 @@
        class="btn btn-default @prevDisabled">
         Previous
     </a>
-    <a asp-page="ComponentTest"
+    <a asp-page="ProductList"
        asp-route-sortOrder="@Model.CurrentSort"
        asp-route-pageIndex="@(Model.Entity.PageIndex + 1)"
        asp-route-currentFilterName="@Model.CurrentFilterName"

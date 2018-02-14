@@ -46,11 +46,11 @@ namespace SDSCom
 
         //================================================================================
 
-        public virtual DbSet<Phrase> Phrases { get; set; }
+        public virtual DbSet<EuphracPhrase> Phrases { get; set; }
 
-        public virtual IQueryable<Phrase> PhrasesReader
+        public virtual IQueryable<EuphracPhrase> PhrasesReader
         {
-            get { return Set<Phrase>().AsNoTracking(); }
+            get { return Set<EuphracPhrase>().AsNoTracking(); }
         }
 
         //================================================================================
@@ -354,13 +354,13 @@ namespace SDSCom
                 entity.Property(e => e.UserId).HasColumnName("user_id").IsRequired();
             });
 
-            modelBuilder.Entity<Phrase>(entity =>
+            modelBuilder.Entity<EuphracPhrase>(entity =>
             {
-                entity.HasKey(e => e.StructureCode);
+                entity.HasKey(e => e.EuPhraCStructureCode);
 
                 entity.ToTable("phrases");
 
-                entity.Property(e => e.StructureCode)
+                entity.Property(e => e.EuPhraCStructureCode)
                     .HasColumnName("structure_code")
                     .HasColumnType("varchar")
                     .ValueGeneratedNever();

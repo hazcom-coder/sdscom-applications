@@ -1,33 +1,80 @@
 ﻿@page
-@model SDSCom.Pages.Author.PhraseListModel
+@model SDSCom.Pages.PhraseListModel
+
 @{
-    ViewData["Title"] = "Phrase List";
+    ViewData["Title"] = "Phrases";
 }
 
-<h2>Phrase List</h2>
+@Html.Partial("./HeaderPartial")
 
-<form method="post">
+<form>
+    <div class="form-actions no-color">
+        <p>
+            Find by phrase:
+            <input type="text" name="SearchStringPhrase" value="@Model.CurrentFilterPhrase" />
+            Find by Id:
+            <input type="text" name="SearchStringCode" value="@Model.CurrentFilterCode" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-page="PhraseList">Back to full List</a> |
+            <a asp-page="PhraseDetail" asp-route-code="0">Create New</a>
+        </p>
+    </div>
     <table class="table">
         <thead>
             <tr>
-                <th>EUPhrac Structure Code</th>
-                <th>English</th>
-                <th>German</th>
+                <th>
+                    <a asp-page="PhraseList" asp-route-sortOrder="@Model.PhraseSort"
+                       asp-route-currentFilterPhrase="@Model.CurrentFilterPhrase">
+                        Phrase
+
+                    </a>
+                </th>
+                <th>
+                    <a asp-page="PhraseList" asp-route-sortOrder="@Model.CodeSort"
+                       asp-route-currentFilterCode="@Model.CurrentFilterCode">
+                        Id
+
+                    </a>
+                </th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-        @foreach (var phrase in Model.PhraseList)
-        {
-            <tr>
-                <td>@phrase.EuPhraCStructureCode</td>
-                <td>@phrase.English</td>
-                <td>@phrase.German</td>
-                <td>
-                    <button type="submit" asp-page-handler="editphrase" asp-route-id="@phrase.EuPhraCStructureCode" />                       Edit
-                </td>
-            </tr>
-        }
+            @foreach (var item in Model.Phrase)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.English)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EuPhraCStructureCode)
+                    </td>
+                    <td>
+                        <a asp-page="PhraseDetail" asp-route-id="@item.EuPhraCStructureCode">Select</a>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
-</form>
+    @{
+        var prevDisabled = !Model.Phrase.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.Phrase.HasNextPage ? "disabled" : "";
+    }
 
+    <a asp-page="PhraseList"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Phrase.PageIndex - 1)"
+       asp-route-currentFilterPhrase="@Model.CurrentFilterPhrase"
+       asp-route-currentFilterCode="@Model.CurrentFilterCode"
+       class="btn btn-default @prevDisabled">
+        Previous
+    </a>
+    <a asp-page="PhraseList"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Phrase.PageIndex + 1)"
+       asp-route-currentFilterPhrase="@Model.CurrentFilterPhrase"
+       asp-route-currentFilterCode="@Model.CurrentFilterCode"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
+</form>

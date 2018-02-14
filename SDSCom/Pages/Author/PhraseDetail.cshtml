@@ -1,0 +1,59 @@
+﻿@page
+@model SDSCom.Pages.Author.PhraseDetailModel
+@{
+    ViewData["Title"] = "Phrase Detail";
+}
+
+@Html.Partial("HeaderPartial")
+
+<form method="post">
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label>English:</label>
+            <input id="txtName" asp-for="@Model.Phrase.English" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label>German:</label>
+            <input id="txtName" asp-for="@Model.Phrase.German" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label>Id:</label>
+            <input id="txtName" asp-for="@Model.Phrase.EuPhraCStructureCode" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label>Info:</label>
+            <input id="txtName" asp-for="@Model.Phrase.Info" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label>Owner:</label>
+            <input id="txtName" asp-for="@Model.Phrase.Owner" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label>Region:</label>
+            <input id="txtName" asp-for="@Model.Phrase.Region" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label>Revision Date:</label>
+            <input id="txtName" asp-for="@Model.Phrase.RevisionDate" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label>Source:</label>
+            <input id="txtName" asp-for="@Model.Phrase.Source" class="form-control" />
+        </div>
+    </div>
+</form>
+

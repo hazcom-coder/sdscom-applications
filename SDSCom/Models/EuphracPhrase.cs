@@ -15,8 +15,6 @@ namespace SDSCom.Models
         /// <remarks/>
         public string Region {get; set;}
         /// <remarks/>
-		public string EuPhraCPhraseID {get; set;}
-        /// <remarks/>
 		public string English {get; set;}
         /// <remarks/>
 		public string German {get; set;}
@@ -26,5 +24,7 @@ namespace SDSCom.Models
 		public string Source {get; set;}
         /// <remarks/>
         public string Owner { get; set; }
+        /// <remarks/>
+        public string Info { get; set; }
     }
 }

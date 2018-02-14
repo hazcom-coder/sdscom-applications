@@ -4,11 +4,9 @@
     ViewData["Title"] = "AdminIndex";
 }
 
-<form method="post">
+@Html.Partial("./HeaderPartial")
 
-    <h2>SDSCom Application Administrator</h2>
-    <br />
-    <br />
+<form method="post">
     <input id="btnCache" type="button" value="Clear Cache" class="btn-danger" onclick="clearCache()" />
     <br />
     <br />

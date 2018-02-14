@@ -1,0 +1,40 @@
+﻿<script>
+    function togglediv(id)
+    {
+        var div = document.getElementById(id);
+        div.style.display = div.style.display == "none" ? "block" : "none";
+    }
+</script>
+<div class="row">
+    <div class="col-sm-4">
+        <h4> @ViewData["Title"]</h4>
+    </div>
+    <div class="col-sm-4">
+        <button onclick="togglediv('divInfo')">Info</button>
+    </div>
+    <div class="col-sm-4">
+        <a href="##" onClick="history.go(-1); return false;" class="btn-link">Back</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-8" id="divInfo" style="display:none">
+        <div class="row">
+            <div class="col-sm-2">
+                UI Lang: @ViewData["uilanguage"]
+            </div>
+            <div class="col-sm-2">
+                User: @ViewData["username"]
+            </div>
+            <div class="col-sm-2">
+                UserID: @ViewData["userid"]
+            </div>
+            <div class="col-sm-2">
+                Comp: @ViewData["componentid"] <br />
+            </div>
+            <div class="col-sm-2">
+                Prod: @ViewData["productid"] <br />
+            </div>
+        </div>
+    </div>
+</div>
+<hr/>
