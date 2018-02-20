@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Extensions.Configuration;
 using SDSCom.Models;
 using Microsoft.Extensions.Caching.Memory;
 using Serilog;
@@ -12,7 +11,7 @@ namespace SDSCom.Services
     /// </summary>
     public class AdminService : BaseService
     {
-        private readonly IConfiguration config;
+        private readonly SDSComContext db;
         private IMemoryCache cache;
         private EntityService eSvc;
 
@@ -21,22 +20,21 @@ namespace SDSCom.Services
         /// </summary>
         /// <param name="_config"></param>
         /// <param name="_cache"></param>
-        public AdminService(IConfiguration _config, IMemoryCache _cache) : base(_config, _cache)
+        public AdminService(SDSComContext _db, IMemoryCache _cache) : base(_db, _cache)
         {
-            config = _config;
+            db = _db;
             cache = _cache;
-            eSvc = new EntityService(config, cache);
+            eSvc = new EntityService(db, cache);
         }
 
         public void LoadComponents()
         {
             List<string> badOnes = new List<string>();
-            using (var db = new SDSComContext(config))
-            {                
-                List<Entity> entList = eSvc.GetByType(EntityTypeEnum.Component);
-                db.Entities.RemoveRange(entList);
-                db.SaveChanges();
-            }
+            
+            List<Entity> entList = eSvc.GetByType(EntityTypeEnum.Component);
+            db.Entities.RemoveRange(entList);
+            db.SaveChanges();
+
             //For other formats visit : www.downloadexcelfiles.com,,
             //,,
             //Original source : en.wikipedia.org/wiki/Dictionary_of_chemical_formulas,,
@@ -88,12 +86,10 @@ namespace SDSCom.Services
             {
                 file.Close();
             }
+            
+            db.Entities.AddRange(entities);
+            db.SaveChanges();
 
-            using (var db = new SDSComContext(config))
-            {
-                db.Entities.AddRange(entities);
-                db.SaveChanges();
-            }
         }
 
         /// <summary>
@@ -106,8 +102,7 @@ namespace SDSCom.Services
             List<FacetRestriction> facetsRest = new List<FacetRestriction>();
             List<FacetRestriction> facetsRestDE = new List<FacetRestriction>();
                 
-            using (var db = new SDSComContext(config))
-            {
+            
                 var allAS = db.Set<ApplicationSetting>();
                 db.AppSettings.RemoveRange(allAS);
 
@@ -140,7 +135,7 @@ namespace SDSCom.Services
 
                 db.SaveChanges();
 
-                SchemaService sSvc = new SchemaService(config,cache);
+                SchemaService sSvc = new SchemaService(db,cache);
 
                 //=========================================================================================================
 
@@ -277,7 +272,6 @@ namespace SDSCom.Services
                 db.SaveChanges();
 
                 //===========================================================================================
-            }
         }
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SDSCom.Pages.Author
 {
-    public class ExportModel : PageModel
+    public class ExportModel : BasePage
     {
         public void OnGet()
         {

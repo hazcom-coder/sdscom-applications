@@ -12,17 +12,17 @@ namespace SDSCom.Services
     /// </summary>
     public class ApplicationSettingsService : BaseService
     {
-        private readonly IConfiguration config;
-        private IMemoryCache id;
+        private readonly SDSComContext db;
+        private IMemoryCache cache;
 
         /// <summary>
         /// 
         /// </summary>
-        public  ApplicationSettingsService(IConfiguration _config, IMemoryCache _cache) 
-            : base(_config, _cache)
+        public  ApplicationSettingsService(SDSComContext _db, IMemoryCache _cache) 
+            : base(_db, _cache)
         {
-            this.config = _config;
-            this.id = _cache;
+            db = _db;
+            cache = _cache;
         }
 
         /// <summary>
@@ -30,13 +30,7 @@ namespace SDSCom.Services
         /// </summary>
         public List<ApplicationSetting> GetAll()
         {
-            List<ApplicationSetting> settings = new List<ApplicationSetting>();
-
-            using (var db = new SDSComContext(config))
-            {
-                settings = db.AppSettingsReader.ToList();
-            }
-            return settings;            
+             return  db.AppSettingsReader.ToList();          
         }
 
         /// <summary>
@@ -49,10 +43,7 @@ namespace SDSCom.Services
         {
             var appSetting = new ApplicationSetting();
 
-            using (var db = new SDSComContext(config))
-            {
-                appSetting = db.AppSettings.Single(x => x.Area == area && x.Setting == setting);
-            }
+            appSetting = db.AppSettings.Single(x => x.Area == area && x.Setting == setting);
 
             if (appSetting == null ) appSetting = new ApplicationSetting();
 
@@ -68,14 +59,12 @@ namespace SDSCom.Services
         public ApplicationSetting Get(long id)
         {
             var appSetting = new ApplicationSetting();
-
-            using (var db = new SDSComContext(config))
-            {              
-                if (id > 0)
-                {
-                    appSetting = db.AppSettings.Single(x => x.Id == id);
-                }
+             
+            if (id > 0)
+            {
+                appSetting = db.AppSettings.Single(x => x.Id == id);
             }
+
             return appSetting;
         }
         
@@ -89,18 +78,16 @@ namespace SDSCom.Services
             bool ok = false;
             try
             {
-                using (var db = new SDSComContext(config))
+                if (appSetting.Id == 0)
                 {
-                    if (appSetting.Id == 0)
-                    {
-                        db.AppSettings.Add(appSetting);
-                    }
-                    else
-                    {
-                        db.AppSettings.Update(appSetting);
-                    }
-                    ok =  (db.SaveChanges() == 1);
+                    db.AppSettings.Add(appSetting);
                 }
+                else
+                {
+                    db.AppSettings.Update(appSetting);
+                }
+                ok =  (db.SaveChanges() == 1);
+
             }
             catch (Exception ex)
             {
@@ -120,18 +107,14 @@ namespace SDSCom.Services
             bool ok = false;
             try
             {
-                using (var db = new SDSComContext(config))
-                {
-                    db.AppSettings.Remove(appSetting);
-                    db.SaveChanges();
-                    ok = true;
-                }
+                db.AppSettings.Remove(appSetting);
+                db.SaveChanges();
+                ok = true;
             }
             catch (Exception ex)
             {
                 Log.Error(ex, "ApplicationSettingService>Delete");
             }
-
             return ok;
         }
     }

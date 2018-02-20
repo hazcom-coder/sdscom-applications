@@ -15,16 +15,16 @@ namespace SDSCom.Pages
 {
     public class IndexModel : BasePage
     {
-        private readonly IConfiguration config;
+        private readonly SDSComContext db;
         private IMemoryCache cache;
         private UserService uSvc;
         private User user;
 
-        public IndexModel(IConfiguration _config, IMemoryCache _cache)
+        public IndexModel(SDSComContext _db, IMemoryCache _cache)
         {
-            config = _config;
+            db = _db;
             cache = _cache;
-            uSvc = new UserService(config, cache);
+            uSvc = new UserService(db, cache);
         }
 
         public void OnGet()

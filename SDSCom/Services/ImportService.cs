@@ -19,7 +19,7 @@ namespace SDSCom.Services
 {
     public class ImportService : BaseService
     {
-        private readonly IConfiguration config;
+        private readonly SDSComContext db;
         private IMemoryCache cache;
         private SchemaService sSvc;
         private TemplateService tSvc;
@@ -29,12 +29,12 @@ namespace SDSCom.Services
         /// </summary>
         /// <param name="_config"></param>
         /// <param name="_cache"></param>
-        public ImportService(IConfiguration _config, IMemoryCache _cache) : base(_config, _cache)
+        public ImportService(SDSComContext _db, IMemoryCache _cache) : base(_db, _cache)
         {
-            config = _config;
+            db = _db;
             cache = _cache;
-            sSvc = new SchemaService(config,cache);
-            tSvc = new TemplateService(config, cache);
+            sSvc = new SchemaService(db,cache);
+            tSvc = new TemplateService(db, cache);
         }
 
         public bool Import(string importPath, int userId)
@@ -78,21 +78,16 @@ namespace SDSCom.Services
 
                         entity.OtherId = GetEntityID(dsDoc);
                         entity.EntityName = GetEntityName(dsDoc);
-
-                        using (var db = new SDSComContext(config))
-                        {
-                            db.Entities.Add(entity);
-                            db.SaveChanges();
-                        }
+                       
+                        db.Entities.Add(entity);
+                        db.SaveChanges();
 
                         SaveChapter(entity, dsDoc, "InformationFromExportingSystem", userId);
                     }
+                   
+                    db.Imports.Add(imp);
+                    db.SaveChanges();
 
-                    using (var db = new SDSComContext(config))
-                    {
-                        db.Imports.Add(imp);
-                        db.SaveChanges();
-                    }
                 }
             }
             catch (Exception ex)
@@ -125,11 +120,8 @@ namespace SDSCom.Services
                 ec.Data = "CHAPTER NOT FOUND";
             }
 
-            using (var db = new SDSComContext(config))
-            {
-                db.EntityChapters.Add(ec);
-                db.SaveChanges();
-            }
+            db.EntityChapters.Add(ec);
+            db.SaveChanges();
         }
 
 

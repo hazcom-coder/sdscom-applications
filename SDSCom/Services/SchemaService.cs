@@ -20,7 +20,7 @@ namespace SDSCom.Services
     /// </summary>
 	public class SchemaService : BaseService
     {
-        private readonly IConfiguration config;
+        private readonly SDSComContext db;
         private IMemoryCache cache;
 
         private string appdatafolder = @"schemas";
@@ -32,9 +32,9 @@ namespace SDSCom.Services
         /// <summary>
         /// 
         /// </summary>
-        public SchemaService(IConfiguration _config, IMemoryCache _cache) : base(_config, _cache)
+        public SchemaService(SDSComContext _db, IMemoryCache _cache) : base(_db, _cache)
         {
-            config = _config;
+            db = _db;
             cache = _cache;
         }
 
@@ -151,7 +151,6 @@ namespace SDSCom.Services
 
             if (theNode.Attributes != null)
             {
-
                 if (theNode.Attributes["name"] != null)
                 {
                     facetName = theNode.Attributes["name"].Value;
@@ -347,21 +346,15 @@ namespace SDSCom.Services
         }
   
         public void CreateFacets(List<Facet> facetList)
-        {         
-            using (var db = new SDSComContext(config))
-            {
-                db.AddRange(facetList);
-                db.SaveChanges();
-            }
+        {  
+            db.AddRange(facetList);
+            db.SaveChanges();
         }
 
         public void CreateFacetRestrictionss(List<FacetRestriction> facetRestList)
         {
-            using (var db = new SDSComContext(config))
-            {
-                db.AddRange(facetRestList);
-                db.SaveChanges();
-            }
+            db.AddRange(facetRestList);
+            db.SaveChanges();
         }
     }
 }

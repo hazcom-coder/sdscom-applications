@@ -13,16 +13,16 @@ namespace SDSCom.Pages.Administrator
 {
     public class UserDetailModel : BasePage
     {
-        private readonly IConfiguration config;
+        private readonly SDSComContext db;
         private IMemoryCache cache;
         private UserService uSvc;
 
-        public UserDetailModel(IConfiguration _config, IMemoryCache _cache)
+        public UserDetailModel(SDSComContext _db, IMemoryCache _cache)
         {
-            config = _config;
+            db = _db;
             cache = _cache;
 
-            uSvc = new UserService(config, cache);
+            uSvc = new UserService(db, cache);
         }
 
         public IActionResult OnGet(int? id)

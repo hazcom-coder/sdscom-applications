@@ -14,16 +14,16 @@ namespace SDSCom.Pages
 {
     public class AppMenuModel : BasePage
     {
-        private readonly IConfiguration config;
+        private readonly SDSComContext db;
         private IMemoryCache cache;
         private UserService uSvc;
         private User user;
 
-        public AppMenuModel(IConfiguration _config, IMemoryCache _cache)
+        public AppMenuModel(SDSComContext _db, IMemoryCache _cache)
         {
-            config = _config;
+            db = _db;
             cache = _cache;
-            uSvc = new UserService(config, cache);            
+            uSvc = new UserService(db, cache);            
         }
 
         public void OnGet()
@@ -50,14 +50,15 @@ namespace SDSCom.Pages
             return RedirectToPage("Author/AuthorIndex");
         }
 
-        public IActionResult OnPostAppAbout()
+        public IActionResult OnPostOpenAbout()
         {
             return RedirectToPage("About");
         }
 
-        public IActionResult OnPostPagingTest()
-        {
-            return RedirectToPage("ComponentTest");
-        }
+        //public IActionResult OnPostPagingTest()
+        //{
+        //    return RedirectToPage("ComponentTest");
+        //}
+
     }
 }

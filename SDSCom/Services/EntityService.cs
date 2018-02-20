@@ -16,16 +16,16 @@ namespace SDSCom.Services
     /// </summary>
     public class EntityService : BaseService
     {
-        private readonly IConfiguration config;
+        private readonly SDSComContext db;
         private IMemoryCache cache;
         
         /// <summary>
         /// 
         /// </summary>
-        public EntityService(IConfiguration _config, IMemoryCache _cache) 
-            :base(_config, _cache)
+        public EntityService(SDSComContext _db, IMemoryCache _cache) 
+            :base(_db, _cache)
         {
-            config = _config;
+            db = _db;
             cache = _cache;
         }
 
@@ -35,19 +35,16 @@ namespace SDSCom.Services
         /// <param name="entity"></param>
         /// <returns></returns>
         public Entity Save(Entity entity)
-        {
-            using (var db = new SDSComContext(config))
+        {           
+            if (entity.Id == 0)
             {
-                if (entity.Id == 0)
-                {
-                    db.Add<Entity>(entity);
-                    db.SaveChanges();
-                }
-                else
-                {
-                    db.Update(entity);
-                    db.SaveChanges();
-                }
+                db.Add<Entity>(entity);
+                db.SaveChanges();
+            }
+            else
+            {
+                db.Update(entity);
+                db.SaveChanges();
             }
 
             return entity;
@@ -67,12 +64,7 @@ namespace SDSCom.Services
             {
                 return entity;
             }
-
-            using (var db = new SDSComContext(config))
-            {
-                entity = db.Entities.Single<Entity>(e => e.Id == entityid);
-            }
-            return entity;
+            return db.Entities.Single<Entity>(e => e.Id == entityid);
         }
        
 
@@ -82,13 +74,8 @@ namespace SDSCom.Services
         /// <param name="entitytype"></param>
         /// <returns></returns>
         public List<Entity> GetByType(EntityTypeEnum entitytype)
-        {
-            List<Entity> entities = new List<Entity>();
-            using (var db = new SDSComContext(config))
-            {               
-                entities = db.Entities.Where(c => c.EntityType == (int)entitytype).ToList();
-            }
-            return entities;           
+        {            
+            return db.Entities.Where(c => c.EntityType == (int)entitytype).ToList();         
         }
        
 
@@ -97,13 +84,8 @@ namespace SDSCom.Services
         /// </summary>
         /// <returns></returns>
         public List<EntityType> GetEntityTypes()
-        {
-            List<EntityType> entityTypes = new List<EntityType>();
-            using (var db = new SDSComContext(config))
-            {
-                entityTypes = db.EntityTypes.ToList();
-            }
-            return entityTypes;
+        {            
+            return db.EntityTypes.ToList();
         }
     }
 }

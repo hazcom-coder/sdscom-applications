@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
 using SDSCom.Models;
 using SDSCom.Services;
 
@@ -13,16 +12,16 @@ namespace SDSCom.Pages.Administrator
 {
     public class UserListModel : BasePage
     {
-        private readonly IConfiguration config;
+        private readonly SDSComContext db;
         private IMemoryCache cache;
         private UserService uService;
 
-        public UserListModel(IConfiguration _config, IMemoryCache _cache)
+        public UserListModel(SDSComContext _db, IMemoryCache _cache)
         {
-            config = _config;
+            db = _db;
             cache = _cache;
 
-            uService = new UserService(config, cache);
+            uService = new UserService(db, cache);
         }
 
         public void OnGet()

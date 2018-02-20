@@ -15,16 +15,16 @@ namespace SDSCom.Pages.Author
 
     public class ImportModel : BasePage
     {
-        private readonly IConfiguration config;
+        private readonly SDSComContext db;
         private IMemoryCache cache;
         private ImportService iSvc;
 
-        public ImportModel(IConfiguration _config, IMemoryCache _cache)
+        public ImportModel(SDSComContext _db, IMemoryCache _cache)
         {
-            config = _config;
+            db = _db;
             cache = _cache;
 
-            iSvc = new ImportService(config, cache);
+            iSvc = new ImportService(db, cache);
 
         }
 

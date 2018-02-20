@@ -12,13 +12,13 @@ namespace SDSCom.Pages.Administrator
 {
     public class AdminIndexModel : BasePage
     {
-       // private readonly IConfiguration config;
-       // private IMemoryCache cache;
         private AdminService aSvc;
+        private readonly SDSComContext db;
 
-        public AdminIndexModel(IConfiguration _config, IMemoryCache _cache)
+        public AdminIndexModel(SDSComContext _db, IMemoryCache _cache)
         {
-            aSvc = new AdminService(_config, _cache);
+            db = _db;
+            aSvc = new AdminService(db, _cache);
         }
         public void OnGet()
         {

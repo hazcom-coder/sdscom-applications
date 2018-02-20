@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
 using SDSCom.Models;
 using SDSCom.Services;
 using Newtonsoft.Json;
@@ -14,15 +13,15 @@ namespace SDSCom.Pages.Author.Chapters
 {
     public class Chapter1Model : BasePage
     {
-        private readonly IConfiguration config;
+        private readonly SDSComContext db;
         private IMemoryCache cache;
         private TemplateService tSvc;
         private long entityid = 0;
         private int userid = 0;
 
-        public Chapter1Model(IConfiguration _config, IMemoryCache _cache)
+        public Chapter1Model(SDSComContext _db, IMemoryCache _cache)
         {
-            config = _config;
+            db = _db;
             cache = _cache;
         }
 
@@ -32,7 +31,7 @@ namespace SDSCom.Pages.Author.Chapters
 
             userid = UserProfile_UserID;
 
-            tSvc = new TemplateService(config, cache);
+            tSvc = new TemplateService(db, cache);
             string entityChapter = tSvc.GetEntityChapterData(UserProfile_ProductID, "IdentificationSubstPrep");
             if (entityChapter.Trim().Length > 0)
             {

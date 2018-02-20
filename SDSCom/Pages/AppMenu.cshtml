@@ -2,49 +2,31 @@
 @model SDSCom.Pages.AppMenuModel
 @using Microsoft.AspNetCore.Http;
 
-
 @{
-    ViewData["Title"] = "SDSComApps Menu";
+    ViewData["Title"] = "Application Menu";
 }
 
-<h2>Application Menu</h2>
-
-UI:         @ViewData["uilanguage"] <br />
-UserName:   @ViewData["username"] <br />
-UserID:     @ViewData["userid"] <br />
-Comp:       @ViewData["componentid"] <br />
-Prod:       @ViewData["productid"] <br />
+@Html.Partial("./HeaderPartial")
 
 <form method="post">
     <div id="divMain">
-
         <div id="divAdmin" class="modcard">
             <div class="card-body">
                 <h4 class="card-title">Administration</h4>
-                <p class="card-text">This is the application you have always wanted for Administration.</p>
+                <p class="card-text">Administrative services for this application</p>
                 <input type="submit" class="btn-link" asp-page-handler="OpenAdmin" id="hlAdmin" value="Administrator" />
             </div>
         </div>
-
         <div id="divAuthor" class="modcard">
             <div class="card-body">
                 <h4 class="card-title">SDS Authoring</h4>
-                <p class="card-text">This is the application you have always wanted for Authoring SDSs.</p>
+                <p class="card-text">Authoring services for this application.</p>
                 <input type="submit" class="btn-link" asp-page-handler="OpenAuthor" id="hlAuthor" value="Author" />
             </div>
         </div>
-
-        <div id="divPageTest" class="modcard">
-            <div class="card-body">
-                <h4 class="card-title">Paging Testg</h4>
-                <p class="card-text"></p>
-                <input type="submit" class="btn-link" asp-page-handler="PagingTest" id="hlPT" value="PT" />
-            </div>
-        </div>
         <br />
         <br />
         <br />
-        <input class="btn-default" type="submit" asp-page-handler="AppAbout" id="hlAbout" value="About" />
+        <a href="about.html" class="btn-link">About</a>
     </div>
-
 </form>

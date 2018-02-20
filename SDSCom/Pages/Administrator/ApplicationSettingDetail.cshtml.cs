@@ -12,15 +12,15 @@ namespace SDSCom.Pages.Administrator
 {
     public class ApplicationSettingDetailModel : BasePage
     {
-        private readonly IConfiguration config;
+        private readonly SDSComContext db;
         private IMemoryCache cache;
         private ApplicationSettingsService aSvc;
 
-        public ApplicationSettingDetailModel(IConfiguration _config, IMemoryCache _cache)
+        public ApplicationSettingDetailModel(SDSComContext _db, IMemoryCache _cache)
         {
-            config = _config;
+            db = _db;
             cache = _cache;
-            aSvc = new ApplicationSettingsService(config, cache);
+            aSvc = new ApplicationSettingsService(db, cache);
         }
 
         public IActionResult OnGet(long? id)

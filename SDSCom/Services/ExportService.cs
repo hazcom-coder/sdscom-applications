@@ -14,17 +14,17 @@ namespace SDSCom.Services
 {
     public class ExportService : BaseService
     {
-        private readonly IConfiguration config;
+        private readonly SDSComContext db;
         private IMemoryCache cache;
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="_config"></param>
+        /// <param name="_db"></param>
         /// <param name="_cache"></param>
-        public ExportService(IConfiguration _config, IMemoryCache _cache) : base(_config, _cache)
+        public ExportService(SDSComContext _db, IMemoryCache _cache) : base(_db, _cache)
         {
-            config = _config;
+            db = _db;
             cache = _cache;
         }
 

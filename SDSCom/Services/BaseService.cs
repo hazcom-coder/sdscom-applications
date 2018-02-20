@@ -12,15 +12,12 @@ using System.Xml;
 
 namespace SDSCom.Services
 {
-
-
-
     /// <summary>
     /// 
     /// </summary>
     public class BaseService
     {
-        private readonly IConfiguration config;
+        private readonly SDSComContext db;
         private IMemoryCache cache;
 
         public const int DATASHEET_ID = 1;      //  Datasheet
@@ -46,20 +43,12 @@ namespace SDSCom.Services
         /// <summary>
         /// 
         /// </summary>
-        public BaseService(IConfiguration _config, IMemoryCache _cache)
+        public BaseService(SDSComContext _db, IMemoryCache _cache)
         {
-            config = _config;
+            db = _db;
             cache = _cache;
-           // DbFactory = new OrmConnectionFactory(new PostgreSQLDialectProvider(), config["ConnectionStrings:SDSCOM"]);
         }
-               
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-      //  public OrmConnectionFactory DbFactory { get; set; }
-
+ 
         public string ReadFile(string importPath)
         {
             string ret = string.Empty;
