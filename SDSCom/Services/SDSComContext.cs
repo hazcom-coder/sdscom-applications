@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using SDSCom.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Caching.Memory;
+using JetBrains.Annotations;
 
 namespace SDSCom
 {
@@ -19,99 +20,106 @@ namespace SDSCom
             config = _config;
         }
 
-        public virtual DbSet<ApplicationSetting> AppSettings { get; set; }
+        public SDSComContext(DbContextOptions options) : base(options)
+        {
 
-        public virtual IQueryable<ApplicationSetting> AppSettingsReader
+        }
+
+      
+
+        public DbSet<ApplicationSetting> AppSettings { get; set; }
+
+        public IQueryable<ApplicationSetting> AppSettingsReader
         {
             get{return Set<ApplicationSetting>().AsNoTracking();}
         }
 
         //================================================================================
 
-        public virtual DbSet<Entity> Entities { get; set; }
+        public DbSet<Entity> Entities { get; set; }
 
-        public virtual IQueryable<Entity> EntitiesReader
+        public IQueryable<Entity> EntitiesReader
         {
             get { return Set<Entity>().AsNoTracking(); }
         }
 
         //================================================================================
 
-        public virtual DbSet<EntityType> EntityTypes { get; set; }
+        public DbSet<EntityType> EntityTypes { get; set; }
 
-        public virtual IQueryable<EntityType> EntityTypesReader
+        public IQueryable<EntityType> EntityTypesReader
         {
             get { return Set<EntityType>().AsNoTracking(); }
         }
 
         //================================================================================
 
-        public virtual DbSet<EuphracPhrase> Phrases { get; set; }
+        public DbSet<EuphracPhrase> Phrases { get; set; }
 
-        public virtual IQueryable<EuphracPhrase> PhrasesReader
+        public IQueryable<EuphracPhrase> PhrasesReader
         {
             get { return Set<EuphracPhrase>().AsNoTracking(); }
         }
 
         //================================================================================
         
-        public virtual DbSet<Facet> Facets { get; set; }
+        public DbSet<Facet> Facets { get; set; }
 
-        public virtual IQueryable<Facet> FacetsReader
+        public IQueryable<Facet> FacetsReader
         {
             get { return Set<Facet>().AsNoTracking(); }
         }
 
         //================================================================================
         
-        public virtual DbSet<EntityChapter> EntityChapters { get; set; }
+        public DbSet<EntityChapter> EntityChapters { get; set; }
 
-        public virtual IQueryable<EntityChapter> EntityChaptersReader
+        public IQueryable<EntityChapter> EntityChaptersReader
         {
             get { return Set<EntityChapter>().AsNoTracking(); }
         }
 
         //================================================================================
 
-        public virtual DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
 
-        public virtual IQueryable<User> UsersReader
+        public IQueryable<User> UsersReader
         {
             get { return Set<User>().AsNoTracking(); }
         }
 
         //================================================================================
         
-        public virtual DbSet<FacetPhraseLink> FacetPhraseLinks { get; set; }
+        public DbSet<FacetPhraseLink> FacetPhraseLinks { get; set; }
 
-        public virtual IQueryable<FacetPhraseLink> FacetPhraseLinksReader
+        public IQueryable<FacetPhraseLink> FacetPhraseLinksReader
         {
             get { return Set<FacetPhraseLink>().AsNoTracking(); }
         }
 
         //================================================================================
 
-        public virtual DbSet<FacetRestriction> FacetRestrictions { get; set; }
+        public DbSet<FacetRestriction> FacetRestrictions { get; set; }
 
-        public virtual IQueryable<FacetRestriction> FacetRestrictionsReader
+        public IQueryable<FacetRestriction> FacetRestrictionsReader
         {
             get { return Set<FacetRestriction>().AsNoTracking(); }
         }
 
         //================================================================================
 
-        public virtual DbSet<DataSheetFeedImport> Imports { get; set; }
+        public DbSet<DataSheetFeedImport> Imports { get; set; }
 
-        public virtual IQueryable<DataSheetFeedImport> ImportsReader
+        public IQueryable<DataSheetFeedImport> ImportsReader
         {
             get { return Set<DataSheetFeedImport>().AsNoTracking(); }
         }
 
         //================================================================================
         
-        public virtual DbSet<ValidationMessage> ValidationMessages { get; set; }
+        public DbSet<ValidationMessage> ValidationMessages { get; set; }
 
-        public virtual IQueryable<ValidationMessage> ValidationMessagesReader
+        public IQueryable<ValidationMessage> ValidationMessagesReader
         {
             get { return Set<ValidationMessage>().AsNoTracking(); }
         }
