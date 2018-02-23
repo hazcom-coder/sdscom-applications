@@ -1,12 +1,16 @@
-﻿@page
-@model SDSCom.Pages.Author.Chapters.Chapter0Model
-@{
-    ViewData["Title"] = "Information From Exporting System";
-}
+﻿@page "{entityid:long?}"
 
-@Html.Partial("././HeaderPartial")
+    @model SDSCom.Pages.Author.Chapters.Chapter0Model
+    @{
+        ViewData["Title"] = "Information From Exporting System";
+
+    }
+
+    @Html.Partial("././HeaderPartial")
 
 <form method="post">
+
+    @Html.Partial("././ProductHeader")
 
     <div class="form-group">
         <label>Xml Standard Version No:</label>

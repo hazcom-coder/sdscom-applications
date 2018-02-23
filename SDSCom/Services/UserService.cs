@@ -42,7 +42,7 @@ namespace SDSCom.Services
                 return user;
             }
 
-            user = db.Users.Find(userid);
+            user = db.UsersReader.Single(e => e.Id == userid);
 
             return user;
         }
@@ -54,7 +54,7 @@ namespace SDSCom.Services
         /// <returns></returns>
         public User GetByName(string username)
         {
-            return db.Users.Single(x => x.UserName == username);
+            return db.UsersReader.Single(x => x.UserName == username);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace SDSCom.Services
         /// <returns></returns>
         public List<User> GetAll()
         {
-           return db.Users.ToList();
+           return db.UsersReader.ToList();
         }
 
         public bool Delete(User user)

@@ -38,14 +38,13 @@ namespace SDSCom.Services
         {           
             if (entity.Id == 0)
             {
-                db.Add<Entity>(entity);
-                db.SaveChanges();
+                db.Add<Entity>(entity);               
             }
             else
             {
                 db.Update(entity);
-                db.SaveChanges();
             }
+            db.SaveChanges();
 
             return entity;
         }
@@ -64,9 +63,8 @@ namespace SDSCom.Services
             {
                 return entity;
             }
-            return db.Entities.Single<Entity>(e => e.Id == entityid);
-        }
-       
+            return db.EntitiesReader.Single(e => e.Id == entityid);
+        }       
 
         /// <summary>
         /// 
@@ -75,16 +73,15 @@ namespace SDSCom.Services
         /// <returns></returns>
         public List<Entity> GetByType(EntityTypeEnum entitytype)
         {            
-            return db.Entities.Where(c => c.EntityType == (int)entitytype).ToList();         
-        }
-       
+            return db.EntitiesReader.Where(c => c.EntityType == (int)entitytype).ToList();         
+        }       
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public List<EntityType> GetEntityTypes()
-        {            
+        {    
             return db.EntityTypes.ToList();
         }
     }

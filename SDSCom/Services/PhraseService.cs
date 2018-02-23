@@ -40,7 +40,7 @@ namespace SDSCom.Services
         /// <returns></returns>
         public List<EuphracPhrase> Get(int maxrecords)
         {
-            IQueryable<EuphracPhrase> phrases = (from s in db.Phrases select s).Take(maxrecords);
+            IQueryable<EuphracPhrase> phrases = (from s in db.PhrasesReader select s).Take(maxrecords);
             return phrases.ToList();
         }
 
@@ -50,8 +50,7 @@ namespace SDSCom.Services
         /// <returns></returns>
         public long GetCount()
         {
-            IQueryable<EuphracPhrase> phrases = (from s in db.Phrases select s);
-            return phrases.Count();
+            return  db.PhrasesReader.Count();
         }      
     }
 }

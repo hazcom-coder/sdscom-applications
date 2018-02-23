@@ -7,36 +7,30 @@
 @Html.Partial("././HeaderPartial")
 
 <form method="post">
-
     <div id="divMain">
-
+        @Html.Partial("././ProductHeader")
+        <br/>
         <div id="divChapter0" class="modcard">
             <div class="card-body">
                 <h4 class="card-title">Chapter 0 - Information From Exporting System</h4>
-                <p class="card-text">.</p>
-                <input type="submit" class="btn-link" asp-page-handler="OpenChapter0"
-                       id="hlProductList" value="Open Chapter" />
+                <input type="submit" class="btn-link" asp-page-handler="OpenChapter0" asp-route-entityid="@Model.Entity.Id"
+                       id="hlOpenChapter0" value="Open Chapter" />
             </div>
         </div>
-
         <div id="divChapter1" class="modcard">
             <div class="card-body">
                 <h4 class="card-title">Chapter 1 - Identification of Substance Or Preparation</h4>
-                <p class="card-text">.</p>
-                <input type="submit" class="btn-link" asp-page-handler="OpenChapter1"
-                       id="hlProductList" value="Open Chapter" />
+                <input type="submit" class="btn-link" asp-page-handler="OpenChapter1" asp-route-entityid="@Model.Entity.Id"
+                       id="hlOpenChapter1" value="Open Chapter" />
             </div>
         </div>
-
         <div id="divChapter2" class="modcard">
             <div class="card-body">
-                <h4 class="card-title">Chapter 2 - Hazards identification</h4>
-                <p class="card-text">.</p>
-                <input type="submit" class="btn-link" asp-page-handler="OpenChapter2"
-                       id="hlProductList" value="Open Chapter" />
+                <h4 class="card-title">Chapter 2 - Hazards identification</h4>  <br />
+                <input type="submit" class="btn-link" asp-page-handler="OpenChapter2" asp-route-entityid="@Model.Entity.Id"
+                       id="hlOpenChapter2" value="Open Chapter" />
             </div>
         </div>
-
     </div>
 </form>
 

@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Serilog;
+using SDSCom.Models;
 
 namespace SDSCom.Services
 {
@@ -43,7 +44,7 @@ namespace SDSCom.Services
         {
             var appSetting = new ApplicationSetting();
 
-            appSetting = db.AppSettings.Single(x => x.Area == area && x.Setting == setting);
+            appSetting = db.AppSettingsReader.Single(x => x.Area == area && x.Setting == setting);
 
             if (appSetting == null ) appSetting = new ApplicationSetting();
 
@@ -62,7 +63,7 @@ namespace SDSCom.Services
              
             if (id > 0)
             {
-                appSetting = db.AppSettings.Single(x => x.Id == id);
+                appSetting = db.AppSettingsReader.Single(x => x.Id == id);
             }
 
             return appSetting;

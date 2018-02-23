@@ -11,6 +11,7 @@ using Serilog;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using SDSCom.Services;
+using System.IO;
 
 namespace SDSCom
 {
@@ -39,8 +40,11 @@ namespace SDSCom
 
             services.AddDistributedMemoryCache();
 
+            SDSComApp app = new SDSComApp();
+
+            string connectionString = app.GetConnectionString();
             services.AddDbContext<SDSComContext>(options =>
-            options.UseNpgsql(Configuration.GetConnectionString("SDSCom")));
+            options.UseNpgsql(connectionString));
 
             services.AddSession(options =>
             {
@@ -51,6 +55,8 @@ namespace SDSCom
             services.AddMvc();
 
         }
+
+       
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

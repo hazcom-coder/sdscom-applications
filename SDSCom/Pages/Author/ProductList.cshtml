@@ -37,22 +37,26 @@
                     </a>
                 </th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.Entity)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EntityName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.OtherId)
-                    </td>
-                    <td>
-                        <a asp-page="CreateEntity" asp-route-id="@item.Id">Select</a>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EntityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OtherId)
+                </td>
+                <td>
+                    <a asp-page="CreateEntity" asp-route-id="@item.Id">Edit</a>
+                </td>
+                <td>
+                    <a asp-page="Chapters/ChapterIndex" asp-route-id="@item.Id">Author</a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

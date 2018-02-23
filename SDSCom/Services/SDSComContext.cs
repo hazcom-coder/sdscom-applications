@@ -12,20 +12,11 @@ using JetBrains.Annotations;
 namespace SDSCom
 {
     public class SDSComContext : DbContext
-    {
-        private readonly IConfiguration config;
-
-        public SDSComContext(IConfiguration _config) 
-        {
-            config = _config;
-        }
-
+    {      
         public SDSComContext(DbContextOptions options) : base(options)
         {
 
         }
-
-      
 
         public DbSet<ApplicationSetting> AppSettings { get; set; }
 
@@ -125,15 +116,13 @@ namespace SDSCom
         }
 
         //================================================================================
-
-
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                //optionsBuilder.UseNpgsql(@"Server=sdscom.c5o9b1nqgmsb.us-east-1.rds.amazonaws.com;Port=5432;Database=sdscom;User Id=sdscom;Password=Gollum17;");
-                optionsBuilder.UseNpgsql(config.GetConnectionString("SDSCom"));
+                SDSComApp app = new SDSComApp();
+                optionsBuilder.UseNpgsql(app.GetConnectionString());
             }
         }
 

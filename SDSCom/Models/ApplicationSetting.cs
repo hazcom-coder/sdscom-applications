@@ -16,7 +16,7 @@ namespace SDSCom.Models
         /// 
         /// </summary>
         [Key]
-        public long ID { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 

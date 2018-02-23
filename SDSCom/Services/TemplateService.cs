@@ -51,9 +51,8 @@ namespace SDSCom.Services
         {
             string ret = string.Empty;
            
-            var ec = db.EntityChapters.Single(x => x.EntityId == entityid 
+            var ec = db.EntityChapters.SingleOrDefault(x => x.EntityId == entityid 
                                                 && x.ChapterName == chaptername);
-
             if (ec != null)
             {
                 ret = ec.Data;

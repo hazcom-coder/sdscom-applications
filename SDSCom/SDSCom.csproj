@@ -30,4 +30,9 @@
   <ItemGroup>
     <None Include="wwwroot\About.html" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="files\connection.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

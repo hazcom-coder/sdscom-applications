@@ -19,6 +19,7 @@ namespace SDSCom.Pages.Author.Chapters
         private TemplateService tSvc;
         private long entityid = 0;
         private int userid = 0;
+        private EntityService eSvc;
 
         public Chapter0Model(SDSComContext _db, IMemoryCache _cache)
         {
@@ -26,15 +27,21 @@ namespace SDSCom.Pages.Author.Chapters
             cache = _cache;
         }
 
-
-        public void OnGet()
+        public void OnGet(long entityid)
         {   
             GetUserProfileViewData();
+
+            eSvc = new EntityService(db, cache);
+
+            Entity entity = eSvc.Get(entityid);
+
+            ViewData["ProductName"] = entity.EntityName;
+            ViewData["ProductOtherId"] = entity.OtherId;
 
             userid = UserProfile_UserID;
 
             tSvc = new TemplateService(db, cache);
-            string entityChapter = tSvc.GetEntityChapterData(UserProfile_ProductID, "InformationFromExportingSystem");
+            string entityChapter = tSvc.GetEntityChapterData(entityid, "InformationFromExportingSystem");
             if (entityChapter.Trim().Length > 0)
             {
                 SysInfo = JsonConvert.DeserializeObject<InformationFromExportingSystem>(entityChapter);

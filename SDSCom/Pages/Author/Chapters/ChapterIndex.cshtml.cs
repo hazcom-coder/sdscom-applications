@@ -1,32 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
+using SDSCom.Models;
+using SDSCom.Services;
 
 namespace SDSCom.Pages.Author.Chapters
 {
     public class ChapterIndexModel : BasePage
     {
-        public void OnGet()
+        private readonly SDSComContext db;
+        private IMemoryCache cache;
+        private EntityService eService;
+
+        public ChapterIndexModel(SDSComContext _db, IMemoryCache _cache)
         {
-            GetUserProfileViewData();
+            db = _db;
+            cache = _cache;
+            eService = new EntityService(db, cache);
         }
 
-        public IActionResult OnPostOpenChapter0()
+        public void OnGet(long id)
         {
-            return RedirectToPage("Chapter0");
+            Entity = eService.Get(id);
+
+            ViewData["ProductName"] = Entity.EntityName;
+            ViewData["ProductOtherId"] = Entity.OtherId;
         }
 
-        public IActionResult OnPostOpenChapter1()
+
+        [BindProperty]
+        public Entity Entity { get; set; }
+
+        public IActionResult OnPostOpenChapter0(long entityid)
         {
-            return RedirectToPage("Chapter1");
+            return RedirectToPage("Chapter0", new { entityid });
         }
 
-        public IActionResult OnPostOpenChapter2()
+        public IActionResult OnPostOpenChapter1(long entityid)
         {
-            return RedirectToPage("Chapter2");
+            return RedirectToPage("Chapter1", new { entityid });
+        }
+
+        public IActionResult OnPostOpenChapter2(long entityid)
+        {
+            return RedirectToPage("Chapter2", new { entityid });
         }
     }
 }

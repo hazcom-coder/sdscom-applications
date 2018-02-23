@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDSCom", "SDSCom\SDSCom.csproj", "{9AD9DFC6-610F-4F60-9D55-1A8234CCA6EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDSComTests", "SDSComTests\SDSComTests.csproj", "{0AC71212-9A3C-4E2E-A38D-1D0375732960}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDSComTests", "SDSComTests\SDSComTests.csproj", "{0AC71212-9A3C-4E2E-A38D-1D0375732960}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
