@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using SDSCom.Services;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
+using System.Xml.Xsl;
+using System.Xml.XPath;
+using System.Xml;
+using System.IO;
 
 namespace SDSCom.Pages.Administrator
 {
@@ -56,6 +60,24 @@ namespace SDSCom.Pages.Administrator
         {
 
             aSvc.LoadComponents();
+        }
+
+        public IActionResult OnPostTransform()
+        {            
+            string theHTML = string.Empty;
+
+            XslCompiledTransform xslt = new XslCompiledTransform();
+            xslt.Load("files/basic.xsl");
+
+            StringWriter writer = new StringWriter();
+            xslt.Transform("files/sdscom.xml", null, writer);
+            theHTML = writer.ToString();
+            writer.Close();
+
+            var result = System.Text.Encoding.Unicode.GetBytes(theHTML);
+            HttpContext.Session.Set("document",result );
+
+            return RedirectToPage("ViewDocument");
         }
     }
 }

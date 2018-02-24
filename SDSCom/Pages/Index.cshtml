@@ -5,37 +5,49 @@
 }
 
 <style>
-    .center-div 
-    {
-        width: 500px;
+    .center-div {
+        width: 700px;
         margin-left: auto;
         margin-right: auto;
     }
 </style>
 
 <form method="post">
+    <br />
+    <br />
+    <br />
+    <br />
     <div class="center-div">
         <div class="row">
-            <h3>Login to the SDSCom Application</h3>
-        </div>
-        <div class="row">
-            <div class="col-xs-6">
-                <label>User Name:</label>
-                <input type="text" value="First1" class="form-control small" id="txtUserName" asp-for="@Model.LoginUser.UserName" />
+            <div class="col-lg-4">
+                <img src="~/images/logo.png" height="150" width="100" />
             </div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-xs-6">
-                <label>Password:</label>
-                <input type="password" value="abc" class="form-control small" id="txtPassword"asp-for="@Model.LoginUser.Password" />
-            </div>
-        </div>
-        <br />
-        <br />
-        <div class="row">
-            <div class="col-xs-6">
-                <input class="btn-primary" type="submit" asp-page-handler="AppLogin" value="Login" />
+            <div class="col-lg-8">
+                <div class="row">
+                    <div>
+                        <h3>SDSCom Application</h3>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>User Name:</label>
+                        <input type="text" value="First1" class="form-control small" id="txtUserName" asp-for="@Model.LoginUser.UserName" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Password:</label>
+                        <input type="password" width="100" value="abc" class="form-control small" id="txtPassword" asp-for="@Model.LoginUser.Password" />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input class="btn-primary" type="submit" asp-page-handler="AppLogin" value="Login" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
