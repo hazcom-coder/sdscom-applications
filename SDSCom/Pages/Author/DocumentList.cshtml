@@ -1,8 +1,80 @@
 ﻿@page
 @model SDSCom.Pages.Author.DocumentListModel
+
 @{
-    ViewData["Title"] = "DocumentList";
+    ViewData["Title"] = "Documents";
 }
 
-<h2>DocumentList</h2>
+@Html.Partial("./HeaderPartial")
 
+<form>
+    <div class="form-actions no-color">
+        <p>
+            Find by name:
+            <input type="text" name="SearchStringLanguage" value="@Model.CurrentFilterLanguage" />
+            Find by Entity:
+            <input type="text" name="SearchStringEntity" value="@Model.CurrentFilterEntity" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-page="ComponentList">Back to full List</a> |            
+        </p>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-page="ComponentList" asp-route-sortOrder="@Model.LanguageSort"
+                       asp-route-currentFilterLanguage="@Model.CurrentFilterLanguage">
+                        Language
+                    </a>
+                </th>
+                <th>
+                    <a asp-page="ComponentList" asp-route-sortOrder="@Model.EntitySort"
+                       asp-route-currentFilterEntity="@Model.CurrentFilterEntity">
+                        Entity
+                    </a>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Documents)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EntityID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Source)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Language)
+                </td>
+                <td>
+                    <a asp-page="CreateEntity" asp-route-id="@item.Id">View</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    @{
+        var prevDisabled = !Model.Documents.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.Documents.HasNextPage ? "disabled" : "";
+    }
+
+    <a asp-page="ComponentList"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Documents.PageIndex - 1)"
+       asp-route-currentFilterName="@Model.CurrentFilterLanguage"
+       asp-route-currentFilterCAS="@Model.CurrentFilterEntity"
+       class="btn btn-default @prevDisabled">
+        Previous
+    </a>
+    <a asp-page="ComponentList"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Documents.PageIndex + 1)"
+       asp-route-currentFilterName="@Model.CurrentFilterLanguage"
+       asp-route-currentFilterCAS="@Model.CurrentFilterEntity"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
+</form>

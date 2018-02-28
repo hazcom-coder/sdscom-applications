@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using SDSCom.Services;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
 using System.Xml.Xsl;
-using System.Xml.XPath;
-using System.Xml;
+using SDSCom.Models;
 using System.IO;
 
 namespace SDSCom.Pages.Administrator
@@ -18,11 +12,13 @@ namespace SDSCom.Pages.Administrator
     {
         private AdminService aSvc;
         private readonly SDSComContext db;
+        private DocumentService dSvc;
 
         public AdminIndexModel(SDSComContext _db, IMemoryCache _cache)
         {
             db = _db;
             aSvc = new AdminService(db, _cache);
+            dSvc = new DocumentService(db, _cache);
         }
         public void OnGet()
         {
@@ -76,6 +72,21 @@ namespace SDSCom.Pages.Administrator
 
             var result = System.Text.Encoding.Unicode.GetBytes(theHTML);
             HttpContext.Session.Set("document",result );
+
+            Document document = new Document
+            {
+                Language = "EN",
+                EntityName = "Test Product",
+                EntityID = Guid.NewGuid().ToString(),
+                Active = true,
+                Content = theHTML,
+                CreatedDate = DateTime.Now,
+                CreatedUser = 1,
+                Source = "test",
+                Status = 1
+            };
+
+            dSvc.Save(document);
 
             return RedirectToPage("ViewDocument");
         }

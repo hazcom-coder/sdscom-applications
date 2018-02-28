@@ -18,6 +18,13 @@ namespace SDSCom
 
         }
 
+        public DbSet<Document> Documents { get; set; }
+
+        public IQueryable<Document> DocumentsReader
+        {
+            get { return Set<Document>().AsNoTracking(); }
+        }
+
         public DbSet<ApplicationSetting> AppSettings { get; set; }
 
         public IQueryable<ApplicationSetting> AppSettingsReader
@@ -417,6 +424,32 @@ namespace SDSCom
                 entity.Property(e => e.FacetId).HasColumnName("facet_id").IsRequired();
 
                 entity.Property(e => e.Data).HasColumnName("data").IsRequired();
+            });
+
+            modelBuilder.Entity<Document>(entity =>
+            {
+                entity.ToTable("document");
+
+                entity.Property(e => e.Id).HasColumnName("id").IsRequired().UseNpgsqlSerialColumn<long>();
+
+                entity.Property(e => e.EntityID).HasColumnName("entity_id").IsRequired();
+
+                entity.Property(e => e.EntityName).HasColumnName("entity_name").IsRequired();
+
+                entity.Property(e => e.CreatedDate).HasColumnName("created_date").IsRequired();
+
+                entity.Property(e => e.CreatedUser).HasColumnName("created_user").IsRequired();
+
+                entity.Property(e => e.Content).HasColumnName("content").IsRequired();
+
+                entity.Property(e => e.Source).HasColumnName("source").IsRequired();
+
+                entity.Property(e => e.Status).HasColumnName("status");
+
+                entity.Property(e => e.Active).HasColumnName("active");
+
+                entity.Property(e => e.Language).HasColumnName("language");
+
             });
         }
 

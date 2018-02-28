@@ -8,14 +8,21 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SDSCom.Pages.Administrator
 {
-    public class ViewDocumentModel : PageModel
+    public class ViewDocumentModel : BasePage
     {
+        public ViewDocumentModel()
+        {
+
+
+        }
+
         public void OnGet()
         {
             var sessionDoc = new Byte[1000000];
             HttpContext.Session.TryGetValue("document", out sessionDoc);
             var str = System.Text.Encoding.Unicode.GetString(sessionDoc);
             ViewData["Document"] = str;
+
         }
     }
 }
