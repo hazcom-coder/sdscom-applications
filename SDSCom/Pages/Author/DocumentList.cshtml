@@ -11,29 +11,30 @@
     <div class="form-actions no-color">
         <p>
             Find by name:
-            <input type="text" name="SearchStringLanguage" value="@Model.CurrentFilterLanguage" />
-            Find by Entity:
             <input type="text" name="SearchStringEntity" value="@Model.CurrentFilterEntity" />
+            Find by Entity:
+            <input type="text" name="SearchStringLanguage" value="@Model.CurrentFilterLanguage" />
             <input type="submit" value="Search" class="btn btn-default" /> |
-            <a asp-page="ComponentList">Back to full List</a> |            
+            <a asp-page="DocumentList">Back to full List</a> |            
         </p>
     </div>
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    <a asp-page="ComponentList" asp-route-sortOrder="@Model.LanguageSort"
-                       asp-route-currentFilterLanguage="@Model.CurrentFilterLanguage">
-                        Language
+                    <a asp-page="DocumentList" asp-route-sortOrder="@Model.EntitySort"
+                       asp-route-currentFilterLanguage="@Model.CurrentFilterEntity">
+                       Product Name
                     </a>
                 </th>
+                <th>Source</th>
                 <th>
-                    <a asp-page="ComponentList" asp-route-sortOrder="@Model.EntitySort"
-                       asp-route-currentFilterEntity="@Model.CurrentFilterEntity">
-                        Entity
+                    <a asp-page="DocumentList" asp-route-sortOrder="@Model.LanguageSort"
+                       asp-route-currentFilterEntity="@Model.CurrentFilterLanguage">
+                       Langauge
                     </a>
                 </th>
-                <th></th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -41,7 +42,7 @@
             {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.EntityID)
+                    @Html.DisplayFor(modelItem => item.EntityName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Source)
@@ -50,7 +51,7 @@
                     @Html.DisplayFor(modelItem => item.Language)
                 </td>
                 <td>
-                    <a asp-page="CreateEntity" asp-route-id="@item.Id">View</a>
+                    <a asp-page="ViewDocument" asp-route-id="@item.Id">View</a>
                 </td>
             </tr>
             }
@@ -61,7 +62,7 @@
         var nextDisabled = !Model.Documents.HasNextPage ? "disabled" : "";
     }
 
-    <a asp-page="ComponentList"
+    <a asp-page="DocumentList"
        asp-route-sortOrder="@Model.CurrentSort"
        asp-route-pageIndex="@(Model.Documents.PageIndex - 1)"
        asp-route-currentFilterName="@Model.CurrentFilterLanguage"
@@ -69,7 +70,7 @@
        class="btn btn-default @prevDisabled">
         Previous
     </a>
-    <a asp-page="ComponentList"
+    <a asp-page="DocumentList"
        asp-route-sortOrder="@Model.CurrentSort"
        asp-route-pageIndex="@(Model.Documents.PageIndex + 1)"
        asp-route-currentFilterName="@Model.CurrentFilterLanguage"

@@ -63,7 +63,7 @@ namespace SDSCom.Pages.Administrator
             string theHTML = string.Empty;
 
             XslCompiledTransform xslt = new XslCompiledTransform();
-            xslt.Load("files/basic.xsl");
+            xslt.Load("files/middle.xsl");
 
             StringWriter writer = new StringWriter();
             xslt.Transform("files/sdscom.xml", null, writer);
@@ -73,11 +73,13 @@ namespace SDSCom.Pages.Administrator
             var result = System.Text.Encoding.Unicode.GetBytes(theHTML);
             HttpContext.Session.Set("document",result );
 
+            string str = Guid.NewGuid().ToString();
+
             Document document = new Document
             {
                 Language = "EN",
-                EntityName = "Test Product",
-                EntityID = Guid.NewGuid().ToString(),
+                EntityName = $"Test Product {str}" ,
+                EntityID = str,
                 Active = true,
                 Content = theHTML,
                 CreatedDate = DateTime.Now,
@@ -86,9 +88,9 @@ namespace SDSCom.Pages.Administrator
                 Status = 1
             };
 
-            dSvc.Save(document);
+            document = dSvc.Save(document);
 
-            return RedirectToPage("ViewDocument");
+            return RedirectToPage("/Author/ViewDocument", new { document.Id});
         }
     }
 }

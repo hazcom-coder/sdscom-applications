@@ -1,5 +1,5 @@
 ﻿@page 
-@model SDSCom.Pages.Administrator.ViewDocumentModel
+@model SDSCom.Pages.Author.ViewDocumentModel
 @{
     Layout = null;
 }
@@ -12,6 +12,8 @@
     <title>ViewDocument</title>
 </head>
 <body>
+
+    @Html.Partial("./HeaderPartial")
 
     @Html.Raw(@ViewData["Document"])
 

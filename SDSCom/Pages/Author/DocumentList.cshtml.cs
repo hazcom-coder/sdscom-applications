@@ -29,10 +29,7 @@ namespace SDSCom.Pages.Author
             cache = _cache;
             db = _db;
             dSvc = new DocumentService(db, cache);
-        }
-
-        
-        
+        }   
 
         public void OnGet(string sortOrder,
                           string currentFilterLanguage,
