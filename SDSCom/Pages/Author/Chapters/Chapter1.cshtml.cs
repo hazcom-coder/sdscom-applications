@@ -16,7 +16,7 @@ namespace SDSCom.Pages.Author.Chapters
         private readonly SDSComContext db;
         private IMemoryCache cache;
         private TemplateService tSvc;
-        private long entityid = 0;
+       // private long entityid = 0;
         private int userid = 0;
 
         public Chapter1Model(SDSComContext _db, IMemoryCache _cache)
@@ -32,7 +32,7 @@ namespace SDSCom.Pages.Author.Chapters
             userid = UserProfile_UserID;
 
             tSvc = new TemplateService(db, cache);
-            string entityChapter = tSvc.GetEntityChapterData(UserProfile_ProductID, "IdentificationSubstPrep");
+            string entityChapter = ""; //tSvc.GetEntityChapterData(UserProfile_ProductID, "IdentificationSubstPrep");
             if (entityChapter.Trim().Length > 0)
             {
                 Ident = JsonConvert.DeserializeObject<IdentificationSubstPrep>(entityChapter);
@@ -70,7 +70,7 @@ namespace SDSCom.Pages.Author.Chapters
                 return Page();
             }
             string data = JsonConvert.SerializeObject(Ident);
-            tSvc.SaveEntityChapterData(entityid, "IdentificationSubstPrep", data, userid);
+            //tSvc.SaveEntityChapterData(entityid, "IdentificationSubstPrep", data, userid);
             return RedirectToPage("/ChapterIndex");
         }
     }

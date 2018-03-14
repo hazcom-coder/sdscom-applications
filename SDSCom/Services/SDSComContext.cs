@@ -66,16 +66,7 @@ namespace SDSCom
         public IQueryable<Facet> FacetsReader
         {
             get { return Set<Facet>().AsNoTracking(); }
-        }
-
-        //================================================================================
-        
-        public DbSet<EntityChapter> EntityChapters { get; set; }
-
-        public IQueryable<EntityChapter> EntityChaptersReader
-        {
-            get { return Set<EntityChapter>().AsNoTracking(); }
-        }
+        }       
 
         //================================================================================
 
@@ -86,14 +77,14 @@ namespace SDSCom
             get { return Set<User>().AsNoTracking(); }
         }
 
-        //================================================================================
+        // //================================================================================
         
-        public DbSet<FacetPhraseLink> FacetPhraseLinks { get; set; }
+        // public DbSet<FacetPhraseLink> FacetPhraseLinks { get; set; }
 
-        public IQueryable<FacetPhraseLink> FacetPhraseLinksReader
-        {
-            get { return Set<FacetPhraseLink>().AsNoTracking(); }
-        }
+        // public IQueryable<FacetPhraseLink> FacetPhraseLinksReader
+        // {
+        //     get { return Set<FacetPhraseLink>().AsNoTracking(); }
+        // }
 
         //================================================================================
 
@@ -191,47 +182,31 @@ namespace SDSCom
                 entity.Property(e => e.Active).HasColumnName("active")
                                  .IsRequired();
 
-                entity.Property(e => e.DateStamp).HasColumnName("date_stamp")
+                entity.Property(e => e.DateStamp).HasColumnName(name: "date_stamp")
                                 .IsRequired();
 
                 entity.Property(e => e.EntityName)
                                 .IsRequired()
-                                .HasColumnName("entity_name")
+                                .HasColumnName(name: "entity_name")
                                 .HasMaxLength(1000);
 
-                entity.Property(e => e.EntityType).HasColumnName("entity_type")
+                entity.Property(e => e.EntityType).HasColumnName(name: "entity_type")
                                 .IsRequired();
 
-                entity.Property(e => e.OtherId).HasColumnName("other_id").HasMaxLength(100);
+                entity.Property(e => e.OtherId).HasColumnName(name: "other_id").HasMaxLength(100);
 
-                entity.Property(e => e.UserId).HasColumnName("user_id")
+                entity.Property(e => e.UserId).HasColumnName(name: "user_id")
                                 .IsRequired();
-            });          
 
-            modelBuilder.Entity<EntityChapter>(entity =>
-            {
-                entity.ToTable("entity_chapter");
+                 entity.Property(e => e.Content).HasColumnName(name: "content").HasColumnType("json");
 
-                entity.Property(e => e.Id).HasColumnName("id")
-                                .IsRequired()
-                                .UseNpgsqlSerialColumn();
+                entity.Property(e => e.VersionNumber).HasColumnName(name: "version_number");
 
-                entity.Property(e => e.ChapterName)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .HasColumnName("chapter_name");
+                entity.Property(e => e.Status).HasColumnName(name: "status");
 
-                entity.Property(e => e.Data).HasColumnName("data");
+                entity.Property(e => e.SchemaType).HasColumnName(name: "schema_type");
 
-                entity.Property(e => e.DateStamp).HasColumnName("date_stamp")
-                                    .IsRequired();
-
-                entity.Property(e => e.EntityId).HasColumnName("entity_id")
-                                    .IsRequired();
-
-                entity.Property(e => e.UserId).HasColumnName("user_id")
-                                    .IsRequired();
-            });
+            }); 
 
             modelBuilder.Entity<EntityType>(entity =>
             {

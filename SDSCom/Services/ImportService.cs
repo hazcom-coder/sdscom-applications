@@ -82,7 +82,7 @@ namespace SDSCom.Services
                         db.Entities.Add(entity);
                         db.SaveChanges();
 
-                        SaveChapter(entity, dsDoc, "InformationFromExportingSystem", userId);
+                       // SaveChapter(entity, dsDoc, "InformationFromExportingSystem", userId);
                     }
                    
                     db.Imports.Add(imp);
@@ -97,33 +97,6 @@ namespace SDSCom.Services
 
             return ok;
         }
-
-
-        private void SaveChapter(Entity entity, XmlDocument xDoc, string chaptername, int userId )
-        {
-            EntityChapter ec = new EntityChapter()
-            {
-                ChapterName = chaptername,
-                DateStamp = DateTime.Now,
-                EntityId = entity.Id,
-                UserId = userId                
-            };
-
-            XmlNode node = xDoc.SelectSingleNode("/Datasheet/InformationFromExportingSystem");
-
-            if (node != null)
-            {
-                ec.Data = node.InnerXml;
-            }
-            else
-            {
-                ec.Data = "CHAPTER NOT FOUND";
-            }
-
-            db.EntityChapters.Add(ec);
-            db.SaveChanges();
-        }
-
 
         /// <summary>
         /// Prefer ProductGTIN number, then ProductNoUser, then ItemNo, then 'UNKNOWN'

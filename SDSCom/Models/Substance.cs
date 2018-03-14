@@ -7,325 +7,88 @@ namespace SDSCom.Models
 {
     /// <remarks/>
     public class Substance
-    {
-        private string substanceNameField;
-
-        private string casNoField;
-
-        private string indexNoField;
-
-        private string authorisationNoField;
-
-        private string ecNoField;
-
-        private string[] reachRegNoField;
-
-        private Phrase[] reachRegNoCommentsField;
-
-        private string idNoCLInventoryField;
-
-        private string[] synonymField;
-
-        private string formulaField;
-
-        private string iupacNameField;
-
-        private string productNameInSection2Field;
-
-        private string productNameInSection3Field;
-
-        private string productNameInSection8Field;
-
-        private string nameDetergentsRegulationField;
-
-        private Phrase[] substanceAdditionalInformationField;
-
-        private Phrase[] hazardousImpuritiesField;
-
-        private Phrase[] stabilizerField;
-
-        private Phrase[] chemicalPurityField;
-
-        private Phrase[] chemicalPropertiesField;
+    {  
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string SubstanceName {get; set;}
+      
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string CasNo  {get; set;}
+       
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string SubstanceName
-        {
-            get
-            {
-                return this.substanceNameField;
-            }
-            set
-            {
-                this.substanceNameField = value;
-            }
-        }
-
+        public string IndexNo {get; set;}
+       
         /// <remarks/>
         [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string CasNo
-        {
-            get
-            {
-                return this.casNoField;
-            }
-            set
-            {
-                this.casNoField = value;
-            }
-        }
-
+        public string AuthorisationNo {get; set;}
+       
         /// <remarks/>
         [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string IndexNo
-        {
-            get
-            {
-                return this.indexNoField;
-            }
-            set
-            {
-                this.indexNoField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string AuthorisationNo
-        {
-            get
-            {
-                return this.authorisationNoField;
-            }
-            set
-            {
-                this.authorisationNoField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string EcNo
-        {
-            get
-            {
-                return this.ecNoField;
-            }
-            set
-            {
-                this.ecNoField = value;
-            }
-        }
-
+        public string EcNo {get; set;}
+       
         /// <remarks/>
         [System.Xml.Serialization.XmlElement("ReachRegNo", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string[] ReachRegNo
-        {
-            get
-            {
-                return this.reachRegNoField;
-            }
-            set
-            {
-                this.reachRegNoField = value;
-            }
-        }
-
+        public List<string> ReachRegNo {get; set;}
+       
         /// <remarks/>
         [System.Xml.Serialization.XmlElement("ReachRegNoComments", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public Phrase[] ReachRegNoComments
-        {
-            get
-            {
-                return this.reachRegNoCommentsField;
-            }
-            set
-            {
-                this.reachRegNoCommentsField = value;
-            }
-        }
-
+        public List<Phrase> ReachRegNoComments {get; set;}
+       
         /// <remarks/>
         [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string IdNoCLInventory
-        {
-            get
-            {
-                return this.idNoCLInventoryField;
-            }
-            set
-            {
-                this.idNoCLInventoryField = value;
-            }
-        }
-
+        public string IdNoCLInventory {get; set;}
+       
         /// <remarks/>
         [System.Xml.Serialization.XmlElement("Synonym", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string[] Synonym
-        {
-            get
-            {
-                return this.synonymField;
-            }
-            set
-            {
-                this.synonymField = value;
-            }
-        }
-
+        public List<string> Synonym {get; set;}
+      
         /// <remarks/>
         [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Formula
-        {
-            get
-            {
-                return this.formulaField;
-            }
-            set
-            {
-                this.formulaField = value;
-            }
-        }
-
+        public string Formula {get; set;}
+      
         /// <remarks/>
         [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string IupacName
-        {
-            get
-            {
-                return this.iupacNameField;
-            }
-            set
-            {
-                this.iupacNameField = value;
-            }
-        }
-
+        public string IupacName {get; set;}
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string ProductNameInSection2
-        {
-            get
-            {
-                return this.productNameInSection2Field;
-            }
-            set
-            {
-                this.productNameInSection2Field = value;
-            }
-        }
-
+        public string ProductNameInSection2 {get; set;}
+      
         /// <remarks/>
         [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string ProductNameInSection3
-        {
-            get
-            {
-                return this.productNameInSection3Field;
-            }
-            set
-            {
-                this.productNameInSection3Field = value;
-            }
-        }
-
+        public string ProductNameInSection3 {get; set;}
+       
         /// <remarks/>
         [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string ProductNameInSection8
-        {
-            get
-            {
-                return this.productNameInSection8Field;
-            }
-            set
-            {
-                this.productNameInSection8Field = value;
-            }
-        }
-
+        public string ProductNameInSection8 {get; set;}
+       
         /// <remarks/>
         [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string NameDetergentsRegulation
-        {
-            get
-            {
-                return this.nameDetergentsRegulationField;
-            }
-            set
-            {
-                this.nameDetergentsRegulationField = value;
-            }
-        }
-
+        public string NameDetergentsRegulation {get; set;}
+      
         /// <remarks/>
         [System.Xml.Serialization.XmlElement("SubstanceAdditionalInformation", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public Phrase[] SubstanceAdditionalInformation
-        {
-            get
-            {
-                return this.substanceAdditionalInformationField;
-            }
-            set
-            {
-                this.substanceAdditionalInformationField = value;
-            }
-        }
-
+        public List<Phrase> SubstanceAdditionalInformation {get; set;}
+       
         /// <remarks/>
         [System.Xml.Serialization.XmlElement("HazardousImpurities", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public Phrase[] HazardousImpurities
-        {
-            get
-            {
-                return this.hazardousImpuritiesField;
-            }
-            set
-            {
-                this.hazardousImpuritiesField = value;
-            }
-        }
-
+        public List<Phrase> HazardousImpurities {get; set;}
+       
         /// <remarks/>
         [System.Xml.Serialization.XmlElement("Stabilizer", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public Phrase[] Stabilizer
-        {
-            get
-            {
-                return this.stabilizerField;
-            }
-            set
-            {
-                this.stabilizerField = value;
-            }
-        }
+        public List<Phrase> Stabilizer {get; set;}
+      
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElement("ChemicalPurity", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public Phrase[] ChemicalPurity
-        {
-            get
-            {
-                return this.chemicalPurityField;
-            }
-            set
-            {
-                this.chemicalPurityField = value;
-            }
-        }
+        public List<Phrase> ChemicalPurity {get; set;}
+      
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElement("ChemicalProperties", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public Phrase[] ChemicalProperties
-        {
-            get
-            {
-                return this.chemicalPropertiesField;
-            }
-            set
-            {
-                this.chemicalPropertiesField = value;
-            }
-        }
+        public List<Phrase> ChemicalProperties {get; set;}
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using SDSCom.Models;
 using Microsoft.Extensions.Caching.Memory;
 using Serilog;
+using System.Xml;
 
 namespace SDSCom.Services
 {
@@ -27,7 +28,83 @@ namespace SDSCom.Services
             eSvc = new EntityService(db, cache);
         }
 
+
         public void LoadComponents()
+        {   
+            try
+            {
+                List<Entity> entList = eSvc.GetByType(EntityTypeEnum.Component);
+                db.Entities.RemoveRange(entList);
+                db.SaveChanges();
+                
+                XmlDocument xdoc = new XmlDocument();
+                xdoc.Load(@"files\ec-inventory-export.xml");
+
+                XmlNode root = xdoc.DocumentElement;
+
+                db.AppSettings.Add(new ApplicationSetting()
+                    {
+                        Area = "SUBSTANCES",
+                        Setting = "EXPORT_DATE",
+                        DataValue = root.Attributes["exportDate"].Value
+                    });                
+
+                db.AppSettings.Add(new ApplicationSetting()
+                    {
+                        Area = "SUBSTANCES",
+                        Setting = "LAST_UPDATED",
+                        DataValue = root.Attributes["lastUpdate"].Value
+                    });
+                
+                db.AppSettings.Add(new ApplicationSetting()
+                    {
+                        Area = "SUBSTANCES",
+                        Setting = "COUNT",
+                        DataValue = root.Attributes["uniqueSustances"].Value
+                    });               
+
+                db.SaveChanges();
+
+                //------------------------------------------------------------------------------------
+
+                List<Entity> entities = new List<Entity>();     
+
+                XmlNodeList substanceNodes = xdoc.SelectNodes("results/result");
+                int x = 0;
+                foreach (XmlNode substanceNode in substanceNodes)
+                {
+                    Entity entity = new Entity()
+                    {
+                        Active = true,
+                        DateStamp = DateTime.Now,
+                        EntityName = substanceNode.SelectSingleNode("name").Value ?? string.Empty,
+                        EntityType = 2,
+                        Id = 0,
+                        OtherId = substanceNode.SelectSingleNode("cas-no").Value ?? string.Empty,
+                        UserId = 1
+                    };
+
+                    entities.Add(entity);   
+                    x++;
+                    if (x >= 1000)  
+                    {
+                        db.Entities.AddRange(entities);
+                        db.SaveChanges();
+                        x = 0;
+                        entities = new List<Entity>();
+                    }  
+                }
+            
+                db.Entities.AddRange(entities);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+            }
+        }
+
+        public void LoadComponentsOld()
         {
             List<string> badOnes = new List<string>();
             
@@ -114,18 +191,12 @@ namespace SDSCom.Services
 
                 var allDSFI = db.Set<DataSheetFeedImport>();
                 db.Imports.RemoveRange(allDSFI);
-
-                var allEC = db.Set<EntityChapter>();
-                db.EntityChapters.RemoveRange(allEC);
-
+              
                 var allF = db.Set<Facet>();
                 db.Facets.RemoveRange(allF);
 
                 var allFR = db.Set<FacetRestriction>();
-                db.FacetRestrictions.RemoveRange(allFR);
-
-                var allFPL = db.Set<FacetPhraseLink>();
-                db.FacetPhraseLinks.RemoveRange(allFPL);
+                db.FacetRestrictions.RemoveRange(allFR);                
 
                 var allV = db.Set<ValidationMessage>();
                 db.ValidationMessages.RemoveRange(allV);

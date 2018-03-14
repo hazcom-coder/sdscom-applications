@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SDSCom.Models;
+using Newtonsoft.Json;
 
 namespace SDSCom.Services
 {
@@ -78,5 +79,37 @@ namespace SDSCom.Services
         {    
             return db.EntityTypes.ToList();
         }
+
+        #region DataSheet operations
+        public string InitDataSheet()
+        {
+            Datasheet dSheet = new Datasheet()
+            {
+                AccidentalReleaseMeasures = new AccidentalReleaseMeasures(),
+                Composition = new Composition(),
+                DisposalConsiderations = new DisposalConsiderations(),
+                EcologicalInformation = new EcologicalInformation(),
+                ExposureControlPersonalProtection = new ExposureControlPersonalProtection(),
+                FireFightingMeasures = new FireFightingMeasures(),
+                FirstAidMeasures = new FirstAidMeasures(),
+                HandlingAndStorage = new HandlingAndStorage(),
+                HazardIdentification = new HazardIdentification(),
+                IdentificationSubstPrep = new IdentificationSubstPrep(),
+                InformationFromExportingSystem = new InformationFromExportingSystem(),
+                OtherInformation = new OtherInformation(),
+                PhysicalChemicalProperties = new PhysicalChemicalProperties(),
+                RegulatoryInfo = new RegulatoryInfo(),
+                StabilityReactivity = new StabilityReactivity(),
+                ToxicologicalInformation = new ToxicologicalInformation(),
+                TransportInformation = new TransportInformation()
+            };
+            
+            return JsonConvert.SerializeObject(dSheet);
+        }
+
+        public string SerializeDataSheet(Datasheet dSheet) => JsonConvert.SerializeObject(dSheet);
+
+        #endregion
+
     }
 }

@@ -47,38 +47,38 @@ namespace SDSCom.Services
             return db.Facets.Find(facetid);           
         }
 
-        public string GetEntityChapterData(long entityid, string chaptername)
-        {
-            string ret = string.Empty;
+        // public string GetEntityChapterData(long entityid, string chaptername)
+        // {
+        //     string ret = string.Empty;
            
-            var ec = db.EntityChapters.SingleOrDefault(x => x.EntityId == entityid 
-                                                && x.ChapterName == chaptername);
-            if (ec != null)
-            {
-                ret = ec.Data;
-            }     
+        //     var ec = db.EntityChapters.SingleOrDefault(x => x.EntityId == entityid 
+        //                                         && x.ChapterName == chaptername);
+        //     if (ec != null)
+        //     {
+        //         ret = ec.Data;
+        //     }     
             
-            return ret;
-        }
+        //     return ret;
+        // }
 
-        public bool SaveEntityChapterData(long entityid, string chaptername, string data, int userid)
-        {
-            bool ok = false;
+        // public bool SaveEntityChapterData(long entityid, string chaptername, string data, int userid)
+        // {
+        //     bool ok = false;
 
-            EntityChapter ec = new EntityChapter()
-            {
-                EntityId = entityid,
-                ChapterName = chaptername,
-                Data = data,
-                DateStamp = DateTime.Now,
-                UserId = userid
-            };
+        //  dotnet    EntityChapter ec = new EntityChapter()
+        //     {
+        //         EntityId = entityid,
+        //         ChapterName = chaptername,
+        //         Data = data,
+        //         DateStamp = DateTime.Now,
+        //         UserId = userid
+        //     };
 
-            db.EntityChapters.Add(ec);
-            db.SaveChanges();
+        //     db.EntityChapters.Add(ec);
+        //     db.SaveChanges();
 
-            return ok;
-        }
+        //     return ok;
+        // }
 
         public FacetRestriction GetRestrictions(int facetid)
         {

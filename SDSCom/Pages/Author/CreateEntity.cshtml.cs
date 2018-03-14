@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using SDSCom.Models;
 using SDSCom.Services;
 
@@ -48,6 +49,10 @@ namespace SDSCom.Pages.Author
                 Entity.DateStamp = DateTime.Now;
                 Entity.Active = true;
                 Entity.UserId = UserProfile_UserID;
+                Entity.SchemaType = "SDSCOMXML";
+                Entity.Status = 0;
+                Entity.VersionNumber = 0;  
+                Entity.Content = eService.InitDataSheet();
             }
 
             eService.Save(Entity);

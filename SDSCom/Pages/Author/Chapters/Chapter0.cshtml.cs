@@ -17,7 +17,7 @@ namespace SDSCom.Pages.Author.Chapters
         private readonly SDSComContext db;
         private IMemoryCache cache;
         private TemplateService tSvc;
-        private long entityid = 0;
+        //private long entityid = 0;
         private int userid = 0;
         private EntityService eSvc;
 
@@ -41,7 +41,7 @@ namespace SDSCom.Pages.Author.Chapters
             userid = UserProfile_UserID;
 
             tSvc = new TemplateService(db, cache);
-            string entityChapter = tSvc.GetEntityChapterData(entityid, "InformationFromExportingSystem");
+            string entityChapter = ""; //tSvc.GetEntityChapterData(entityid, "InformationFromExportingSystem");
             if (entityChapter.Trim().Length > 0)
             {
                 SysInfo = JsonConvert.DeserializeObject<InformationFromExportingSystem>(entityChapter);
@@ -68,7 +68,7 @@ namespace SDSCom.Pages.Author.Chapters
                 return Page();
             }
             string data = JsonConvert.SerializeObject(SysInfo);
-            tSvc.SaveEntityChapterData(entityid, "InformationFromExportingSystem", data, userid);
+          //  tSvc.SaveEntityChapterData(entityid, "InformationFromExportingSystem", data, userid);
             return RedirectToPage("/ChapterIndex");
         }
     }

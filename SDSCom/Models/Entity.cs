@@ -50,6 +50,27 @@ namespace SDSCom.Models
         /// 
         /// </summary>
         public int EntityType { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Content { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public double VersionNumber { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Status { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SchemaType { get; set; }
+
     }
 
     /// <summary>
@@ -66,5 +87,16 @@ namespace SDSCom.Models
         /// 
         /// </summary>
         public string EntityTypeName { get; set; }
+    }
+
+    public enum EntityStatusEnum
+    {
+        New = 0,
+
+        Draft = 1,
+
+        Active = 2,
+
+        Inactive = 3
     }
 }
