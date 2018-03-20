@@ -1,0 +1,3 @@
+2018-03-15 16:15:31.633 -04:00 [Error] Could not find file '/home/hazcomcoder/Projects/sdscom-applications/sdscom-applications/SDSCom/files\ec-inventory-export.xml'.
+2018-03-15 16:28:34.861 -04:00 [Error] Object reference not set to an instance of an object.
+2018-03-15 16:43:50.629 -04:00 [Error] An error occurred while updating the entries. See the inner exception for details.

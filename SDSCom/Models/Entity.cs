@@ -71,6 +71,11 @@ namespace SDSCom.Models
         /// </summary>
         public string SchemaType { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Properties  { get; set; }
+
     }
 
     /// <summary>

@@ -5,130 +5,25 @@ using System.Threading.Tasks;
 
 namespace SDSCom.Models
 {
-    /// <remarks/>
-    [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public class ClpClassification
     {
 
-        private ClpHazardClassification[] clpHazardClassificationField;
+        public List<ClpHazardClassification> ClpHazardClassification {get; set;}
+      
+        public List<Phrase> ClpClassificationComments {get; set;}       
 
-        private Phrase[] clpClassificationCommentsField;
-
-        private Phrase[] clpClassificationNotesField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("ClpHazardClassification", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public ClpHazardClassification[] ClpHazardClassification
-        {
-            get
-            {
-                return this.clpHazardClassificationField;
-            }
-            set
-            {
-                this.clpHazardClassificationField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("ClpClassificationComments", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public Phrase[] ClpClassificationComments
-        {
-            get
-            {
-                return this.clpClassificationCommentsField;
-            }
-            set
-            {
-                this.clpClassificationCommentsField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("ClpClassificationNotes", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public Phrase[] ClpClassificationNotes
-        {
-            get
-            {
-                return this.clpClassificationNotesField;
-            }
-            set
-            {
-                this.clpClassificationNotesField = value;
-            }
-        }
+        public List<Phrase> ClpClassificationNotes {get; set;}      
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public class ClpHazardClassification
     {
+        public HazardClassCategoryEnum ClpHazardClassCategory {get; set;}
 
-        private HazardClassCategoryEnum clpHazardClassCategoryField;
+        public List<HazardStatement> ClpHazardStatement {get; set;}
 
-        private HazardStatement[] clpHazardStatementField;
-
-        private Phrase clpClassificationProcedureField;
-
-        private MultiplyingFactor multiplyingFactorField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public HazardClassCategoryEnum ClpHazardClassCategory
-        {
-            get
-            {
-                return this.clpHazardClassCategoryField;
-            }
-            set
-            {
-                this.clpHazardClassCategoryField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("ClpHazardStatement", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public HazardStatement[] ClpHazardStatement
-        {
-            get
-            {
-                return this.clpHazardStatementField;
-            }
-            set
-            {
-                this.clpHazardStatementField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public Phrase ClpClassificationProcedure
-        {
-            get
-            {
-                return this.clpClassificationProcedureField;
-            }
-            set
-            {
-                this.clpClassificationProcedureField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public MultiplyingFactor MultiplyingFactor
-        {
-            get
-            {
-                return this.multiplyingFactorField;
-            }
-            set
-            {
-                this.multiplyingFactorField = value;
-            }
-        }
+        public Phrase ClpClassificationProcedure {get; set;}
+       
+       public MultiplyingFactor MultiplyingFactor {get; set;}
     }
 
     /// <summary>
@@ -136,217 +31,35 @@ namespace SDSCom.Models
     /// </summary>
     public class HazardStatement
     {
+        public HazardStatementEnum PhraseCode {get; set;}
 
-        private HazardStatementEnum phraseCodeField;
+        public string FullText {get; set;}
 
-        private string fullTextField;
+        public List<MergePhrase> MergePhrase {get; set;}
 
-        private MergePhrase[] mergePhraseField;
-
-        private string phraseIdField;
-
-        private string phraseCatalogueIdField;
-
-        /// <remarks/>
-        public HazardStatement()
-        {
-            this.phraseCatalogueIdField = "0";
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public HazardStatementEnum PhraseCode
-        {
-            get
-            {
-                return this.phraseCodeField;
-            }
-            set
-            {
-                this.phraseCodeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string FullText
-        {
-            get
-            {
-                return this.fullTextField;
-            }
-            set
-            {
-                this.fullTextField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("MergePhrase", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public MergePhrase[] MergePhrase
-        {
-            get
-            {
-                return this.mergePhraseField;
-            }
-            set
-            {
-                this.mergePhraseField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string PhraseId
-        {
-            get
-            {
-                return this.phraseIdField;
-            }
-            set
-            {
-                this.phraseIdField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "integer")]
-        [System.ComponentModel.DefaultValueAttribute("0")]
-        public string PhraseCatalogueId
-        {
-            get
-            {
-                return this.phraseCatalogueIdField;
-            }
-            set
-            {
-                this.phraseCatalogueIdField = value;
-            }
-        }
+        public string PhraseId {get; set;}
+       
+        public string PhraseCatalogueId {get; set;}
     }
 
     /// <remarks/>
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public class ClassificationDpdDsdClassification
     {
+        public List<DPDHazardClassification> DpdDsdHazardClassification {get; set;}
 
-        private ClassificationDpdDsdClassificationDpdDsdHazardClassification[] dpdDsdHazardClassificationField;
+        public List<Phrase> DpdDsdClassificationComments {get; set;}
 
-        private Phrase[] dpdDsdClassificationCommentsField;
-
-        private Phrase[] dpdDsdClassificationNotesField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("DpdDsdHazardClassification", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public ClassificationDpdDsdClassificationDpdDsdHazardClassification[] DpdDsdHazardClassification
-        {
-            get
-            {
-                return this.dpdDsdHazardClassificationField;
-            }
-            set
-            {
-                this.dpdDsdHazardClassificationField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("DpdDsdClassificationComments", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public Phrase[] DpdDsdClassificationComments
-        {
-            get
-            {
-                return this.dpdDsdClassificationCommentsField;
-            }
-            set
-            {
-                this.dpdDsdClassificationCommentsField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("DpdDsdClassificationNotes", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public Phrase[] DpdDsdClassificationNotes
-        {
-            get
-            {
-                return this.dpdDsdClassificationNotesField;
-            }
-            set
-            {
-                this.dpdDsdClassificationNotesField = value;
-            }
-        }
+         public List<Phrase> DpdDsdClassificationNotes {get; set;}
     }
 
-    /// <remarks/>
-    [System.Xml.Serialization.XmlType(AnonymousType = true)]
-    public class ClassificationDpdDsdClassificationDpdDsdHazardClassification
+    public class DPDHazardClassification
     {
+        public ClassificationCategoryEnum DpdDsdClassificationCategory {get; set;}
 
-        private ClassificationCategoryEnum dpdDsdClassificationCategoryField;
+        public bool DpdDsdClassificationCategorySpecified {get; set;}
 
-        private bool dpdDsdClassificationCategoryFieldSpecified;
-
-        private RiskPhrase[] dpdDsdRiskPhraseField;
-
-        private DpdDsdHazardClassificationMultiplyingFactor multiplyingFactorField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public ClassificationCategoryEnum DpdDsdClassificationCategory
-        {
-            get
-            {
-                return this.dpdDsdClassificationCategoryField;
-            }
-            set
-            {
-                this.dpdDsdClassificationCategoryField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool DpdDsdClassificationCategorySpecified
-        {
-            get
-            {
-                return this.dpdDsdClassificationCategoryFieldSpecified;
-            }
-            set
-            {
-                this.dpdDsdClassificationCategoryFieldSpecified = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("DpdDsdRiskPhrase", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public RiskPhrase[] DpdDsdRiskPhrase
-        {
-            get
-            {
-                return this.dpdDsdRiskPhraseField;
-            }
-            set
-            {
-                this.dpdDsdRiskPhraseField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public DpdDsdHazardClassificationMultiplyingFactor MultiplyingFactor
-        {
-            get
-            {
-                return this.multiplyingFactorField;
-            }
-            set
-            {
-                this.multiplyingFactorField = value;
-            }
-        }
+         public List<RiskPhrase> DpdDsdRiskPhrase {get; set;}
+        public DpdDsdHazardClassificationMultiplyingFactor MultiplyingFactor {get; set;}
     }
-
 }

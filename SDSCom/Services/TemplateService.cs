@@ -14,6 +14,7 @@ using Microsoft.Extensions.Primitives;
 using SDSCom.Models;
 using System.Data;
 using System.Reflection;
+using System.Xml;
 
 namespace SDSCom.Services
 {
@@ -47,19 +48,23 @@ namespace SDSCom.Services
             return db.Facets.Find(facetid);           
         }
 
-        // public string GetEntityChapterData(long entityid, string chaptername)
-        // {
-        //     string ret = string.Empty;
-           
-        //     var ec = db.EntityChapters.SingleOrDefault(x => x.EntityId == entityid 
-        //                                         && x.ChapterName == chaptername);
-        //     if (ec != null)
-        //     {
-        //         ret = ec.Data;
-        //     }     
+        public string GetEntityChapterContent(long entityid, string chaptername)
+        {
+            string ret = string.Empty;
+            XmlNode node;
+
+            var ec = db.EntitiesReader.SingleOrDefault(x => x.Id == entityid);
+            if (ec != null)
+            {
+               XmlDocument xdoc = new XmlDocument();
+               xdoc.LoadXml(ec.Content);
+               XmlNode root = xdoc.DocumentElement;
+               node = root.SelectSingleNode($"Datasheet/{chaptername}") ;
+               ret = base.Serialize<XmlNode>(node);
+            } 
             
-        //     return ret;
-        // }
+            return ret;
+        }
 
         // public bool SaveEntityChapterData(long entityid, string chaptername, string data, int userid)
         // {

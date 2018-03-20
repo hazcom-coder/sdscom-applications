@@ -16,7 +16,9 @@ namespace SDSCom.Services
         private IMemoryCache cache;
         private EntityService eSvc;
 
-        /// <summary>
+        private ApplicationSettingsService aSvc;
+        
+         /// <summary>
         /// 
         /// </summary>
         /// <param name="_config"></param>
@@ -26,6 +28,7 @@ namespace SDSCom.Services
             db = _db;
             cache = _cache;
             eSvc = new EntityService(db, cache);
+            aSvc = new ApplicationSettingsService(db,cache);
         }
 
 
@@ -36,9 +39,13 @@ namespace SDSCom.Services
                 List<Entity> entList = eSvc.GetByType(EntityTypeEnum.Component);
                 db.Entities.RemoveRange(entList);
                 db.SaveChanges();
+
+                List<ApplicationSetting> appSetList = aSvc.GetByArea("SUBSTANCES");
+                db.AppSettings.RemoveRange(appSetList);
+                db.SaveChanges();
                 
                 XmlDocument xdoc = new XmlDocument();
-                xdoc.Load(@"files\ec-inventory-export.xml");
+                xdoc.Load("files/reg-substances-export.xml");
 
                 XmlNode root = xdoc.DocumentElement;
 
@@ -69,20 +76,19 @@ namespace SDSCom.Services
 
                 List<Entity> entities = new List<Entity>();     
 
-                XmlNodeList substanceNodes = xdoc.SelectNodes("results/result");
+                XmlNodeList substanceNodes = xdoc.SelectNodes(xpath: "RegisteredSubstances/results/result");
                 int x = 0;
                 foreach (XmlNode substanceNode in substanceNodes)
                 {
-                    Entity entity = new Entity()
-                    {
-                        Active = true,
-                        DateStamp = DateTime.Now,
-                        EntityName = substanceNode.SelectSingleNode("name").Value ?? string.Empty,
-                        EntityType = 2,
-                        Id = 0,
-                        OtherId = substanceNode.SelectSingleNode("cas-no").Value ?? string.Empty,
-                        UserId = 1
-                    };
+                    Entity entity = new Entity();                    
+                    entity.Active = true;
+                    entity.DateStamp = DateTime.Now;
+                    entity.EntityName = substanceNode.SelectSingleNode("name").InnerText;
+                    entity.EntityType = 2;
+                    entity.Id = 0;
+                    entity.OtherId = substanceNode.SelectSingleNode("casNumber").InnerText;
+                    entity. UserId = 1;
+                    entity.Properties = GetEntityProperties(substanceNode,xdoc);
 
                     entities.Add(entity);   
                     x++;
@@ -100,9 +106,71 @@ namespace SDSCom.Services
             }
             catch (Exception ex)
             {
-                Log.Error(ex.Message);
+               Log.Error(ex.Message);
             }
         }
+
+      
+
+        private string GetEntityProperties(XmlNode parent, XmlDocument xdoc)
+        {
+           XmlNode node = xdoc.CreateElement("properties");
+           XmlNode testNode;
+
+            testNode = parent.SelectSingleNode("ecNumber");
+            if (testNode != null)
+            {
+                XmlNode newNode = xdoc.CreateElement("ecNumber");
+                newNode.InnerText = testNode.InnerText;
+                node.AppendChild(newNode);
+            }
+
+            testNode = parent.SelectSingleNode("registrationType");
+            if (testNode != null)
+            {
+                XmlNode newNode = xdoc.CreateElement("registrationType");
+                newNode.InnerText = testNode.InnerText;
+                node.AppendChild(newNode);
+            }
+
+            testNode = parent.SelectSingleNode("submissionType");
+            if (testNode != null)
+            {
+                XmlNode newNode = xdoc.CreateElement("submissionType");
+                newNode.InnerText = testNode.InnerText;
+                node.AppendChild(newNode);
+            }
+
+            testNode = parent.SelectSingleNode("tonnageBand");
+            if (testNode != null)
+            {
+                XmlNode newNode = xdoc.CreateElement("tonnageBand");
+                newNode.InnerText = testNode.InnerText;
+                node.AppendChild(newNode);
+            }
+
+            testNode = parent.SelectSingleNode("FactsheetURL");
+            if (testNode != null)
+            {
+                XmlNode newNode = xdoc.CreateElement("FactsheetURL");
+                newNode.InnerText = testNode.InnerText;
+                node.AppendChild(newNode);
+            }
+
+            testNode = parent.SelectSingleNode("SubstanceInformationPage");
+            if (testNode != null)
+            {
+                XmlNode newNode = xdoc.CreateElement("SubstanceInformationPage");
+                newNode.InnerText = testNode.InnerText;
+                node.AppendChild(newNode);
+            }
+
+            return base.Serialize<XmlNode>(node);
+        }
+
+       
+
+
 
         public void LoadComponentsOld()
         {

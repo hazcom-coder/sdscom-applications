@@ -1,0 +1,155 @@
+﻿@page "{entityid:long?}"
+
+    @model SDSCom.Pages.Author.Chapters.Chapter0Model
+    @{
+        ViewData["Title"] = "Information From Exporting System";
+
+    }
+
+    @Html.Partial("././HeaderPartial")
+
+<form method="post">
+
+    @Html.Partial("././ProductHeader")
+
+    <div class="form-group">
+        <label>Xml Standard Version No:</label>
+        <input asp-for="@Model.SysInfo.XmlStandardVersionNo" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Phrase Catalogue:</label>
+        <input asp-for="@Model.SysInfo.PhraseCatalogue" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Language:</label>
+
+        <label>Freetext Language Code:</label>
+        <input asp-for="@Model.SysInfo.Language.FreetextLanguageCode" class="form-control" />
+
+        <label>Freetext Language Code:</label>
+        <input asp-for="@Model.SysInfo.Language.FreetextLanguageName" class="form-control" />
+
+    </div>
+
+    <div class="form-group">
+        <label>Regulations Related To Country Or Region:</label>
+
+        <div id="divRCRTable">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var rcr in Model.SysInfo.RegulationsRelatedToCountryOrRegion)
+                    {
+                        <tr>
+                            <td>@rcr.RegulationsRelatedToCountryOrRegionCode</td>
+                            <td>@rcr.RegulationsRelatedToCountryOrRegionName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>System Used In Preparation:</label>
+        <input asp-for="@Model.SysInfo.SystemUsedInPreparation" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Date Generated Export:</label>
+        <input asp-for="@Model.SysInfo.DateGeneratedExport" class="form-control" />
+    </div>
+
+
+
+    <div class="form-group">
+        <label>Legal Document:</label>
+
+        <div class="form-group">
+            <label>File Name:</label>
+            <input asp-for="@Model.SysInfo.LegalDocument.LegalDocumentFileName" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Print Date:</label>
+            <input asp-for="@Model.SysInfo.LegalDocument.LegalDocumentPrintDate" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Print Date Specified:</label>
+            <input asp-for="@Model.SysInfo.LegalDocument.LegalDocumentPrintDateSpecified" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Signature:</label>
+            <input asp-for="@Model.SysInfo.LegalDocument.LegalDocumentSignature" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Signature:</label>
+            <input asp-for="@Model.SysInfo.LegalDocument.LegalDocumentSignature" class="form-control" />
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label>Special Extensions:</label>
+
+        <div class="form-group">
+            <label>Extensions:</label>
+            <div id="divSETable">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Issuer ID</th>
+                            <th>Name</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var rcr in Model.SysInfo.SpecialExtensions)
+                        {
+                            <tr>
+                                <td>@rcr.ExtensionIssuerId</td>
+                                <td>@rcr.ExtensionName</td>
+                                <td>@rcr.ExtensionValue</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Related Documents:</label>
+            <div id="divSETable">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var rcr in Model.SysInfo.RelatedDocuments)
+                        {
+                            <tr>
+                                <td>@rcr.FileName</td>
+                                <td>@rcr.Description</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <input type="submit" name="btnSave" value="Save Chapter" />
+</form>
+

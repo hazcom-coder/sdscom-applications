@@ -1,0 +1,410 @@
+﻿@page
+@model SDSCom.Pages.Author.Chapters.Chapter1Model
+@{
+    ViewData["Title"] = "Chapter1";
+}
+
+@Html.Partial("././HeaderPartial")
+
+<form method="post">
+
+    <div class="form-group">
+        <label>Issue Date:</label>
+        <input asp-for="@Model.Ident.IssueDate" class="form-control" type="date" />
+    </div>
+
+    <div class="form-group">
+        <label>Revision Date:</label>
+        <input asp-for="@Model.Ident.RevisionDate" class="form-control" type="date" />
+    </div>
+
+    <div class="form-group">
+        <label>Version Number:</label>
+        <input asp-for="@Model.Ident.VersionNo" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Specification Number:</label>
+        <input asp-for="@Model.Ident.SpecificationNo" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Item Number:</label>
+        <input asp-for="@Model.Ident.ItemNo" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Product Number(s):</label>
+        <div id="divPNTable">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Product Number User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pn in Model.Ident.ProductNo)
+                    {
+                        <tr>
+                            <td>@pn.UserId</td>
+                            <td>@pn.ProductNoUser</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>
+            Product Identity: When importing, make sure that SDScom documents are not automatically replaced if the product identity is the same! GTINs are not necessarily unique (they should, but aren't in practice!), and product identities may refer to kits with multiple products and SDSs.
+            Unique IDs that allow automatic overriding of data require a bilateral agreement between customer and supplier and should be placed in ProductNo.
+            This is the place to describe kits. If the data describes a product P which is part of kit K, create two instances of ProductIdentity: One for P, and one for K with an entry in ProductDefinition that describes "This Product is a kit. The data describes one part of the kit."
+        </label>
+        <div id="divPITable">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Trade Name</th>
+                        <th>Synonym</th>
+                        <th>Product GTIN</th>
+                        <th>Product Definition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pi in Model.Ident.ProductIdentity)
+                    {
+                        <tr>
+                            <td>@pi.TradeName</td>
+                            <td>@pi.Synonym</td>
+                            <td>@pi.ProductGtin</td>
+                            <td>@pi.ProductDefinition</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Information on the SDS:</label>
+        <div id="divISDSTable">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Sds Not Legally Required</th>
+                        <th>Complete SDS With ES Incorporated</th>
+                        <th>Distribution Stopped Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var i in Model.Ident.InformationOnTheSds)
+                    {
+                        <tr>
+                            <td>@i.SdsNotLegallyRequired</td>
+                            <td>
+                                <label>Complete SDS With ES Incorporated:</label>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Extended SDS With ES Incorporated</th>
+                                            <th>Extended SDS With ES Incorporated Comments</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var c in i.CompleteSdsWithEsIncorporated)
+                                        {
+                                            <tr>
+                                                <td>@c.ExtendedSdsWithEsIncorporated</td>
+                                                <td>@c.ExtendedSdsWithEsIncorporatedComments</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Product Discontinued From Market:</label>
+        <input asp-for="@Model.Ident.ProductDiscontinuedFromMarket" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Product Discontinued From Market:</label>
+        <input asp-for="@Model.Ident.ProductDiscontinuedFromMarket" class="form-control" type="checkbox" />
+    </div>
+
+    <div class="form-group">
+        <label>Relevant Identified Use:</label>
+        <div id="divRUTable">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Sector Of Use</th>
+                        <th>Product Category</th>
+                        <th>Process Category</th>
+                        <th>Environmental Release Category</th>
+                        <th>Specific Environmental Release Category</th>
+                        <th>Article Category No Intended Release</th>
+                        <th>Article Category With Intended Release</th>
+                        <th>Corresponding Exposure Scenario</th>
+                        <th>Identified Use ID</th>
+                        <th>Print As Attachment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var iu in Model.Ident.RelevantIdentifiedUse.IdentifiedUse)
+                    {
+                        <tr>
+                            <td>@iu.SectorOfUse </td>
+                            <td>@iu.ProductCategory</td>
+                            <td>@iu.ProcessCategory</td>
+                            <td>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ERC Code</th>
+                                            <th>ERC Code Specified</th>
+                                            <th>ERC Full Text</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var ec in iu.EnvironmentalReleaseCategory)
+                                        {
+                                            <tr>
+                                                <td>@ec.ErcCode</td>
+                                                <td>@ec.ErcCodeSpecified</td>
+                                                <td>@ec.ErcFulltext</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>SPERC Code</th>
+                                            <th>SPERC Full Text</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var se in iu.SpecificEnvironmentalReleaseCategory)
+                                        {
+                                            <tr>@se.SpercCode</tr>
+                                            <tr>@se.SpercFulltext</tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>@iu.ArticleCategoryNoIntendedRelease</td>
+                            <td>@iu.ArticleCategoryWithIntendedRelease</td>
+                            <td>
+
+                                Corresponding Exposure Scenario
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Exposure Scenario Name</th>
+                                            <th>Legal Document File Name</th>
+                                            <th>Legal Document Print Date</th>
+                                            <th>Legal Document Signature</th>
+                                            <th>Xml File Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var ces in iu.CorrespondingExposureScenario)
+                                        {
+                                            <tr>@ces.ExposureScenarioName</tr>
+                                            <tr>@ces.LegalDocumentFileName</tr>
+                                            <tr>@ces.LegalDocumentPrintDate</tr>
+                                            <tr>@ces.LegalDocumentSignature</tr>
+                                            <tr>@ces.XmlFileName</tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                            </td>
+                            <td>@iu.IdentifiedUseId</td>
+                            <td>@iu.PrintAsAttachment</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Product Type:</label>
+        <input asp-for="@Model.Ident.RelevantIdentifiedUse.ProductType" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Product Function:</label>
+        <div id="divPFTable">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product Function Description</th>
+                        <th>Product Function Code</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pf in Model.Ident.RelevantIdentifiedUse.ProductFunction)
+                    {
+                        <tr>
+                            <td>@pf.ProductFunctionDescription</td>
+                            <td>@pf.ProductFunctionCode</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Use Advised Against - Not to be used in:</label>
+        <div id="divUAATable">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Sector of Use</th>
+                        <th>Product Category</th>
+                        <th>Process Category</th>
+                        <th>Article Category No Intended Release</th>
+                        <th>Article Category With Intended Release</th>
+                        <th>Identified Use Id</th>
+                        <th>Print As Attachment</th>
+                        <th>Other Use Advised Against</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var uaa in Model.Ident.UseAdvisedAgainst.NotToBeUsedIn)
+                    {
+                        <tr>
+                            <td>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>SU Code</th>
+                                            <th>SU Full Text</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var su in uaa.SectorOfUse)
+                                        {
+                                            <tr>@su.SuCode</tr>
+                                            <tr>@su.SuFulltext</tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>PC Code</th>
+                                            <th>PC Full Text</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var pc in uaa.ProductCategory)
+                                        {
+                                            <tr>@pc.PcCode</tr>
+                                            <tr>@pc.PcFulltext</tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>PC Code</th>
+                                            <th>PC Full Text</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var pc in uaa.ProductCategory)
+                                        {
+                                            <tr>@pc.PcCode</tr>
+                                            <tr>@pc.PcFulltext</tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>PRC Code</th>
+                                            <th>PRC Full Text</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var prc in uaa.ProcessCategory)
+                                        {
+                                            <tr>@prc.ProcCode</tr>
+                                            <tr>@prc.ProcFulltext</tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>AC Code</th>
+                                            <th>AC Full Text</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var ac in uaa.ArticleCategoryNoIntendedRelease)
+                                        {
+                                            <tr>@ac.AcCode</tr>
+                                            <tr>@ac.AcFulltext</tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>AC Code</th>
+                                            <th>AC Full Text</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var ac in uaa.ArticleCategoryWithIntendedRelease)
+                                        {
+                                            <tr>@ac.AcCode</tr>
+                                            <tr>@ac.AcFulltext</tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>@uaa.IdentifiedUseId</td>
+                            <td>@uaa.PrintAsAttachment</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Other Use Advised Against:</label>
+        <input asp-for="@Model.Ident.UseAdvisedAgainst.OtherUseAdvisedAgainst" class="form-control" />
+    </div>
+
+
+</form>
+
+

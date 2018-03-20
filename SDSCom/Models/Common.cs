@@ -592,20 +592,11 @@ namespace SDSCom.Models
         public List<Phrase> EmergencyPhoneDescription { get; set; }
     }
 
-    /// <remarks/>
-    [System.Xml.Serialization.XmlType(AnonymousType = true)]
+
     public class HazardIdentification
     {
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public Classification Classification { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public HazardIdentificationHazardLabelling HazardLabelling { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public OtherHazardsInfo OtherHazardsInfo { get; set; }
     }
 
@@ -613,44 +604,23 @@ namespace SDSCom.Models
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public class HazardIdentificationHazardLabelling
     {
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public ClpLabellingInfo ClpLabellingInfo { get; set; }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public DpdDsdHazardLabelling DpdDsdHazardLabelling { get; set; }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("AdditionalInformation", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public List<Phrase> AdditionalInformation { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public bool EcLabel { get; set; }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
         public bool EcLabelSpecified { get; set; }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public bool TactileWarning { get; set; }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
         public bool TactileWarningSpecified { get; set; }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public bool ChildResistantOpening { get; set; }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
         public bool ChildResistantOpeningSpecified { get; set; }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public LabellingAccordingToOtherEuLegislation LabellingAccordingToOtherEuLegislation { get; set; }
     }
 
@@ -729,20 +699,12 @@ namespace SDSCom.Models
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public class LabellingAccordingToOtherEuLegislation
     {
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("VocLabelling", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public List<LabellingAccordingToOtherEuLegislationVocLabelling> VocLabelling { get; set; }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("DetergentLabelling", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public List<Phrase> DetergentLabelling { get; set; }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("AerosolLabelling", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public List<Phrase> AerosolLabelling { get; set; }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("OtherEuLabellingRequirements", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public List<Phrase> OtherEuLabellingRequirements { get; set; }
     }
 
@@ -750,16 +712,10 @@ namespace SDSCom.Models
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public class LabellingAccordingToOtherEuLegislationVocLabelling
     {
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public Phrase ProductSubcategory { get; set; }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public UnitValue VocLimitForSubcategory { get; set; }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public UnitValue MaxVocConcInMixture { get; set; }
     }
 
@@ -767,28 +723,14 @@ namespace SDSCom.Models
     [System.Xml.Serialization.XmlType(AnonymousType = true)]
     public class OtherHazardsInfo
     {
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("HazardDescriptionGeneral", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public List<Phrase> HazardDescriptionGeneral { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("PhysicochemicalEffect", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public List<Phrase> PhysicochemicalEffect { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("HealthEffect", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public List<Phrase> HealthEffect { get; set; }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("EnvironmentalEffect", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public List<Phrase> EnvironmentalEffect { get; set; }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("EffectsOfMisuse", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public List<Phrase> EffectsOfMisuse { get; set; }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElement("OtherHazards", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public List<Phrase> OtherHazards { get; set; }
     }
 

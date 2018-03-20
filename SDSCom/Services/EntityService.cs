@@ -104,10 +104,8 @@ namespace SDSCom.Services
                 TransportInformation = new TransportInformation()
             };
             
-            return JsonConvert.SerializeObject(dSheet);
+            return base.Serialize<Datasheet>(dSheet);
         }
-
-        public string SerializeDataSheet(Datasheet dSheet) => JsonConvert.SerializeObject(dSheet);
 
         #endregion
 

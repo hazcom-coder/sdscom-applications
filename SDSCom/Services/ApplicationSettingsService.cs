@@ -68,6 +68,11 @@ namespace SDSCom.Services
 
             return appSetting;
         }
+
+        public List<ApplicationSetting> GetByArea(string areaName)
+        {          
+            return  db.AppSettingsReader.Where( x => x.Area == areaName).ToList();
+        }
         
         /// <summary>
         /// Updates an application setting

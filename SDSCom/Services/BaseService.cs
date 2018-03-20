@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.IO;
 using Serilog;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace SDSCom.Services
 {
@@ -47,8 +48,7 @@ namespace SDSCom.Services
         {
             db = _db;
             cache = _cache;
-        }
- 
+        } 
         public string ReadFile(string importPath)
         {
             string ret = string.Empty;
@@ -67,14 +67,30 @@ namespace SDSCom.Services
 
             return ret;
         }
+ 
 
-        public string ConvertXmlToJson(string xml)
+        public T Deserialize<T>(string input) where T : class
         {
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(xml);
-            return JsonConvert.SerializeXmlNode(doc);
+            XmlSerializer ser = new XmlSerializer(typeof(T));
+
+            using (StringReader sr = new StringReader(input))
+            {
+                return (T)ser.Deserialize(sr);
+            }
         }
 
+        public string Serialize<T>(T ObjectToSerialize)
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(ObjectToSerialize.GetType());
+
+            using (StringWriter textWriter = new StringWriter())
+            {
+                xmlSerializer.Serialize(textWriter, ObjectToSerialize);
+                return textWriter.ToString();
+            }
+        }
+
+        
 
         #region caching
 

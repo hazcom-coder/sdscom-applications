@@ -79,13 +79,11 @@ namespace SDSCom.Models
        
         /// <remarks/>
         [System.Xml.Serialization.XmlElement("Stabilizer", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public List<Phrase> Stabilizer {get; set;}
-      
+        public List<Phrase> Stabilizer {get; set;}      
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElement("ChemicalPurity", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public List<Phrase> ChemicalPurity {get; set;}
-      
+        public List<Phrase> ChemicalPurity {get; set;}      
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElement("ChemicalProperties", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]

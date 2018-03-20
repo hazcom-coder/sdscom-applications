@@ -1,0 +1,178 @@
+﻿@page
+@model SDSCom.Pages.Author.Chapters.Chapter2Model
+@{
+    ViewData["Title"] = "Chapter 2 - Hazard Identification";
+}
+
+@Html.Partial("././HeaderPartial")
+
+<form method="post">
+
+<div>
+     <label>CLP Labelling Info:</label>
+    <div class="form-group">
+        <label>CLP Hazard Pictogram:</label>
+        <input asp-for="@Model.HazIdent.ClpHazardPictogram" class="form-control" type="HazardPictogram" />
+    </div>
+     <div class="form-group">
+        <label>CLP Signal Word:</label>
+        <input asp-for="@Model.HazIdent.ClpSignalWord" class="form-control" type="SignalWord" />
+    </div>
+    <div class="form-group">
+        <label>CLP Hazard Statement:</label>
+        <input asp-for="@Model.HazIdent.ClpHazardStatement" class="form-control" type="HazardStatement" />
+    </div>
+    <div class="form-group">
+        <label>CLP Precautionary Statement:</label>
+        <input asp-for="@Model.HazIdent.ClpPrecautionaryStatement" class="form-control" type="PrecautionaryStatement" />
+    </div>
+    <div class="form-group">
+        <label>CLP Supplemental Hazard Information:</label>
+        <input asp-for="@Model.HazIdent.ClpSupplementalHazardInformation" class="form-control" type="SupplementalHazardInformation" />
+    </div>
+    <div class="form-group">
+        <label>CLP Special Supplemental Label InfoMixtures:</label>
+        <input asp-for="@Model.HazIdent.ClpSpecialSupplementalLabelInfoMixtures" class="form-control" type="SpecialSupplementalLabelInfoMixtures" />
+    </div>
+    <div class="form-group">
+        <label>CLP Additional Labelling Info:</label>
+        <input asp-for="@Model.HazIdent.ClpAdditionalLabellingInfo" class="form-control" type="Phrase" />
+    </div>
+     <div class="form-group">
+        <label>CLP Special Rules On Packaging:</label>
+        <input asp-for="@Model.HazIdent.ClpSpecialRulesOnPackaging" class="form-control" type="Phrase" />
+    </div>
+    <div class="form-group">
+        <label>CLP Special Rules On Packaging:</label>
+        <input asp-for="@Model.HazIdent.ClpSpecialRulesOnPackaging" class="form-control" type="Phrase" />
+    </div>
+</div>
+
+<div>
+     <label>DPD DSD Hazard Labelling:</label>
+    
+    <div class="form-group">
+        <label>DPD DSD Hazard Symbol:</label>
+        <input asp-for="@Model.HazIdent.DpdDsdHazardSymbol" class="form-control" type="HazardSymbolCodeEnum" />
+    </div>
+    <div class="form-group">
+        <label>DPD DSD Risk Phrase:</label>
+        <input asp-for="@Model.HazIdent.DpdDsdRiskPhrase" class="form-control" type="RiskPhrase" />
+    </div>
+     <div class="form-group">
+        <label>DPD DSD Safety Phrase:</label>
+        <input asp-for="@Model.HazIdent.DpdDsdSafetyPhrase" class="form-control" type="SafetyPhrase" />
+    </div>
+    <div class="form-group">
+        <label>DPD DSD Other Labelling Information:</label>
+        <input asp-for="@Model.HazIdent.DpdDsdOtherLabellingInformation" class="form-control" type="Phrase" />
+    </div>
+    <div class="form-group">
+        <label>DPD DSD Standard Phrases For Special Risks:</label>
+        <input asp-for="@Model.HazIdent.DpdDsdStandardPhrasesForSpecialRisks" class="form-control" type="Phrase" />
+    </div>
+    <div class="form-group">
+        <label>DPD DSD Standard Phrases For Safety Precautions:</label>
+        <input asp-for="@Model.HazIdent.DpdDsdStandardPhrasesForSafetyPrecautions" class="form-control" type="Phrase" />
+    </div>
+    <div class="form-group">
+        <label>DPD DSD Labelling Comments:</label>
+        <input asp-for="@Model.HazIdent.DpdDsdLabellingComments" class="form-control" type="Phrase" />
+    </div>
+</div>
+
+<div class="form-group">
+    <label>Additional Information:</label>
+    <input asp-for="@Model.HazIdent.AdditionalInformation" class="form-control" type="Phrase" />
+</div>
+
+<div class="form-group">
+    <label>EC Label:</label>
+    <input asp-for="@Model.HazIdent.EcLabel" class="form-control" type="checkbox"/>
+</div>
+
+<div class="form-group">
+    <label>Tactile Warning:</label>
+    <input asp-for="@Model.HazIdent.TactileWarning" class="form-control" type="checkbox"/>
+</div>
+
+<div class="form-group">
+    <label>Child Resistant Opening:</label>
+    <input asp-for="@Model.HazIdent.ChildResistantOpening" class="form-control" type="checkbox"/>
+</div>
+
+<div>
+    <label>Labelling According To Other EU Legislation:</label>
+
+    <div class="form-group">
+        <label>VOC Labelling:</label>
+
+        <div class="form-group">
+            <label>Product Subcategory:</label>
+            <input asp-for="@Model.HazIdent.ProductSubcategory" class="form-control" type="Phrase"/>
+        </div>
+
+        <div class="form-group">
+            <label>VOC Limit For Subcategory:</label>
+            <input asp-for="@Model.HazIdent.VocLimitForSubcategory" class="form-control" type="UnitValue"/>
+        </div>
+
+        <div class="form-group">
+            <label>Max VOC Concentration In Mixture:</label>
+            <input asp-for="@Model.HazIdent.MaxVocConcInMixture" class="form-control" type="UnitValue"/>
+        </div>
+    </div>
+
+</div>
+
+<div class="form-group">
+    <label>Detergent Labelling:</label>
+    <input asp-for="@Model.HazIdent.DetergentLabelling" class="form-control" type="Phrase"/>
+</div>
+
+<div class="form-group">
+    <label>Aerosol Labelling:</label>
+    <input asp-for="@Model.HazIdent.AerosolLabelling" class="form-control" type="Phrase"/>
+</div>
+
+<div class="form-group">
+    <label>Other EU Labelling Requirements:</label>
+    <input asp-for="@Model.HazIdent.OtherEuLabellingRequirements" class="form-control" type="Phrase"/>
+</div>
+
+<div>
+    <label>Other Hazards Information:</label>
+
+    <div class="form-group">
+        <label>Hazard Description General:</label>
+        <input asp-for="@Model.HazIdent.HazardDescriptionGeneral" class="form-control" type="Phrase"/>
+    </div>
+
+    <div class="form-group">
+        <label>Physico-Chemical Effect:</label>
+        <input asp-for="@Model.HazIdent.PhysicochemicalEffect" class="form-control" type="Phrase"/>
+    </div>
+
+    <div class="form-group">
+        <label>Health Effect:</label>
+        <input asp-for="@Model.HazIdent.HealthEffect" class="form-control" type="Phrase"/>
+    </div>
+
+    <div class="form-group">
+        <label>Environmental Effect:</label>
+        <input asp-for="@Model.HazIdent.EnvironmentalEffect" class="form-control" type="Phrase"/>
+    </div>
+
+    <div class="form-group">
+        <label>Effects Of Misuse:</label>
+        <input asp-for="@Model.HazIdent.EffectsOfMisuse" class="form-control" type="Phrase"/>
+    </div>
+
+    <div class="form-group">
+        <label>Other Hazards:</label>
+        <input asp-for="@Model.HazIdent.OtherHazards" class="form-control" type="Phrase"/>
+    </div>
+
+</div>
+
+</form>

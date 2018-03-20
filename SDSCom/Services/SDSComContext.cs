@@ -198,13 +198,16 @@ namespace SDSCom
                 entity.Property(e => e.UserId).HasColumnName(name: "user_id")
                                 .IsRequired();
 
-                 entity.Property(e => e.Content).HasColumnName(name: "content").HasColumnType("json");
+                 entity.Property(e => e.Content).HasColumnName(name: "content").HasColumnType("xml");
 
                 entity.Property(e => e.VersionNumber).HasColumnName(name: "version_number");
 
                 entity.Property(e => e.Status).HasColumnName(name: "status");
 
                 entity.Property(e => e.SchemaType).HasColumnName(name: "schema_type");
+
+                entity.Property(e => e.Properties).HasColumnName(name: "properties").HasColumnType("xml");               
+
 
             }); 
 
@@ -273,24 +276,24 @@ namespace SDSCom
             });
                       
 
-            modelBuilder.Entity<FacetPhraseLink>(entity =>
-            {
-                entity.ToTable("facet_phrase_link");
+            // modelBuilder.Entity<FacetPhraseLink>(entity =>
+            // {
+            //     entity.ToTable("facet_phrase_link");
 
-                entity.Property(e => e.Id).HasColumnName("id").IsRequired();
+            //     entity.Property(e => e.Id).HasColumnName("id").IsRequired();
 
-                entity.Property(e => e.EntityId).HasColumnName("entity_id").IsRequired();
+            //     entity.Property(e => e.EntityId).HasColumnName("entity_id").IsRequired();
 
-                entity.Property(e => e.FacetId).HasColumnName("facet_id").IsRequired();
+            //     entity.Property(e => e.FacetId).HasColumnName("facet_id").IsRequired();
 
-                entity.Property(e => e.PhraseId).HasColumnName("phrase_id").IsRequired();
+            //     entity.Property(e => e.PhraseId).HasColumnName("phrase_id").IsRequired();
 
-                entity.Property(e => e.StartDateStamp).HasColumnName("start_date_stamp").IsRequired();
+            //     entity.Property(e => e.StartDateStamp).HasColumnName("start_date_stamp").IsRequired();
 
-                entity.Property(e => e.StopDateStamp).HasColumnName("stop_date_stamp").IsRequired();
+            //     entity.Property(e => e.StopDateStamp).HasColumnName("stop_date_stamp").IsRequired();
 
-                entity.Property(e => e.UserId).HasColumnName("user_id").IsRequired();
-            });          
+            //     entity.Property(e => e.UserId).HasColumnName("user_id").IsRequired();
+            // });          
 
             modelBuilder.Entity<FacetRestriction>(entity =>
             {
@@ -312,26 +315,26 @@ namespace SDSCom
                 entity.Property(e => e.RegularExpressionPattern).HasColumnName("regular_expression_pattern");
             });
 
-            modelBuilder.Entity<FacetValue>(entity =>
-            {
-                entity.ToTable("facet_value");
+            // modelBuilder.Entity<FacetValue>(entity =>
+            // {
+            //     entity.ToTable("facet_value");
 
-                entity.Property(e => e.Id).HasColumnName("id").IsRequired().UseNpgsqlSerialColumn<int>();
+            //     entity.Property(e => e.Id).HasColumnName("id").IsRequired().UseNpgsqlSerialColumn<int>();
 
-                entity.Property(e => e.Data)
-                    .IsRequired()
-                    .HasColumnName("data");
+            //     entity.Property(e => e.Data)
+            //         .IsRequired()
+            //         .HasColumnName("data");
 
-                entity.Property(e => e.EntityId).HasColumnName("entity_id").IsRequired();
+            //     entity.Property(e => e.EntityId).HasColumnName("entity_id").IsRequired();
 
-                entity.Property(e => e.FacetId).HasColumnName("facet_id").IsRequired();
+            //     entity.Property(e => e.FacetId).HasColumnName("facet_id").IsRequired();
 
-                entity.Property(e => e.StartDateStamp).HasColumnName("start_date_stamp").IsRequired();
+            //     entity.Property(e => e.StartDateStamp).HasColumnName("start_date_stamp").IsRequired();
 
-                entity.Property(e => e.StopDateStamp).HasColumnName("stop_date_stamp").IsRequired();
+            //     entity.Property(e => e.StopDateStamp).HasColumnName("stop_date_stamp").IsRequired();
 
-                entity.Property(e => e.UserId).HasColumnName("user_id").IsRequired();
-            });
+            //     entity.Property(e => e.UserId).HasColumnName("user_id").IsRequired();
+            // });
 
             modelBuilder.Entity<EuphracPhrase>(entity =>
             {
